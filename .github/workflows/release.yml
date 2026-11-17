@@ -1,5 +1,6 @@
 # Every push to main: run the specs in real Lua 5.1 with full line and branch coverage, then package the addon with a
-# timestamp version (UTC, year.month.day.hourminutesecond) and publish it as a GitHub release.
+# timestamp version (UTC, year.month.day.hourminutesecond) and publish it as a GitHub release. Actions are pinned to a
+# full commit SHA, as the organisation requires; the comment names the release.
 name: Release
 
 on:
@@ -20,7 +21,7 @@ jobs:
     name: Specs and coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       # busted.sh finds no local Lua 5.1 on the runner and builds test/docker's image instead.
       - name: Run every spec with line and branch coverage
         run: bash coverage.sh
@@ -32,7 +33,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Pick the version
         id: version
         run: echo "version=$(date -u +%Y.%m.%d.%H%M%S)" >> "$GITHUB_OUTPUT"
