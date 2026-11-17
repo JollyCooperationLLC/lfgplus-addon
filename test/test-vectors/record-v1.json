@@ -1,0 +1,163 @@
+{
+    "description": "Endorsement record v1. Keys are the key-derivation vectors: the endorser is account 1, the endorsee account 2. Every implementation must reproduce requestHex, the ack MAC and both upload lines byte for byte, and refuse every invalid input. Generated; never edit by hand.",
+    "cases": [
+        {
+            "name": "Forever, proven, compact GUIDs, Calm in Blackrock Depths",
+            "request": {
+                "region": 1,
+                "keyVersion": 1,
+                "endorserAccount": "00000000000000000000000000000001",
+                "counter": 26870400,
+                "endorsedAt": 1794096000,
+                "gameVersion": 40,
+                "locationKind": 1,
+                "locationId": 230,
+                "endorser": {
+                    "name": "Corvina Ashby",
+                    "realm": "",
+                    "guid": "Player-4395-0A1B2C3D"
+                },
+                "endorsee": {
+                    "name": "Middle Foot",
+                    "realm": "",
+                    "guid": "Player-4395-00000007"
+                }
+            },
+            "requestHex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007",
+            "tags": 2,
+            "ack": {
+                "ackKeyVersion": 1,
+                "ackLocationKind": 1,
+                "ackLocationId": 230,
+                "ackMacHex": "4ed1c8cafa62724b"
+            },
+            "realKeyHex": "784bb8131da554ee2bac97e5ca86c14bd5f4864a9b923051f24a95184bf18020",
+            "dropKeyHex": "bbead5dd43fd3b4fe900acb96f0bbdf5ffe37ab8e2ed9dedc79f987f9ca49df6",
+            "ackKeyHex": "02645204d4c550defc7dbac5f4b15c297558370c9eebcf74da25d84686a8788d",
+            "realText": "LFGR1:ASgBAAEAAAAAAAAAAAAAAAAAAAABAZoCgGrvu4ABAAAA5g1Db3J2aW5hIEFzaGJ5AAEAABErChssPQtNaWRkbGUgRm9vdAABAAARKwAAAAcAAQEAAADmTtHIyvpicksCjMXLucaLufphJFvQ",
+            "dropText": "LFGR1:ASgBAAEAAAAAAAAAAAAAAAAAAAABAZoCgGrvu4ABAAAA5g1Db3J2aW5hIEFzaGJ5AAEAABErChssPQtNaWRkbGUgRm9vdAABAAARKwAAAAcAAQEAAADmTtHIyvpicksCy24yWOUVCOirM9GY"
+        },
+        {
+            "name": "Forever, unproven, endorsee GUID unknown, Fun, in a zone",
+            "request": {
+                "region": 1,
+                "keyVersion": 1,
+                "endorserAccount": "00000000000000000000000000000001",
+                "counter": 26870401,
+                "endorsedAt": 1794096000,
+                "gameVersion": 40,
+                "locationKind": 2,
+                "locationId": 1453,
+                "endorser": {
+                    "name": "Corvina Ashby",
+                    "realm": "",
+                    "guid": "Player-4395-0A1B2C3D"
+                },
+                "endorsee": {
+                    "name": "Sir Rocky",
+                    "realm": "",
+                    "guid": null
+                }
+            },
+            "requestHex": "012801000100000000000000000000000000000001019a02816aefbb8002000005ad0d436f7276696e6120417368627900010000112b0a1b2c3d0953697220526f636b790002",
+            "tags": 1,
+            "ack": {
+                "ackKeyVersion": 0,
+                "ackLocationKind": 0,
+                "ackLocationId": 0,
+                "ackMacHex": "0000000000000000"
+            },
+            "realKeyHex": "784bb8131da554ee2bac97e5ca86c14bd5f4864a9b923051f24a95184bf18020",
+            "dropKeyHex": "bbead5dd43fd3b4fe900acb96f0bbdf5ffe37ab8e2ed9dedc79f987f9ca49df6",
+            "ackKeyHex": null,
+            "realText": "LFGR1:ASgBAAEAAAAAAAAAAAAAAAAAAAABAZoCgWrvu4ACAAAFrQ1Db3J2aW5hIEFzaGJ5AAEAABErChssPQlTaXIgUm9ja3kAAgAAAAAAAAAAAAAAAAAAAAHqcBkPXVbGGXJIOQo",
+            "dropText": "LFGR1:ASgBAAEAAAAAAAAAAAAAAAAAAAABAZoCgWrvu4ACAAAFrQ1Db3J2aW5hIEFzaGJ5AAEAABErChssPQlTaXIgUm9ja3kAAgAAAAAAAAAAAAAAAAAAAAGcoD_RQXK79WpL4JQ"
+        },
+        {
+            "name": "Realm version, non-ASCII name, uncompactable GUID string, Leader",
+            "request": {
+                "region": 2,
+                "keyVersion": 1,
+                "endorserAccount": "00000000000000000000000000000001",
+                "counter": 26870402,
+                "endorsedAt": 1794096000,
+                "gameVersion": 10,
+                "locationKind": 0,
+                "locationId": 0,
+                "endorser": {
+                    "name": "Sölvi",
+                    "realm": "TwistingNether",
+                    "guid": "Player-1092-0a1b2c3d"
+                },
+                "endorsee": {
+                    "name": "Thrallina",
+                    "realm": "Whitemane",
+                    "guid": "Player-0970-0002FD64"
+                }
+            },
+            "requestHex": "010a02000100000000000000000000000000000001019a02826aefbb8000000000000653c3b66c76690e5477697374696e674e65746865720014506c617965722d313039322d306131623263336409546872616c6c696e610957686974656d616e650014506c617965722d303937302d3030303246443634",
+            "tags": 8,
+            "ack": {
+                "ackKeyVersion": 1,
+                "ackLocationKind": 0,
+                "ackLocationId": 0,
+                "ackMacHex": "2844e584df995b70"
+            },
+            "realKeyHex": "784bb8131da554ee2bac97e5ca86c14bd5f4864a9b923051f24a95184bf18020",
+            "dropKeyHex": "bbead5dd43fd3b4fe900acb96f0bbdf5ffe37ab8e2ed9dedc79f987f9ca49df6",
+            "ackKeyHex": "02645204d4c550defc7dbac5f4b15c297558370c9eebcf74da25d84686a8788d",
+            "realText": "LFGR1:AQoCAAEAAAAAAAAAAAAAAAAAAAABAZoCgmrvu4AAAAAAAAZTw7ZsdmkOVHdpc3RpbmdOZXRoZXIAFFBsYXllci0xMDkyLTBhMWIyYzNkCVRocmFsbGluYQlXaGl0ZW1hbmUAFFBsYXllci0wOTcwLTAwMDJGRDY0AAEAAAAAAChE5YTfmVtwCDANY11pSWOcvEN8hA",
+            "dropText": "LFGR1:AQoCAAEAAAAAAAAAAAAAAAAAAAABAZoCgmrvu4AAAAAAAAZTw7ZsdmkOVHdpc3RpbmdOZXRoZXIAFFBsYXllci0xMDkyLTBhMWIyYzNkCVRocmFsbGluYQlXaGl0ZW1hbmUAFFBsYXllci0wOTcwLTAwMDJGRDY0AAEAAAAAAChE5YTfmVtwCNBQznTXMt9F6WgpLA"
+        }
+    ],
+    "invalid": [
+        {
+            "hex": "",
+            "reason": "no bytes"
+        },
+        {
+            "hex": "022801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245bd0",
+            "reason": "an unknown record version"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245b",
+            "reason": "one byte missing"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245bd000",
+            "reason": "a trailing byte"
+        },
+        {
+            "hex": "012801000000000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245bd0",
+            "reason": "key version 0"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e641436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245bd0",
+            "reason": "a name length over 64"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e600436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245bd0",
+            "reason": "an empty name"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60dff6f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245bd0",
+            "reason": "invalid UTF-8 in a name"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900030000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b028cc5cbb9c68bb9fa61245bd0",
+            "reason": "an unknown GUID kind"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b008cc5cbb9c68bb9fa61245bd0",
+            "reason": "no tag (there is no untagged endorsement)"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b038cc5cbb9c68bb9fa61245bd0",
+            "reason": "two tags (one per endorsement for now)"
+        },
+        {
+            "hex": "012801000100000000000000000000000000000001019a02806aefbb8001000000e60d436f7276696e6120417368627900010000112b0a1b2c3d0b4d6964646c6520466f6f7400010000112b00000007000101000000e64ed1c8cafa62724b108cc5cbb9c68bb9fa61245bd0",
+            "reason": "an unknown tag bit"
+        }
+    ]
+}

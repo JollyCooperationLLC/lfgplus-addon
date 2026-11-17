@@ -1,0 +1,4710 @@
+{
+    "description": "Data add-on format 2. Each case is a whole data add-on: its input, every chunk file (its packed fields, and the file itself as hex), and lookups. A reader loads every file of a case, then must answer every lookup: a value, or nothing. Case 2 holds two exported keys that share a fingerprint and a known key that would borrow a value, and has empty chunks. Generated; never edit by hand.",
+    "gameVersion": 40,
+    "region": 1,
+    "day": "2026-11-08",
+    "cases": [
+        {
+            "name": "48 bits, 2 chunks, several blocks each",
+            "bits": 48,
+            "chunks": 2,
+            "input": {
+                "entries": [
+                    [
+                        "middle foot",
+                        42,
+                        1
+                    ],
+                    [
+                        "left foot",
+                        17,
+                        2
+                    ],
+                    [
+                        "sir pebbles",
+                        6,
+                        0
+                    ],
+                    [
+                        "sölving problems",
+                        6,
+                        2
+                    ],
+                    [
+                        "mrs thrall",
+                        309,
+                        1
+                    ],
+                    [
+                        "vector0 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector1 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector2 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector3 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector4 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector5 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector6 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector7 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector8 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector9 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector10 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector11 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector12 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector13 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector14 player",
+                        6,
+                        8
+                    ],
+                    [
+                        "vector15 player",
+                        7,
+                        0
+                    ],
+                    [
+                        "vector16 player",
+                        8,
+                        1
+                    ],
+                    [
+                        "vector17 player",
+                        9,
+                        2
+                    ],
+                    [
+                        "vector18 player",
+                        10,
+                        4
+                    ],
+                    [
+                        "vector19 player",
+                        11,
+                        8
+                    ],
+                    [
+                        "vector20 player",
+                        12,
+                        0
+                    ],
+                    [
+                        "vector21 player",
+                        13,
+                        1
+                    ],
+                    [
+                        "vector22 player",
+                        3,
+                        2
+                    ],
+                    [
+                        "vector23 player",
+                        4,
+                        4
+                    ],
+                    [
+                        "vector24 player",
+                        5,
+                        8
+                    ],
+                    [
+                        "vector25 player",
+                        6,
+                        0
+                    ],
+                    [
+                        "vector26 player",
+                        7,
+                        1
+                    ],
+                    [
+                        "vector27 player",
+                        8,
+                        2
+                    ],
+                    [
+                        "vector28 player",
+                        9,
+                        4
+                    ],
+                    [
+                        "vector29 player",
+                        10,
+                        8
+                    ],
+                    [
+                        "vector30 player",
+                        11,
+                        0
+                    ],
+                    [
+                        "vector31 player",
+                        12,
+                        1
+                    ],
+                    [
+                        "vector32 player",
+                        13,
+                        2
+                    ],
+                    [
+                        "vector33 player",
+                        3,
+                        4
+                    ],
+                    [
+                        "vector34 player",
+                        4,
+                        8
+                    ],
+                    [
+                        "vector35 player",
+                        5,
+                        0
+                    ],
+                    [
+                        "vector36 player",
+                        6,
+                        1
+                    ],
+                    [
+                        "vector37 player",
+                        7,
+                        2
+                    ],
+                    [
+                        "vector38 player",
+                        8,
+                        4
+                    ],
+                    [
+                        "vector39 player",
+                        9,
+                        8
+                    ],
+                    [
+                        "vector40 player",
+                        10,
+                        0
+                    ],
+                    [
+                        "vector41 player",
+                        11,
+                        1
+                    ],
+                    [
+                        "vector42 player",
+                        12,
+                        2
+                    ],
+                    [
+                        "vector43 player",
+                        13,
+                        4
+                    ],
+                    [
+                        "vector44 player",
+                        3,
+                        8
+                    ],
+                    [
+                        "vector45 player",
+                        4,
+                        0
+                    ],
+                    [
+                        "vector46 player",
+                        5,
+                        1
+                    ],
+                    [
+                        "vector47 player",
+                        6,
+                        2
+                    ],
+                    [
+                        "vector48 player",
+                        7,
+                        4
+                    ],
+                    [
+                        "vector49 player",
+                        8,
+                        8
+                    ],
+                    [
+                        "vector50 player",
+                        9,
+                        0
+                    ],
+                    [
+                        "vector51 player",
+                        10,
+                        1
+                    ],
+                    [
+                        "vector52 player",
+                        11,
+                        2
+                    ],
+                    [
+                        "vector53 player",
+                        12,
+                        4
+                    ],
+                    [
+                        "vector54 player",
+                        13,
+                        8
+                    ],
+                    [
+                        "vector55 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector56 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector57 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector58 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector59 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector60 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector61 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector62 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector63 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector64 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector65 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector66 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector67 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector68 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector69 player",
+                        6,
+                        8
+                    ],
+                    [
+                        "vector70 player",
+                        7,
+                        0
+                    ],
+                    [
+                        "vector71 player",
+                        8,
+                        1
+                    ],
+                    [
+                        "vector72 player",
+                        9,
+                        2
+                    ],
+                    [
+                        "vector73 player",
+                        10,
+                        4
+                    ],
+                    [
+                        "vector74 player",
+                        11,
+                        8
+                    ],
+                    [
+                        "vector75 player",
+                        12,
+                        0
+                    ],
+                    [
+                        "vector76 player",
+                        13,
+                        1
+                    ],
+                    [
+                        "vector77 player",
+                        3,
+                        2
+                    ],
+                    [
+                        "vector78 player",
+                        4,
+                        4
+                    ],
+                    [
+                        "vector79 player",
+                        5,
+                        8
+                    ],
+                    [
+                        "vector80 player",
+                        6,
+                        0
+                    ],
+                    [
+                        "vector81 player",
+                        7,
+                        1
+                    ],
+                    [
+                        "vector82 player",
+                        8,
+                        2
+                    ],
+                    [
+                        "vector83 player",
+                        9,
+                        4
+                    ],
+                    [
+                        "vector84 player",
+                        10,
+                        8
+                    ],
+                    [
+                        "vector85 player",
+                        11,
+                        0
+                    ],
+                    [
+                        "vector86 player",
+                        12,
+                        1
+                    ],
+                    [
+                        "vector87 player",
+                        13,
+                        2
+                    ],
+                    [
+                        "vector88 player",
+                        3,
+                        4
+                    ],
+                    [
+                        "vector89 player",
+                        4,
+                        8
+                    ],
+                    [
+                        "vector90 player",
+                        5,
+                        0
+                    ],
+                    [
+                        "vector91 player",
+                        6,
+                        1
+                    ],
+                    [
+                        "vector92 player",
+                        7,
+                        2
+                    ],
+                    [
+                        "vector93 player",
+                        8,
+                        4
+                    ],
+                    [
+                        "vector94 player",
+                        9,
+                        8
+                    ],
+                    [
+                        "vector95 player",
+                        10,
+                        0
+                    ],
+                    [
+                        "vector96 player",
+                        11,
+                        1
+                    ],
+                    [
+                        "vector97 player",
+                        12,
+                        2
+                    ],
+                    [
+                        "vector98 player",
+                        13,
+                        4
+                    ],
+                    [
+                        "vector99 player",
+                        3,
+                        8
+                    ],
+                    [
+                        "vector100 player",
+                        4,
+                        0
+                    ],
+                    [
+                        "vector101 player",
+                        5,
+                        1
+                    ],
+                    [
+                        "vector102 player",
+                        6,
+                        2
+                    ],
+                    [
+                        "vector103 player",
+                        7,
+                        4
+                    ],
+                    [
+                        "vector104 player",
+                        8,
+                        8
+                    ],
+                    [
+                        "vector105 player",
+                        9,
+                        0
+                    ],
+                    [
+                        "vector106 player",
+                        10,
+                        1
+                    ],
+                    [
+                        "vector107 player",
+                        11,
+                        2
+                    ],
+                    [
+                        "vector108 player",
+                        12,
+                        4
+                    ],
+                    [
+                        "vector109 player",
+                        13,
+                        8
+                    ],
+                    [
+                        "vector110 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector111 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector112 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector113 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector114 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector115 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector116 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector117 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector118 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector119 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector120 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector121 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector122 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector123 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector124 player",
+                        6,
+                        8
+                    ],
+                    [
+                        "vector125 player",
+                        7,
+                        0
+                    ],
+                    [
+                        "vector126 player",
+                        8,
+                        1
+                    ],
+                    [
+                        "vector127 player",
+                        9,
+                        2
+                    ],
+                    [
+                        "vector128 player",
+                        10,
+                        4
+                    ],
+                    [
+                        "vector129 player",
+                        11,
+                        8
+                    ],
+                    [
+                        "vector130 player",
+                        12,
+                        0
+                    ],
+                    [
+                        "vector131 player",
+                        13,
+                        1
+                    ],
+                    [
+                        "vector132 player",
+                        3,
+                        2
+                    ],
+                    [
+                        "vector133 player",
+                        4,
+                        4
+                    ],
+                    [
+                        "vector134 player",
+                        5,
+                        8
+                    ],
+                    [
+                        "vector135 player",
+                        6,
+                        0
+                    ],
+                    [
+                        "vector136 player",
+                        7,
+                        1
+                    ],
+                    [
+                        "vector137 player",
+                        8,
+                        2
+                    ],
+                    [
+                        "vector138 player",
+                        9,
+                        4
+                    ],
+                    [
+                        "vector139 player",
+                        10,
+                        8
+                    ],
+                    [
+                        "vector140 player",
+                        11,
+                        0
+                    ],
+                    [
+                        "vector141 player",
+                        12,
+                        1
+                    ],
+                    [
+                        "vector142 player",
+                        13,
+                        2
+                    ],
+                    [
+                        "vector143 player",
+                        3,
+                        4
+                    ],
+                    [
+                        "vector144 player",
+                        4,
+                        8
+                    ],
+                    [
+                        "vector145 player",
+                        5,
+                        0
+                    ],
+                    [
+                        "vector146 player",
+                        6,
+                        1
+                    ],
+                    [
+                        "vector147 player",
+                        7,
+                        2
+                    ],
+                    [
+                        "vector148 player",
+                        8,
+                        4
+                    ],
+                    [
+                        "vector149 player",
+                        9,
+                        8
+                    ],
+                    [
+                        "vector150 player",
+                        10,
+                        0
+                    ],
+                    [
+                        "vector151 player",
+                        11,
+                        1
+                    ],
+                    [
+                        "vector152 player",
+                        12,
+                        2
+                    ],
+                    [
+                        "vector153 player",
+                        13,
+                        4
+                    ],
+                    [
+                        "vector154 player",
+                        3,
+                        8
+                    ],
+                    [
+                        "vector155 player",
+                        4,
+                        0
+                    ],
+                    [
+                        "vector156 player",
+                        5,
+                        1
+                    ],
+                    [
+                        "vector157 player",
+                        6,
+                        2
+                    ],
+                    [
+                        "vector158 player",
+                        7,
+                        4
+                    ],
+                    [
+                        "vector159 player",
+                        8,
+                        8
+                    ],
+                    [
+                        "vector160 player",
+                        9,
+                        0
+                    ],
+                    [
+                        "vector161 player",
+                        10,
+                        1
+                    ],
+                    [
+                        "vector162 player",
+                        11,
+                        2
+                    ],
+                    [
+                        "vector163 player",
+                        12,
+                        4
+                    ],
+                    [
+                        "vector164 player",
+                        13,
+                        8
+                    ],
+                    [
+                        "vector165 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector166 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector167 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector168 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector169 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector170 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector171 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector172 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector173 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector174 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector175 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector176 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector177 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector178 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector179 player",
+                        6,
+                        8
+                    ],
+                    [
+                        "vector180 player",
+                        7,
+                        0
+                    ],
+                    [
+                        "vector181 player",
+                        8,
+                        1
+                    ],
+                    [
+                        "vector182 player",
+                        9,
+                        2
+                    ],
+                    [
+                        "vector183 player",
+                        10,
+                        4
+                    ],
+                    [
+                        "vector184 player",
+                        11,
+                        8
+                    ],
+                    [
+                        "vector185 player",
+                        12,
+                        0
+                    ],
+                    [
+                        "vector186 player",
+                        13,
+                        1
+                    ],
+                    [
+                        "vector187 player",
+                        3,
+                        2
+                    ],
+                    [
+                        "vector188 player",
+                        4,
+                        4
+                    ],
+                    [
+                        "vector189 player",
+                        5,
+                        8
+                    ],
+                    [
+                        "vector190 player",
+                        6,
+                        0
+                    ],
+                    [
+                        "vector191 player",
+                        7,
+                        1
+                    ],
+                    [
+                        "vector192 player",
+                        8,
+                        2
+                    ],
+                    [
+                        "vector193 player",
+                        9,
+                        4
+                    ],
+                    [
+                        "vector194 player",
+                        10,
+                        8
+                    ],
+                    [
+                        "vector195 player",
+                        11,
+                        0
+                    ],
+                    [
+                        "vector196 player",
+                        12,
+                        1
+                    ],
+                    [
+                        "vector197 player",
+                        13,
+                        2
+                    ],
+                    [
+                        "vector198 player",
+                        3,
+                        4
+                    ],
+                    [
+                        "vector199 player",
+                        4,
+                        8
+                    ],
+                    [
+                        "vector200 player",
+                        5,
+                        0
+                    ],
+                    [
+                        "vector201 player",
+                        6,
+                        1
+                    ],
+                    [
+                        "vector202 player",
+                        7,
+                        2
+                    ],
+                    [
+                        "vector203 player",
+                        8,
+                        4
+                    ],
+                    [
+                        "vector204 player",
+                        9,
+                        8
+                    ],
+                    [
+                        "vector205 player",
+                        10,
+                        0
+                    ],
+                    [
+                        "vector206 player",
+                        11,
+                        1
+                    ],
+                    [
+                        "vector207 player",
+                        12,
+                        2
+                    ],
+                    [
+                        "vector208 player",
+                        13,
+                        4
+                    ],
+                    [
+                        "vector209 player",
+                        3,
+                        8
+                    ],
+                    [
+                        "vector210 player",
+                        4,
+                        0
+                    ],
+                    [
+                        "vector211 player",
+                        5,
+                        1
+                    ],
+                    [
+                        "vector212 player",
+                        6,
+                        2
+                    ],
+                    [
+                        "vector213 player",
+                        7,
+                        4
+                    ],
+                    [
+                        "vector214 player",
+                        8,
+                        8
+                    ],
+                    [
+                        "vector215 player",
+                        9,
+                        0
+                    ],
+                    [
+                        "vector216 player",
+                        10,
+                        1
+                    ],
+                    [
+                        "vector217 player",
+                        11,
+                        2
+                    ],
+                    [
+                        "vector218 player",
+                        12,
+                        4
+                    ],
+                    [
+                        "vector219 player",
+                        13,
+                        8
+                    ],
+                    [
+                        "vector220 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector221 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector222 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector223 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector224 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector225 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector226 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector227 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector228 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector229 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector230 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector231 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector232 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector233 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector234 player",
+                        6,
+                        8
+                    ],
+                    [
+                        "vector235 player",
+                        7,
+                        0
+                    ],
+                    [
+                        "vector236 player",
+                        8,
+                        1
+                    ],
+                    [
+                        "vector237 player",
+                        9,
+                        2
+                    ],
+                    [
+                        "vector238 player",
+                        10,
+                        4
+                    ],
+                    [
+                        "vector239 player",
+                        11,
+                        8
+                    ],
+                    [
+                        "vector240 player",
+                        12,
+                        0
+                    ],
+                    [
+                        "vector241 player",
+                        13,
+                        1
+                    ],
+                    [
+                        "vector242 player",
+                        3,
+                        2
+                    ],
+                    [
+                        "vector243 player",
+                        4,
+                        4
+                    ],
+                    [
+                        "vector244 player",
+                        5,
+                        8
+                    ],
+                    [
+                        "vector245 player",
+                        6,
+                        0
+                    ],
+                    [
+                        "vector246 player",
+                        7,
+                        1
+                    ],
+                    [
+                        "vector247 player",
+                        8,
+                        2
+                    ],
+                    [
+                        "vector248 player",
+                        9,
+                        4
+                    ],
+                    [
+                        "vector249 player",
+                        10,
+                        8
+                    ],
+                    [
+                        "vector250 player",
+                        11,
+                        0
+                    ],
+                    [
+                        "vector251 player",
+                        12,
+                        1
+                    ],
+                    [
+                        "vector252 player",
+                        13,
+                        2
+                    ],
+                    [
+                        "vector253 player",
+                        3,
+                        4
+                    ],
+                    [
+                        "vector254 player",
+                        4,
+                        8
+                    ],
+                    [
+                        "vector255 player",
+                        5,
+                        0
+                    ],
+                    [
+                        "vector256 player",
+                        6,
+                        1
+                    ],
+                    [
+                        "vector257 player",
+                        7,
+                        2
+                    ],
+                    [
+                        "vector258 player",
+                        8,
+                        4
+                    ],
+                    [
+                        "vector259 player",
+                        9,
+                        8
+                    ],
+                    [
+                        "vector260 player",
+                        10,
+                        0
+                    ],
+                    [
+                        "vector261 player",
+                        11,
+                        1
+                    ],
+                    [
+                        "vector262 player",
+                        12,
+                        2
+                    ],
+                    [
+                        "vector263 player",
+                        13,
+                        4
+                    ],
+                    [
+                        "vector264 player",
+                        3,
+                        8
+                    ],
+                    [
+                        "vector265 player",
+                        4,
+                        0
+                    ],
+                    [
+                        "vector266 player",
+                        5,
+                        1
+                    ],
+                    [
+                        "vector267 player",
+                        6,
+                        2
+                    ],
+                    [
+                        "vector268 player",
+                        7,
+                        4
+                    ],
+                    [
+                        "vector269 player",
+                        8,
+                        8
+                    ],
+                    [
+                        "vector270 player",
+                        9,
+                        0
+                    ],
+                    [
+                        "vector271 player",
+                        10,
+                        1
+                    ],
+                    [
+                        "vector272 player",
+                        11,
+                        2
+                    ],
+                    [
+                        "vector273 player",
+                        12,
+                        4
+                    ],
+                    [
+                        "vector274 player",
+                        13,
+                        8
+                    ],
+                    [
+                        "vector275 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector276 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector277 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector278 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector279 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector280 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector281 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector282 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector283 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector284 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector285 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector286 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector287 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector288 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector289 player",
+                        6,
+                        8
+                    ],
+                    [
+                        "vector290 player",
+                        7,
+                        0
+                    ],
+                    [
+                        "vector291 player",
+                        8,
+                        1
+                    ],
+                    [
+                        "vector292 player",
+                        9,
+                        2
+                    ],
+                    [
+                        "vector293 player",
+                        10,
+                        4
+                    ],
+                    [
+                        "vector294 player",
+                        11,
+                        8
+                    ],
+                    [
+                        "vector295 player",
+                        12,
+                        0
+                    ],
+                    [
+                        "vector296 player",
+                        13,
+                        1
+                    ],
+                    [
+                        "vector297 player",
+                        3,
+                        2
+                    ],
+                    [
+                        "vector298 player",
+                        4,
+                        4
+                    ],
+                    [
+                        "vector299 player",
+                        5,
+                        8
+                    ]
+                ],
+                "knownKeys": [
+                    "known stranger"
+                ]
+            },
+            "files": [
+                {
+                    "chunk": 0,
+                    "name": "Data_0000.lua",
+                    "players": 147,
+                    "k": 39,
+                    "entries": 147,
+                    "palette": [
+                        8,
+                        1,
+                        5,
+                        4,
+                        4,
+                        5,
+                        5,
+                        4,
+                        5,
+                        6,
+                        0,
+                        5,
+                        11,
+                        8,
+                        5,
+                        7,
+                        0,
+                        5,
+                        7,
+                        8,
+                        5,
+                        8,
+                        8,
+                        5,
+                        9,
+                        1,
+                        5,
+                        9,
+                        2,
+                        5,
+                        12,
+                        0,
+                        5,
+                        12,
+                        8,
+                        5,
+                        13,
+                        0,
+                        5,
+                        3,
+                        1,
+                        6,
+                        4,
+                        0,
+                        6,
+                        4,
+                        1,
+                        6,
+                        4,
+                        2,
+                        6,
+                        4,
+                        8,
+                        6,
+                        5,
+                        0,
+                        6,
+                        6,
+                        1,
+                        6,
+                        6,
+                        4,
+                        6,
+                        7,
+                        4,
+                        6,
+                        8,
+                        0,
+                        6,
+                        8,
+                        2,
+                        6,
+                        8,
+                        4,
+                        6,
+                        11,
+                        4,
+                        6,
+                        12,
+                        1,
+                        6,
+                        12,
+                        2,
+                        6,
+                        13,
+                        2,
+                        5,
+                        3,
+                        2,
+                        6,
+                        3,
+                        8,
+                        6,
+                        5,
+                        1,
+                        6,
+                        5,
+                        2,
+                        6,
+                        5,
+                        8,
+                        6,
+                        6,
+                        2,
+                        6,
+                        6,
+                        8,
+                        6,
+                        7,
+                        1,
+                        6,
+                        7,
+                        2,
+                        6,
+                        9,
+                        8,
+                        6,
+                        10,
+                        1,
+                        6,
+                        10,
+                        2,
+                        6,
+                        10,
+                        8,
+                        6,
+                        11,
+                        1,
+                        6,
+                        13,
+                        4,
+                        6,
+                        13,
+                        8,
+                        6,
+                        3,
+                        0,
+                        7,
+                        9,
+                        0,
+                        7,
+                        9,
+                        4,
+                        7,
+                        10,
+                        0,
+                        7,
+                        10,
+                        4,
+                        7,
+                        11,
+                        0,
+                        7,
+                        11,
+                        2,
+                        7,
+                        13,
+                        1,
+                        7,
+                        309,
+                        1,
+                        6
+                    ],
+                    "index": [
+                        168755483159,
+                        0,
+                        65594048293921,
+                        2975,
+                        125943665211443,
+                        5937
+                    ],
+                    "exceptions": {},
+                    "dataHex": "525d4cdd795c40d88b34bbc77e00fbeb8da4b46a8270e33ffe649be6162b6f724d84fcfd85bf9a339b032845728b9fd8e2578b0cc0f37fa45a847f78f7fb5b7d054bc14be756dc4fbe86570fb9b682879335594065e1a60ff33c16f700a2826bab11e89cf7716e8c61c3bf7ee44bbeedd06aa7b6a463df3b0bb0dc64ec82b16da58564c06a062adc185f6108dc8004a0d9fb25475d2eb48a936400143710b698a6ff58ef06b8c932b50dcecb2f235ed5d7a8e6165fd0ee66d645ce34280a5480f30c3fa873dcd91366a13f5715c4cc2b9856f155db5c683f5d94a506212e93011ca871fd3fe90789c95db9d24dc03eb1c8f368655777c8ec6c282e942e7574aab6c778e086921fa8b819ca4f7360d33864fe59727aa0d2fe59198d3bd8beed245ca002ac982b5e91b3e8dc68151b20206eadf391d25179ba19f4d7aafb0c10bf967b94f1f4be3cf1f13ff20ebe2a1e51ee530bd32bd47e14d45df221c8f9f02e28bbc6c2c84ad5b770bda1b527d01ff61da9b44abe92146a1997925633b6c33df31198024d4d30c8d9348c0eaa9481ff42f35b1c28400d151e2a401faf6753e7314e6349960f9fd84d5da18665c61a0ef0e80e80d7887e568d4dc824f5cecc86e200d48b0e021847a97eb7593233223c78d1ebfa1c4face9c25d6d0ef1fe4a25b11e2325f2a826c7ca7a785358fa2382cab8fc01798adb6f29bdbd65590bf22b2ec963a916fb00733e9e7abf7901a4f42bd497e63e3a374f7381f2bce44bb853ca5eadff3a60b6bd0820187efa625ae819aea5d5e061e9ce75fc60f3a03b4256c9fcb708cf5fb458f4ea13a4f239b0a9fd0d56dc18ac3b04a3d9ad5c33cf89d760d0b838103a3b84a5b1e97de54754b9ff7319834e36aa14147a86a4400043dcb3b0ea27f75d07702e37160a951002078e40ece5c43bca6d715b6b9545779becc0709cf1f02634b04f6f5b94ee985718c38a9ac48f37e9e0ab4205a7879f76443243390c7756644c54897d9f9c60a03dd184fb5fa9680a057b3e409c14132b5befdacd6a57352015682f39ac49c2963fba45b34ba7fe01bed248d1ce4c8f5baeafef18d6e357613fa7fc6559072c013d2be8448f40cc9301f7631c3e5ed19323b432fe5873954704a045dde0780d6cba844f28ec27353e88057ad6716c30a31100c705eaaa0ab4c43e241ac81c4bb700",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652031206f6620322028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034382c206368756e6b203d20302c206368756e6b73203d20322c20706c6179657273203d203134372c0a202020206b203d2033392c20656e7472696573203d203134372c0a2020202070616c65747465203d207b20382c20312c20352c20342c20342c20352c20352c20342c20352c20362c20302c20352c2031312c20382c20352c20372c20302c20352c20372c20382c20352c20382c20382c20352c20392c20312c20352c20392c20322c20352c2031322c20302c20352c2031322c20382c20352c2031332c20302c20352c20332c20312c20362c20342c20302c20362c20342c20312c20362c20342c20322c20362c20342c20382c20362c20352c20302c20362c20362c20312c20362c20362c20342c20362c20372c20342c20362c20382c20302c20362c20382c20322c20362c20382c20342c20362c2031312c20342c20362c2031322c20312c20362c2031322c20322c20362c2031332c20322c20352c20332c20322c20362c20332c20382c20362c20352c20312c20362c20352c20322c20362c20352c20382c20362c20362c20322c20362c20362c20382c20362c20372c20312c20362c20372c20322c20362c20392c20382c20362c2031302c20312c20362c2031302c20322c20362c2031302c20382c20362c2031312c20312c20362c2031332c20342c20362c2031332c20382c20362c20332c20302c20372c20392c20302c20372c20392c20342c20372c2031302c20302c20372c2031302c20342c20372c2031312c20302c20372c2031312c20322c20372c2031332c20312c20372c203330392c20312c2036207d2c0a20202020696e646578203d207b203136383735353438333135392c20302c2036353539343034383239333932312c20323937352c203132353934333636353231313434332c2035393337207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022525d4cdd795c30393240d88b34bbc77e5c303030fbeb8da4b46a8270e33ffe649be6162b6f724d84fcfd85bf9a339b032845728b9fd8e2578b0cc0f37fa45a847f78f7fb5b7d054bc14be756dc4fbe86570fb9b682879335594065e1a60ff33c16f75c303030a2826bab11e89cf7716e8c61c3bf7ee44bbeedd06aa7b6a463df3b0bb0dc64ec82b16da58564c06a062adc185f6108dc8004a0d9fb25475d2eb48a93645c303030143710b698a6ff58ef06b8c932b55c303133cecb2f235ed5d7a8e6165fd0ee66d645ce34285c3031305480f30c3fa873dcd91366a13f5715c4cc2b9856f155db5c303932683f5d94a506212e93011ca871fd3fe90789c95db9d24dc03eb1c8f368655777c8ec6c282e942e7574aab6c778e086921fa8b819ca4f7360d33864fe59727aa0d2fe59198d3bd8beed245c303932a002ac982b5e91b3e8dc68151b20206eadf391d25179ba19f4d7aafb0c10bf967b94f1f4be3cf1f13ff20ebe2a1e51ee530bd32bd47e14d45df221c8f9f02e28bbc6c2c84ad5b770bda1b527d01ff61da9b44abe92146a1997925633b6c33df31198024d4d30c8d9348c0eaa9481ff42f35b1c28405c303133151e2a401faf6753e7314e6349960f9fd84d5da18665c61a0ef0e80e80d7887e568d4dc824f5cecc86e25c303030d48b0e021847a97eb75932335c3033343c78d1ebfa1c4face9c25d6d0ef1fe4a25b11e2325f2a826c7ca7a785358fa2382cab8fc01798adb6f29bdbd65590bf22b2ec963a916fb5c303030733e9e7abf7901a4f42bd497e63e3a374f7381f2bce44bb853ca5eadff3a60b6bd0820187efa625ae819aea5d5e061e9ce75fc60f3a03b4256c9fcb708cf5fb458f4ea13a4f239b0a9fd5c30313356dc18ac3b04a3d9ad5c30393233cf89d760d0b838103a3b84a5b1e97de54754b9ff7319834e36aa14147a86a4405c30303043dcb3b0ea27f75d07702e37165c303130951002078e40ece5c43bca6d715b6b9545779becc0709cf1f02634b04f6f5b94ee985718c38a9ac48f37e9e0ab4205a7879f76443243390c7756644c54897d9f9c60a03dd184fb5fa9685c303130057b3e409c14132b5befdacd6a57352015682f39ac49c2963fba45b34ba7fe01bed248d1ce4c8f5baeafef18d6e357613fa7fc6559072c013d2be8448f40cc9301f7631c3e5ed19323b432fe5873954704a045dde0785c3031336cba844f28ec27353e88057ad6716c30a3115c303030c705eaaa5c303130b4c43e241ac81c4bb75c303030222c0a7d290a"
+                },
+                {
+                    "chunk": 1,
+                    "name": "Data_0001.lua",
+                    "players": 158,
+                    "k": 39,
+                    "entries": 158,
+                    "palette": [
+                        3,
+                        0,
+                        5,
+                        3,
+                        4,
+                        5,
+                        10,
+                        4,
+                        5,
+                        12,
+                        4,
+                        5,
+                        13,
+                        1,
+                        5,
+                        3,
+                        2,
+                        6,
+                        5,
+                        2,
+                        6,
+                        5,
+                        8,
+                        6,
+                        6,
+                        2,
+                        6,
+                        6,
+                        8,
+                        5,
+                        9,
+                        0,
+                        5,
+                        9,
+                        4,
+                        5,
+                        10,
+                        0,
+                        5,
+                        10,
+                        2,
+                        5,
+                        11,
+                        0,
+                        5,
+                        11,
+                        2,
+                        5,
+                        3,
+                        1,
+                        6,
+                        3,
+                        8,
+                        6,
+                        4,
+                        1,
+                        6,
+                        4,
+                        2,
+                        6,
+                        5,
+                        1,
+                        6,
+                        6,
+                        4,
+                        6,
+                        7,
+                        1,
+                        6,
+                        7,
+                        2,
+                        6,
+                        8,
+                        0,
+                        6,
+                        9,
+                        8,
+                        6,
+                        10,
+                        1,
+                        6,
+                        10,
+                        8,
+                        6,
+                        11,
+                        1,
+                        6,
+                        11,
+                        4,
+                        6,
+                        13,
+                        4,
+                        6,
+                        13,
+                        8,
+                        6,
+                        4,
+                        0,
+                        7,
+                        4,
+                        8,
+                        6,
+                        5,
+                        0,
+                        6,
+                        6,
+                        1,
+                        6,
+                        7,
+                        0,
+                        6,
+                        7,
+                        4,
+                        6,
+                        7,
+                        8,
+                        6,
+                        8,
+                        2,
+                        6,
+                        8,
+                        4,
+                        6,
+                        9,
+                        1,
+                        6,
+                        9,
+                        2,
+                        6,
+                        12,
+                        0,
+                        6,
+                        12,
+                        1,
+                        6,
+                        12,
+                        2,
+                        6,
+                        12,
+                        8,
+                        6,
+                        13,
+                        0,
+                        6,
+                        13,
+                        2,
+                        6,
+                        4,
+                        4,
+                        7,
+                        5,
+                        4,
+                        7,
+                        6,
+                        0,
+                        7,
+                        8,
+                        8,
+                        7,
+                        11,
+                        8,
+                        7,
+                        17,
+                        2,
+                        7,
+                        42,
+                        1,
+                        7
+                    ],
+                    "index": [
+                        142185320315229,
+                        0,
+                        198331600879861,
+                        2954,
+                        253354934656990,
+                        5912
+                    ],
+                    "exceptions": {},
+                    "dataHex": "5a7a02e27e8358980ebc6f0d702731f9657aa564cba1319354478ff856b28e3aa6c71e10d9165929cbd023d174de4309809c5472aefc0b1dde0b84326ad59a7b621edcda3c3f2a71fc95dfff62645a426e403b158f47e04d05a5ab50014505e1972252652cd62bf47c08e76d9ff1504a204f7cf9378c2c9948af32dd3005c1eb17cc521325a783dff62042128fd17bffdb843eb7c1cd53f1e87836e58e94d8425f65464937a81d348c26ef69ce1298714b83cce6a1264380adb5c9848ac462cf92f7036ee62cf7b4b47174786a17e0b78e51ff567bd10aba60329ee3cd95da3fca7ae1f855af6070bba102d6bb66baeeab6e350b04fffe76d0e6e9a62965b6509096d5f930ecd0842fc07665585e347ca36f292c2579ee5447b3b2235752c8f04595e75bf1c2c8264fafa85a6ba2f461ba0b8fbd8980802f3f60cb805d3a3e4dbd9496685b73f53fda67e0d382cfbd6bd2d78b907d1c235c50749f890a2f6eb5fc2a3398ec69906936c183f5cd90f7d4ae6de1e4882b046ebca9d7e27f77424d952873a43cbec956c70fc132104ea5fd99126a876f3802cbfea43352e29afe25512c2de98d13dcae7cc2a6f20ab107ed366ab91be25feb6c777994bf1dd06bc72478f674822d9ebcc02d90def76af92b31a780e8afaa28bce7a4633db83cb0399359e6bcd911417c9ea468a02e24ae0669b4d2eed7e1ce3fd862e8a9f287aa5f03f971f50fe845a1a0327f3a57059d473caab28bba5b62a8166b2d53a85adbce54125039c9e2b4a5bd7ae106a3365c794a1a8376bd5072141c8b9f12c83bc8b44a165b168795e58fc7dc6b8cbe8590c6614745ec6e35eeef6aafe16c92ac9c31aa7607f084a84c9f3438df3e148af2bcd14e123f61f8d0f7c5826f7598120084403b7b0c5126ecd5d58fe06ae9611b4f267c548d79307072d90550bae52ed9c10f1971217f9c88b095644aff0b0184d8c4820e20ba662e4130a724498e6b90fd3b6d0aee3ff83a63197c9c77d32f32479b90321b645ce7c7ee3ae7b56bd6083df76ee4f3fe42d6110f9a95881c0f0cb77d09dfd3e8b1ac2ccc108ce9907c02b4b9a302f7d7f642c147a34e943dc0b7d4632f05b269df0b4329504f00b5099b656908b3f6c954556f3cb15e8c2c908f1d982a02dc3ac86c08c4a01e0930566cc891cd04ccecadccae8ed5464eba8e4666b4519c0dfcd5aab658e3f383530339b9f3e3f30484203a4a4226dc2239ab2ba2e5d29fc75da37acfd5496ef1d1ca9c89c49c6c1d5b609315090e2d33ae10",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652032206f6620322028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034382c206368756e6b203d20312c206368756e6b73203d20322c20706c6179657273203d203135382c0a202020206b203d2033392c20656e7472696573203d203135382c0a2020202070616c65747465203d207b20332c20302c20352c20332c20342c20352c2031302c20342c20352c2031322c20342c20352c2031332c20312c20352c20332c20322c20362c20352c20322c20362c20352c20382c20362c20362c20322c20362c20362c20382c20352c20392c20302c20352c20392c20342c20352c2031302c20302c20352c2031302c20322c20352c2031312c20302c20352c2031312c20322c20352c20332c20312c20362c20332c20382c20362c20342c20312c20362c20342c20322c20362c20352c20312c20362c20362c20342c20362c20372c20312c20362c20372c20322c20362c20382c20302c20362c20392c20382c20362c2031302c20312c20362c2031302c20382c20362c2031312c20312c20362c2031312c20342c20362c2031332c20342c20362c2031332c20382c20362c20342c20302c20372c20342c20382c20362c20352c20302c20362c20362c20312c20362c20372c20302c20362c20372c20342c20362c20372c20382c20362c20382c20322c20362c20382c20342c20362c20392c20312c20362c20392c20322c20362c2031322c20302c20362c2031322c20312c20362c2031322c20322c20362c2031322c20382c20362c2031332c20302c20362c2031332c20322c20362c20342c20342c20372c20352c20342c20372c20362c20302c20372c20382c20382c20372c2031312c20382c20372c2031372c20322c20372c2034322c20312c2037207d2c0a20202020696e646578203d207b203134323138353332303331353232392c20302c203139383333313630303837393836312c20323935342c203235333335343933343635363939302c2035393132207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d20225a7a02e27e8358980ebc6f5c303133702731f9657aa564cba1319354478ff856b28e3aa6c71e10d9165929cbd023d174de4309809c5472aefc0b1dde0b84326ad59a7b621edcda3c3f2a71fc95dfff62645a426e403b158f47e04d05a5ab50014505e1975c30333452652cd62bf47c08e76d9ff1504a204f7cf9378c2c9948af32dd3005c1eb17cc521325a783dff62042128fd17bffdb843eb7c1cd53f1e87836e58e94d8425f65464937a81d348c26ef69ce1298714b83cce6a1264380adb5c9848ac462cf92f7036ee62cf7b4b47174786a17e0b78e51ff567bd15c303130ba60329ee3cd95da3fca7ae1f855af6070bba102d6bb66baeeab6e350b04fffe76d0e6e9a62965b6509096d5f930ecd0842fc07665585e347ca36f292c2579ee5447b3b2235752c8f04595e75bf1c2c8264fafa85a6ba2f461ba0b8fbd8980802f3f60cb805d3a3e4dbd9496685b73f53fda67e0d382cfbd6bd2d78b907d1c235c30393250749f895c3031302f6eb5fc2a3398ec69906936c183f5cd90f7d4ae6de1e4882b046ebca9d7e27f77424d952873a43cbec956c70fc132104ea5fd99126a876f3802cbfea43352e29afe25512c2de98d13dcae7cc2a6f25c303130b107ed366ab91be25feb6c777994bf1dd06bc72478f674822d9ebcc02d90def76af92b31a780e8afaa28bce7a4633db83cb0399359e6bcd911417c9ea468a02e24ae0669b4d2eed7e1ce3fd862e8a9f287aa5f03f971f50fe845a1a0327f3a57059d473caab28bba5b62a8166b2d53a85adbce54125039c9e2b4a5bd7ae106a3365c303932794a1a8376bd5072141c8b9f12c83bc8b44a165b168795e58fc7dc6b8cbe8590c6614745ec6e35eeef6aafe16c92ac9c31aa7607f084a84c9f3438df3e148af2bcd14e123f61f8d0f7c5826f7598125c30303084403b7b0c5126ecd5d58fe06ae9611b4f267c548d79307072d90550bae52ed9c10f1971217f9c88b095644aff0b0184d8c4820e20ba662e4130a724498e6b90fd3b6d5c303130ee3ff83a63197c9c77d32f32479b90321b645c303932e7c7ee3ae7b56bd6083df76ee4f3fe42d6110f9a95881c0f0cb77d09dfd3e8b1ac2ccc108ce9907c02b4b9a302f7d7f642c147a34e943dc0b7d4632f05b269df0b4329504f5c303030b5099b656908b3f6c954556f3cb15e8c2c908f1d982a02dc3ac86c08c4a01e0930566cc891cd04ccecadccae8ed5464eba8e4666b4519c5c303133fcd5aab658e3f383530339b9f3e3f30484203a4a4226dc5c30333439ab2ba2e5d29fc75da37acfd5496ef1d1ca9c89c49c6c1d5b609315090e2d33ae10222c0a7d290a"
+                }
+            ],
+            "lookups": [
+                {
+                    "key": "middle foot",
+                    "value": [
+                        42,
+                        1
+                    ]
+                },
+                {
+                    "key": "left foot",
+                    "value": [
+                        17,
+                        2
+                    ]
+                },
+                {
+                    "key": "sir pebbles",
+                    "value": [
+                        6,
+                        0
+                    ]
+                },
+                {
+                    "key": "sölving problems",
+                    "value": [
+                        6,
+                        2
+                    ]
+                },
+                {
+                    "key": "mrs thrall",
+                    "value": [
+                        309,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector0 player",
+                    "value": [
+                        3,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector4 player",
+                    "value": [
+                        7,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector13 player",
+                    "value": [
+                        5,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector22 player",
+                    "value": [
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "key": "vector31 player",
+                    "value": [
+                        12,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector40 player",
+                    "value": [
+                        10,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector49 player",
+                    "value": [
+                        8,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector58 player",
+                    "value": [
+                        6,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector67 player",
+                    "value": [
+                        4,
+                        2
+                    ]
+                },
+                {
+                    "key": "vector76 player",
+                    "value": [
+                        13,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector85 player",
+                    "value": [
+                        11,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector94 player",
+                    "value": [
+                        9,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector103 player",
+                    "value": [
+                        7,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector112 player",
+                    "value": [
+                        5,
+                        2
+                    ]
+                },
+                {
+                    "key": "vector121 player",
+                    "value": [
+                        3,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector130 player",
+                    "value": [
+                        12,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector139 player",
+                    "value": [
+                        10,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector148 player",
+                    "value": [
+                        8,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector157 player",
+                    "value": [
+                        6,
+                        2
+                    ]
+                },
+                {
+                    "key": "vector166 player",
+                    "value": [
+                        4,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector175 player",
+                    "value": [
+                        13,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector184 player",
+                    "value": [
+                        11,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector193 player",
+                    "value": [
+                        9,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector202 player",
+                    "value": [
+                        7,
+                        2
+                    ]
+                },
+                {
+                    "key": "vector211 player",
+                    "value": [
+                        5,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector220 player",
+                    "value": [
+                        3,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector229 player",
+                    "value": [
+                        12,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector238 player",
+                    "value": [
+                        10,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector247 player",
+                    "value": [
+                        8,
+                        2
+                    ]
+                },
+                {
+                    "key": "vector256 player",
+                    "value": [
+                        6,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector265 player",
+                    "value": [
+                        4,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector274 player",
+                    "value": [
+                        13,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector283 player",
+                    "value": [
+                        11,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector292 player",
+                    "value": [
+                        9,
+                        2
+                    ]
+                },
+                {
+                    "key": "known stranger",
+                    "value": null
+                },
+                {
+                    "key": "nobody here",
+                    "value": null
+                },
+                {
+                    "key": "middle",
+                    "value": null
+                },
+                {
+                    "key": "vector999 player",
+                    "value": null
+                },
+                {
+                    "key": "zzzz zzzz",
+                    "value": null
+                },
+                {
+                    "key": "stranger0 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger1 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger2 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger3 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger4 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger5 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger6 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger7 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger8 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger9 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger10 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger11 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger12 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger13 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger14 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger15 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger16 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger17 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger18 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger19 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger20 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger21 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger22 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger23 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger24 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger25 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger26 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger27 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger28 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger29 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger30 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger31 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger32 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger33 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger34 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger35 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger36 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger37 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger38 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger39 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger40 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger41 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger42 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger43 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger44 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger45 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger46 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger47 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger48 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger49 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger50 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger51 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger52 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger53 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger54 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger55 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger56 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger57 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger58 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger59 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger60 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger61 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger62 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger63 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger64 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger65 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger66 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger67 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger68 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger69 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger70 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger71 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger72 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger73 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger74 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger75 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger76 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger77 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger78 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger79 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger80 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger81 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger82 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger83 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger84 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger85 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger86 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger87 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger88 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger89 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger90 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger91 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger92 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger93 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger94 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger95 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger96 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger97 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger98 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger99 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger100 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger101 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger102 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger103 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger104 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger105 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger106 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger107 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger108 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger109 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger110 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger111 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger112 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger113 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger114 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger115 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger116 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger117 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger118 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger119 unknown",
+                    "value": null
+                }
+            ]
+        },
+        {
+            "name": "40 bits, 16 chunks, shared fingerprints, empty chunks",
+            "bits": 40,
+            "chunks": 16,
+            "input": {
+                "entries": [
+                    [
+                        "middle foot",
+                        42,
+                        1
+                    ],
+                    [
+                        "left foot",
+                        17,
+                        2
+                    ],
+                    [
+                        "sir pebbles",
+                        6,
+                        0
+                    ],
+                    [
+                        "sölving problems",
+                        6,
+                        2
+                    ],
+                    [
+                        "mrs thrall",
+                        309,
+                        1
+                    ],
+                    [
+                        "shared593116 print",
+                        12,
+                        4
+                    ],
+                    [
+                        "shared2152234 print",
+                        9,
+                        8
+                    ],
+                    [
+                        "shared837341 print",
+                        21,
+                        1
+                    ]
+                ],
+                "knownKeys": [
+                    "shared2413273 print",
+                    "known stranger"
+                ]
+            },
+            "files": [
+                {
+                    "chunk": 0,
+                    "name": "Data_0000.lua",
+                    "players": 1,
+                    "k": 0,
+                    "entries": 1,
+                    "palette": [
+                        309,
+                        1,
+                        1
+                    ],
+                    "index": [
+                        62771291638,
+                        0
+                    ],
+                    "exceptions": {},
+                    "dataHex": "00",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652031206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20302c206368756e6b73203d2031362c20706c6179657273203d20312c0a202020206b203d20302c20656e7472696573203d20312c0a2020202070616c65747465203d207b203330392c20312c2031207d2c0a20202020696e646578203d207b2036323737313239313633382c2030207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d20225c303030222c0a7d290a"
+                },
+                {
+                    "chunk": 1,
+                    "name": "Data_0001.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652032206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20312c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 2,
+                    "name": "Data_0002.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652033206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20322c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 3,
+                    "name": "Data_0003.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652034206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20332c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 4,
+                    "name": "Data_0004.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652035206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20342c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 5,
+                    "name": "Data_0005.lua",
+                    "players": 1,
+                    "k": 0,
+                    "entries": 1,
+                    "palette": [
+                        6,
+                        0,
+                        1
+                    ],
+                    "index": [
+                        374304703493,
+                        0
+                    ],
+                    "exceptions": {},
+                    "dataHex": "00",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652036206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20352c206368756e6b73203d2031362c20706c6179657273203d20312c0a202020206b203d20302c20656e7472696573203d20312c0a2020202070616c65747465203d207b20362c20302c2031207d2c0a20202020696e646578203d207b203337343330343730333439332c2030207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d20225c303030222c0a7d290a"
+                },
+                {
+                    "chunk": 6,
+                    "name": "Data_0006.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652037206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20362c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 7,
+                    "name": "Data_0007.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652038206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20372c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 8,
+                    "name": "Data_0008.lua",
+                    "players": 3,
+                    "k": 0,
+                    "entries": 1,
+                    "palette": [
+                        21,
+                        1,
+                        1
+                    ],
+                    "index": [
+                        560323429310,
+                        0
+                    ],
+                    "exceptions": {
+                        "shared2152234 print": [
+                            9,
+                            8
+                        ],
+                        "shared2413273 print": false,
+                        "shared593116 print": [
+                            12,
+                            4
+                        ]
+                    },
+                    "dataHex": "00",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652039206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20382c206368756e6b73203d2031362c20706c6179657273203d20332c0a202020206b203d20302c20656e7472696573203d20312c0a2020202070616c65747465203d207b2032312c20312c2031207d2c0a20202020696e646578203d207b203536303332333432393331302c2030207d2c0a20202020657863657074696f6e73203d207b0a20202020202020205b2273686172656432313532323334207072696e74225d203d207b20392c2038207d2c0a20202020202020205b2273686172656432343133323733207072696e74225d203d2066616c73652c0a20202020202020205b22736861726564353933313136207072696e74225d203d207b2031322c2034207d2c0a202020207d2c0a2020202064617461203d20225c303030222c0a7d290a"
+                },
+                {
+                    "chunk": 9,
+                    "name": "Data_0009.lua",
+                    "players": 2,
+                    "k": 33,
+                    "entries": 2,
+                    "palette": [
+                        6,
+                        2,
+                        1,
+                        17,
+                        2,
+                        1
+                    ],
+                    "index": [
+                        649599607104,
+                        0
+                    ],
+                    "exceptions": {},
+                    "dataHex": "61548273e4",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c65203130206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d20392c206368756e6b73203d2031362c20706c6179657273203d20322c0a202020206b203d2033332c20656e7472696573203d20322c0a2020202070616c65747465203d207b20362c20322c20312c2031372c20322c2031207d2c0a20202020696e646578203d207b203634393539393630373130342c2030207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d202261548273e4222c0a7d290a"
+                },
+                {
+                    "chunk": 10,
+                    "name": "Data_0010.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c65203131206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d2031302c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 11,
+                    "name": "Data_0011.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c65203132206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d2031312c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 12,
+                    "name": "Data_0012.lua",
+                    "players": 1,
+                    "k": 0,
+                    "entries": 1,
+                    "palette": [
+                        42,
+                        1,
+                        1
+                    ],
+                    "index": [
+                        846025269056,
+                        0
+                    ],
+                    "exceptions": {},
+                    "dataHex": "00",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c65203133206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d2031322c206368756e6b73203d2031362c20706c6179657273203d20312c0a202020206b203d20302c20656e7472696573203d20312c0a2020202070616c65747465203d207b2034322c20312c2031207d2c0a20202020696e646578203d207b203834363032353236393035362c2030207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d20225c303030222c0a7d290a"
+                },
+                {
+                    "chunk": 13,
+                    "name": "Data_0013.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c65203134206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d2031332c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 14,
+                    "name": "Data_0014.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c65203135206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d2031342c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                },
+                {
+                    "chunk": 15,
+                    "name": "Data_0015.lua",
+                    "players": 0,
+                    "k": 0,
+                    "entries": 0,
+                    "palette": [],
+                    "index": [],
+                    "exceptions": {},
+                    "dataHex": "",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c65203136206f662031362028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2034302c206368756e6b203d2031352c206368756e6b73203d2031362c20706c6179657273203d20302c0a202020206b203d20302c20656e7472696573203d20302c0a2020202070616c65747465203d207b20207d2c0a20202020696e646578203d207b20207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d2022222c0a7d290a"
+                }
+            ],
+            "lookups": [
+                {
+                    "key": "middle foot",
+                    "value": [
+                        42,
+                        1
+                    ]
+                },
+                {
+                    "key": "left foot",
+                    "value": [
+                        17,
+                        2
+                    ]
+                },
+                {
+                    "key": "sir pebbles",
+                    "value": [
+                        6,
+                        0
+                    ]
+                },
+                {
+                    "key": "sölving problems",
+                    "value": [
+                        6,
+                        2
+                    ]
+                },
+                {
+                    "key": "mrs thrall",
+                    "value": [
+                        309,
+                        1
+                    ]
+                },
+                {
+                    "key": "shared593116 print",
+                    "value": [
+                        12,
+                        4
+                    ]
+                },
+                {
+                    "key": "shared2413273 print",
+                    "value": null
+                },
+                {
+                    "key": "known stranger",
+                    "value": null
+                },
+                {
+                    "key": "nobody here",
+                    "value": null
+                },
+                {
+                    "key": "middle",
+                    "value": null
+                },
+                {
+                    "key": "vector999 player",
+                    "value": null
+                },
+                {
+                    "key": "zzzz zzzz",
+                    "value": null
+                },
+                {
+                    "key": "stranger0 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger1 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger2 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger3 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger4 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger5 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger6 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger7 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger8 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger9 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger10 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger11 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger12 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger13 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger14 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger15 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger16 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger17 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger18 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger19 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger20 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger21 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger22 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger23 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger24 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger25 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger26 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger27 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger28 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger29 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger30 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger31 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger32 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger33 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger34 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger35 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger36 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger37 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger38 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger39 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger40 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger41 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger42 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger43 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger44 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger45 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger46 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger47 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger48 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger49 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger50 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger51 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger52 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger53 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger54 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger55 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger56 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger57 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger58 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger59 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger60 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger61 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger62 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger63 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger64 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger65 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger66 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger67 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger68 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger69 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger70 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger71 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger72 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger73 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger74 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger75 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger76 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger77 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger78 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger79 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger80 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger81 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger82 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger83 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger84 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger85 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger86 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger87 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger88 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger89 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger90 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger91 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger92 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger93 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger94 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger95 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger96 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger97 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger98 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger99 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger100 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger101 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger102 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger103 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger104 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger105 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger106 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger107 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger108 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger109 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger110 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger111 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger112 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger113 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger114 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger115 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger116 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger117 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger118 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger119 unknown",
+                    "value": null
+                }
+            ]
+        },
+        {
+            "name": "52 bits, 1 chunk",
+            "bits": 52,
+            "chunks": 1,
+            "input": {
+                "entries": [
+                    [
+                        "middle foot",
+                        42,
+                        1
+                    ],
+                    [
+                        "left foot",
+                        17,
+                        2
+                    ],
+                    [
+                        "sir pebbles",
+                        6,
+                        0
+                    ],
+                    [
+                        "sölving problems",
+                        6,
+                        2
+                    ],
+                    [
+                        "mrs thrall",
+                        309,
+                        1
+                    ],
+                    [
+                        "vector0 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector1 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector2 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector3 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector4 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector5 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector6 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector7 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector8 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector9 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector10 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector11 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector12 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector13 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector14 player",
+                        6,
+                        8
+                    ],
+                    [
+                        "vector15 player",
+                        7,
+                        0
+                    ],
+                    [
+                        "vector16 player",
+                        8,
+                        1
+                    ],
+                    [
+                        "vector17 player",
+                        9,
+                        2
+                    ],
+                    [
+                        "vector18 player",
+                        10,
+                        4
+                    ],
+                    [
+                        "vector19 player",
+                        11,
+                        8
+                    ],
+                    [
+                        "vector20 player",
+                        12,
+                        0
+                    ],
+                    [
+                        "vector21 player",
+                        13,
+                        1
+                    ],
+                    [
+                        "vector22 player",
+                        3,
+                        2
+                    ],
+                    [
+                        "vector23 player",
+                        4,
+                        4
+                    ],
+                    [
+                        "vector24 player",
+                        5,
+                        8
+                    ],
+                    [
+                        "vector25 player",
+                        6,
+                        0
+                    ],
+                    [
+                        "vector26 player",
+                        7,
+                        1
+                    ],
+                    [
+                        "vector27 player",
+                        8,
+                        2
+                    ],
+                    [
+                        "vector28 player",
+                        9,
+                        4
+                    ],
+                    [
+                        "vector29 player",
+                        10,
+                        8
+                    ],
+                    [
+                        "vector30 player",
+                        11,
+                        0
+                    ],
+                    [
+                        "vector31 player",
+                        12,
+                        1
+                    ],
+                    [
+                        "vector32 player",
+                        13,
+                        2
+                    ],
+                    [
+                        "vector33 player",
+                        3,
+                        4
+                    ],
+                    [
+                        "vector34 player",
+                        4,
+                        8
+                    ],
+                    [
+                        "vector35 player",
+                        5,
+                        0
+                    ],
+                    [
+                        "vector36 player",
+                        6,
+                        1
+                    ],
+                    [
+                        "vector37 player",
+                        7,
+                        2
+                    ],
+                    [
+                        "vector38 player",
+                        8,
+                        4
+                    ],
+                    [
+                        "vector39 player",
+                        9,
+                        8
+                    ],
+                    [
+                        "vector40 player",
+                        10,
+                        0
+                    ],
+                    [
+                        "vector41 player",
+                        11,
+                        1
+                    ],
+                    [
+                        "vector42 player",
+                        12,
+                        2
+                    ],
+                    [
+                        "vector43 player",
+                        13,
+                        4
+                    ],
+                    [
+                        "vector44 player",
+                        3,
+                        8
+                    ],
+                    [
+                        "vector45 player",
+                        4,
+                        0
+                    ],
+                    [
+                        "vector46 player",
+                        5,
+                        1
+                    ],
+                    [
+                        "vector47 player",
+                        6,
+                        2
+                    ],
+                    [
+                        "vector48 player",
+                        7,
+                        4
+                    ],
+                    [
+                        "vector49 player",
+                        8,
+                        8
+                    ],
+                    [
+                        "vector50 player",
+                        9,
+                        0
+                    ],
+                    [
+                        "vector51 player",
+                        10,
+                        1
+                    ],
+                    [
+                        "vector52 player",
+                        11,
+                        2
+                    ],
+                    [
+                        "vector53 player",
+                        12,
+                        4
+                    ],
+                    [
+                        "vector54 player",
+                        13,
+                        8
+                    ],
+                    [
+                        "vector55 player",
+                        3,
+                        0
+                    ],
+                    [
+                        "vector56 player",
+                        4,
+                        1
+                    ],
+                    [
+                        "vector57 player",
+                        5,
+                        2
+                    ],
+                    [
+                        "vector58 player",
+                        6,
+                        4
+                    ],
+                    [
+                        "vector59 player",
+                        7,
+                        8
+                    ],
+                    [
+                        "vector60 player",
+                        8,
+                        0
+                    ],
+                    [
+                        "vector61 player",
+                        9,
+                        1
+                    ],
+                    [
+                        "vector62 player",
+                        10,
+                        2
+                    ],
+                    [
+                        "vector63 player",
+                        11,
+                        4
+                    ],
+                    [
+                        "vector64 player",
+                        12,
+                        8
+                    ],
+                    [
+                        "vector65 player",
+                        13,
+                        0
+                    ],
+                    [
+                        "vector66 player",
+                        3,
+                        1
+                    ],
+                    [
+                        "vector67 player",
+                        4,
+                        2
+                    ],
+                    [
+                        "vector68 player",
+                        5,
+                        4
+                    ],
+                    [
+                        "vector69 player",
+                        6,
+                        8
+                    ]
+                ],
+                "knownKeys": []
+            },
+            "files": [
+                {
+                    "chunk": 0,
+                    "name": "Data_0000.lua",
+                    "players": 75,
+                    "k": 45,
+                    "entries": 75,
+                    "palette": [
+                        3,
+                        0,
+                        6,
+                        3,
+                        1,
+                        6,
+                        4,
+                        1,
+                        6,
+                        4,
+                        2,
+                        6,
+                        5,
+                        2,
+                        6,
+                        5,
+                        4,
+                        6,
+                        6,
+                        0,
+                        6,
+                        6,
+                        2,
+                        6,
+                        6,
+                        4,
+                        6,
+                        6,
+                        8,
+                        6,
+                        7,
+                        8,
+                        6,
+                        8,
+                        0,
+                        5,
+                        9,
+                        1,
+                        5,
+                        10,
+                        2,
+                        5,
+                        11,
+                        4,
+                        5,
+                        12,
+                        8,
+                        5,
+                        13,
+                        0,
+                        5,
+                        3,
+                        2,
+                        6,
+                        3,
+                        4,
+                        6,
+                        3,
+                        8,
+                        6,
+                        4,
+                        0,
+                        6,
+                        4,
+                        4,
+                        6,
+                        4,
+                        8,
+                        6,
+                        5,
+                        0,
+                        6,
+                        5,
+                        1,
+                        6,
+                        5,
+                        8,
+                        6,
+                        6,
+                        1,
+                        6,
+                        7,
+                        0,
+                        6,
+                        7,
+                        1,
+                        6,
+                        7,
+                        2,
+                        6,
+                        7,
+                        4,
+                        6,
+                        8,
+                        1,
+                        6,
+                        8,
+                        2,
+                        6,
+                        8,
+                        4,
+                        6,
+                        8,
+                        8,
+                        6,
+                        9,
+                        0,
+                        6,
+                        9,
+                        2,
+                        6,
+                        9,
+                        4,
+                        6,
+                        9,
+                        8,
+                        6,
+                        10,
+                        0,
+                        6,
+                        10,
+                        1,
+                        6,
+                        10,
+                        4,
+                        6,
+                        10,
+                        8,
+                        6,
+                        11,
+                        0,
+                        6,
+                        11,
+                        1,
+                        6,
+                        11,
+                        2,
+                        6,
+                        11,
+                        8,
+                        6,
+                        12,
+                        0,
+                        6,
+                        12,
+                        1,
+                        6,
+                        12,
+                        2,
+                        6,
+                        12,
+                        4,
+                        6,
+                        13,
+                        1,
+                        6,
+                        13,
+                        2,
+                        6,
+                        13,
+                        4,
+                        6,
+                        13,
+                        8,
+                        6,
+                        17,
+                        2,
+                        6,
+                        42,
+                        1,
+                        6,
+                        309,
+                        1,
+                        6
+                    ],
+                    "index": [
+                        20123043950174,
+                        0,
+                        3680114415506952,
+                        3344
+                    ],
+                    "exceptions": {},
+                    "dataHex": "8ff5e286df1f12ffb3619f8356c189a0ef7440190b47ea69686e983f4b94e0b0cc6265b8add24f26b02d2d6cc15ec1db430eca7a10657d9cc76a019c0141884ba4c4b60e5438fe9f67820f1392bb6fb4adb12cb14bea95c9d4731477762e193f965ca8e341a5fcb22e9533bd8beed23d16a002ac98282efda0627d49004ec1f3e05c51693836164256ad941cbc656a5e4703d563deb839117c4f2b415b51754b84dd31bf2a4bf6a200485648272b84b04a9b9c62b743a4ab63a590cc654e3eea1fcc59b0dbfc127a1f895ce6502d97d42f8c13ff73336c281e21a3a8fdacd6a5715bf5b5c0ca447d96498e92cb4cbe5f9fc66e83ce388cd34688c23dc6312b9c1be5fe4c6205776132dd0e72d467f6f6be837c1cd53f1a85bee932b8d474decde51e50ff5022b118b3e4185bb7e05aa559c85f82de39471f50c8e27f87d2d7c1df2222399fb7d5575aef4e9ae75c97a579bb6897419797478c060797d92ad8c494dbb45925d34d4fca2adfd83493424c4f618a8c840b2b6466ca7e2c328bd015bfd0d926aa6ab18b70e2aacdc07aa61c9baea187176f560d3d820e97d8708b71899fa3d701e9b71c1abd095644aff0c7006136312081afa732992db4c907691895913aa442c40e078655b39719a5e7bb689de61b2d52f8517067a3e470d7b8883f48ee0fe668",
+                    "fileHex": "2d2d204c46472b206461746120666f7220576f5720466f72657665722055532c20323032362d31312d30382c2066696c652031206f6620312028737065632f6578706f72742d76322e6d64292e2047656e6572617465643a206e6576657220656469742062792068616e642e0a4c4647506c75735f526567697374657244617461287b0a20202020666f726d6174203d20322c2067616d6556657273696f6e203d2034302c20726567696f6e203d20312c20646179203d2022323032362d31312d3038222c0a2020202062697473203d2035322c206368756e6b203d20302c206368756e6b73203d20312c20706c6179657273203d2037352c0a202020206b203d2034352c20656e7472696573203d2037352c0a2020202070616c65747465203d207b20332c20302c20362c20332c20312c20362c20342c20312c20362c20342c20322c20362c20352c20322c20362c20352c20342c20362c20362c20302c20362c20362c20322c20362c20362c20342c20362c20362c20382c20362c20372c20382c20362c20382c20302c20352c20392c20312c20352c2031302c20322c20352c2031312c20342c20352c2031322c20382c20352c2031332c20302c20352c20332c20322c20362c20332c20342c20362c20332c20382c20362c20342c20302c20362c20342c20342c20362c20342c20382c20362c20352c20302c20362c20352c20312c20362c20352c20382c20362c20362c20312c20362c20372c20302c20362c20372c20312c20362c20372c20322c20362c20372c20342c20362c20382c20312c20362c20382c20322c20362c20382c20342c20362c20382c20382c20362c20392c20302c20362c20392c20322c20362c20392c20342c20362c20392c20382c20362c2031302c20302c20362c2031302c20312c20362c2031302c20342c20362c2031302c20382c20362c2031312c20302c20362c2031312c20312c20362c2031312c20322c20362c2031312c20382c20362c2031322c20302c20362c2031322c20312c20362c2031322c20322c20362c2031322c20342c20362c2031332c20312c20362c2031332c20322c20362c2031332c20342c20362c2031332c20382c20362c2031372c20322c20362c2034322c20312c20362c203330392c20312c2036207d2c0a20202020696e646578203d207b2032303132333034333935303137342c20302c20333638303131343431353530363935322c2033333434207d2c0a20202020657863657074696f6e73203d207b0a202020207d2c0a2020202064617461203d20228ff5e286df1f12ffb3619f8356c189a0ef7440190b47ea69686e983f4b94e0b0cc6265b8add24f26b02d2d6cc15ec1db430eca7a10657d9cc76a019c0141884ba4c4b60e5438fe9f67820f1392bb6fb4adb12cb14bea95c9d4731477762e193f965c303932a8e341a5fcb22e9533bd8beed23d16a002ac98282efda0627d495c3030304ec1f3e05c30393251693836164256ad941cbc656a5e4703d563deb839117c4f2b415b51754b84dd31bf2a4bf6a25c303030485648272b84b04a9b9c62b743a4ab63a590cc654e3eea1fcc59b0dbfc127a1f895c303932e6502d97d42f8c13ff73336c281e21a3a8fdacd6a5715bf5b5c0ca447d96498e92cb4cbe5f9fc66e83ce388cd34688c23dc6312b9c1be5fe4c6205776132dd0e72d467f6f6be837c1cd53f1a85bee932b8d474decde51e50ff505c303334b118b3e4185bb7e05aa559c85f82de39471f50c8e27f87d2d7c1df5c3033345c303334399fb7d5575aef4e9ae75c30393297a579bb6897419797478c060797d92ad8c494dbb45925d34d4fca2adfd83493424c4f618a8c840b2b6466ca7e2c328bd015bfd0d926aa6ab18b70e2aacdc07aa61c9baea187176f565c3031333d820e97d8708b71899fa3d701e9b71c1abd095644aff0c75c3030306136312081afa732992db4c907691895913aa442c40e078655b39719a5e7bb689de61b2d52f8517067a3e470d7b8883f48ee0fe668222c0a7d290a"
+                }
+            ],
+            "lookups": [
+                {
+                    "key": "middle foot",
+                    "value": [
+                        42,
+                        1
+                    ]
+                },
+                {
+                    "key": "left foot",
+                    "value": [
+                        17,
+                        2
+                    ]
+                },
+                {
+                    "key": "sir pebbles",
+                    "value": [
+                        6,
+                        0
+                    ]
+                },
+                {
+                    "key": "sölving problems",
+                    "value": [
+                        6,
+                        2
+                    ]
+                },
+                {
+                    "key": "mrs thrall",
+                    "value": [
+                        309,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector0 player",
+                    "value": [
+                        3,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector4 player",
+                    "value": [
+                        7,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector13 player",
+                    "value": [
+                        5,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector22 player",
+                    "value": [
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "key": "vector31 player",
+                    "value": [
+                        12,
+                        1
+                    ]
+                },
+                {
+                    "key": "vector40 player",
+                    "value": [
+                        10,
+                        0
+                    ]
+                },
+                {
+                    "key": "vector49 player",
+                    "value": [
+                        8,
+                        8
+                    ]
+                },
+                {
+                    "key": "vector58 player",
+                    "value": [
+                        6,
+                        4
+                    ]
+                },
+                {
+                    "key": "vector67 player",
+                    "value": [
+                        4,
+                        2
+                    ]
+                },
+                {
+                    "key": "nobody here",
+                    "value": null
+                },
+                {
+                    "key": "middle",
+                    "value": null
+                },
+                {
+                    "key": "vector999 player",
+                    "value": null
+                },
+                {
+                    "key": "zzzz zzzz",
+                    "value": null
+                },
+                {
+                    "key": "stranger0 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger1 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger2 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger3 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger4 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger5 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger6 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger7 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger8 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger9 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger10 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger11 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger12 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger13 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger14 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger15 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger16 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger17 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger18 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger19 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger20 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger21 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger22 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger23 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger24 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger25 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger26 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger27 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger28 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger29 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger30 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger31 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger32 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger33 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger34 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger35 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger36 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger37 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger38 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger39 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger40 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger41 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger42 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger43 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger44 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger45 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger46 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger47 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger48 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger49 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger50 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger51 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger52 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger53 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger54 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger55 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger56 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger57 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger58 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger59 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger60 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger61 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger62 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger63 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger64 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger65 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger66 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger67 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger68 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger69 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger70 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger71 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger72 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger73 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger74 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger75 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger76 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger77 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger78 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger79 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger80 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger81 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger82 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger83 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger84 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger85 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger86 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger87 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger88 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger89 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger90 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger91 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger92 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger93 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger94 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger95 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger96 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger97 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger98 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger99 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger100 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger101 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger102 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger103 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger104 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger105 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger106 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger107 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger108 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger109 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger110 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger111 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger112 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger113 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger114 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger115 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger116 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger117 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger118 unknown",
+                    "value": null
+                },
+                {
+                    "key": "stranger119 unknown",
+                    "value": null
+                }
+            ]
+        }
+    ]
+}

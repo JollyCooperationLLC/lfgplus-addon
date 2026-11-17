@@ -1,0 +1,8 @@
+-- luacov settings for coverage.sh: count the addon's own files, not the embedded libraries or the specs.
+return {
+    statsfile = ".coverage/luacov.stats.out",
+    reportfile = ".coverage/luacov.report.out",
+    runreport = true, -- write the report as busted exits, in the same Lua
+    include = { "^LFGPlus/", "^LFGPlus_Data_" },
+    exclude = { "^LFGPlus/Libs/", "^test/" },
+}

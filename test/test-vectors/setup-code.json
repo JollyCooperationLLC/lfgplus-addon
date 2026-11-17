@@ -1,0 +1,89 @@
+{
+    "description": "Setup code v1. Every decoder must return the fields for each valid input and refuse each invalid one. Secrets here are test values derived from the key-derivation master secret. Generated; never edit by hand.",
+    "valid": [
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg",
+            "accountId": "00000000000000000000000000000001",
+            "keyVersion": 1,
+            "accountSecretHex": "c8a62fd4ea133e6a41aab333b57e23c75aa34b91835fc0df30868bf9c5c7715a"
+        },
+        {
+            "input": "LFG1:nxwuPUtaaXiHlqW0w9Lh8AABCpqLMoVtaCo36fyyll3Fnc_tCwMR4ByRwm_bsGfUrYRuhw",
+            "accountId": "9f1c2e3d4b5a69788796a5b4c3d2e1f0",
+            "keyVersion": 1,
+            "accountSecretHex": "0a9a8b32856d682a37e9fcb2965dc59dcfed0b0311e01c91c26fdbb067d4ad84"
+        },
+        {
+            "input": "LFG1:nxwuPUtaaXiHlqW0w9Lh8AAC3eqZhbo6kJqcRh90jH6USZcrPPNf0hCdCJAm9B3THO206A",
+            "accountId": "9f1c2e3d4b5a69788796a5b4c3d2e1f0",
+            "keyVersion": 2,
+            "accountSecretHex": "ddea9985ba3a909a9c461f748c7e9449972b3cf35fd2109d089026f41dd31ced"
+        },
+        {
+            "input": " \tLFG1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg\r\n",
+            "accountId": "00000000000000000000000000000001",
+            "keyVersion": 1,
+            "accountSecretHex": "c8a62fd4ea133e6a41aab333b57e23c75aa34b91835fc0df30868bf9c5c7715a"
+        },
+        {
+            "input": "LFG1:___________________________________________________________________EYQ",
+            "accountId": "ffffffffffffffffffffffffffffffff",
+            "keyVersion": 65535,
+            "accountSecretHex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+    ],
+    "invalid": [
+        {
+            "input": "",
+            "reason": "empty"
+        },
+        {
+            "input": "lfg1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg",
+            "reason": "lower-case prefix"
+        },
+        {
+            "input": "LFG2:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg",
+            "reason": "unknown version"
+        },
+        {
+            "input": "AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg",
+            "reason": "no prefix"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiS",
+            "reason": "one character short"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSgA",
+            "reason": "one character long"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAABAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg",
+            "reason": "checksum mismatch (accountId changed)"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVAiSg",
+            "reason": "checksum mismatch (checksum changed)"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAA+AAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg",
+            "reason": "standard base64 character"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoi==",
+            "reason": "padding"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQABy Yv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSg",
+            "reason": "space inside"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQAByKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVoiSh",
+            "reason": "non-zero spare bits in the last character"
+        },
+        {
+            "input": "LFG1:AAAAAAAAAAAAAAAAAAAAAQAAyKYv1OoTPmpBqrMztX4jx1qjS5GDX8DfMIaL-cXHcVpQTQ",
+            "reason": "key version 0"
+        }
+    ]
+}

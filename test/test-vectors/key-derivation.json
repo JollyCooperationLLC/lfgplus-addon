@@ -1,0 +1,30 @@
+{
+    "description": "Key derivation: the account secret from the master secret, account id and key version, then realKey, dropKey and ackKey from the account secret, each by HMAC-SHA256 with the label shown. Every implementation must reproduce every hex value. Generated; never edit by hand.",
+    "masterSecretHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "cases": [
+        {
+            "accountId": "00000000000000000000000000000001",
+            "keyVersion": 1,
+            "accountSecretHex": "c8a62fd4ea133e6a41aab333b57e23c75aa34b91835fc0df30868bf9c5c7715a",
+            "realKeyHex": "784bb8131da554ee2bac97e5ca86c14bd5f4864a9b923051f24a95184bf18020",
+            "dropKeyHex": "bbead5dd43fd3b4fe900acb96f0bbdf5ffe37ab8e2ed9dedc79f987f9ca49df6",
+            "ackKeyHex": "9c3602983e058938de134338f28de2532dd0519b743c2a9b2917c57cbb589911"
+        },
+        {
+            "accountId": "9f1c2e3d4b5a69788796a5b4c3d2e1f0",
+            "keyVersion": 1,
+            "accountSecretHex": "0a9a8b32856d682a37e9fcb2965dc59dcfed0b0311e01c91c26fdbb067d4ad84",
+            "realKeyHex": "5f75140c5447a443bda0bfaa0a1ad581d2f7551913f92bacac4a59b8f258708b",
+            "dropKeyHex": "d119d08c413ce2b9593c4a12ccf164d87612f408febd067ed115615b1e79b9b3",
+            "ackKeyHex": "02645204d4c550defc7dbac5f4b15c297558370c9eebcf74da25d84686a8788d"
+        },
+        {
+            "accountId": "9f1c2e3d4b5a69788796a5b4c3d2e1f0",
+            "keyVersion": 2,
+            "accountSecretHex": "ddea9985ba3a909a9c461f748c7e9449972b3cf35fd2109d089026f41dd31ced",
+            "realKeyHex": "a8dd94b7583f5bc963de4e11d9c48baa2095c58ba723eb3b9997d5f4a5cd7d34",
+            "dropKeyHex": "54139f094febfcf3edf8be46ff898b48632fa5195f0ae441184434f6eb6bf071",
+            "ackKeyHex": "7e9c75ea2c45288dea43ab77b3be2c25ac166ded076c60ab06abb4482b0a15cb"
+        }
+    ]
+}

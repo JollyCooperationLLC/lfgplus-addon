@@ -1,0 +1,93 @@
+{
+    "description": "A character's data add-on key, its 48-bit fingerprint and its shard (the fingerprint's top byte), from its name as the game shows it and its realm as the game spells it inside keys. Readers rebuild key and fingerprint from name and realm. Generated; never edit by hand.",
+    "cases": [
+        {
+            "note": "WoW Forever: no realm",
+            "gameVersion": 40,
+            "region": 1,
+            "name": "Middle Foot",
+            "realmSlug": "",
+            "realm": "",
+            "key": "middle foot",
+            "fingerprint": 216582468878548,
+            "shard": 196
+        },
+        {
+            "note": "Retail, US",
+            "gameVersion": 10,
+            "region": 1,
+            "name": "Thrallina",
+            "realmSlug": "stormrage",
+            "realm": "Stormrage",
+            "key": "thrallina-stormrage",
+            "fingerprint": 70623290193789,
+            "shard": 64
+        },
+        {
+            "note": "one name on two realms is two characters",
+            "gameVersion": 10,
+            "region": 1,
+            "name": "Bob",
+            "realmSlug": "stormrage",
+            "realm": "Stormrage",
+            "key": "bob-stormrage",
+            "fingerprint": 152207636932394,
+            "shard": 138
+        },
+        {
+            "note": "one name on two realms is two characters",
+            "gameVersion": 10,
+            "region": 1,
+            "name": "Bob",
+            "realmSlug": "illidan",
+            "realm": "Illidan",
+            "key": "bob-illidan",
+            "fingerprint": 6943842109623,
+            "shard": 6
+        },
+        {
+            "note": "a realm name with a space",
+            "gameVersion": 10,
+            "region": 2,
+            "name": "Sölvi",
+            "realmSlug": "twisting-nether",
+            "realm": "TwistingNether",
+            "key": "sölvi-twistingnether",
+            "fingerprint": 243603102837935,
+            "shard": 221
+        },
+        {
+            "note": "a Russian realm: Cyrillic in game, capitals kept (Lua lowercases ASCII only)",
+            "gameVersion": 10,
+            "region": 2,
+            "name": "Ветерок",
+            "realmSlug": "lich-king",
+            "realm": "Корольлич",
+            "key": "Ветерок-Корольлич",
+            "fingerprint": 278521596818886,
+            "shard": 253
+        },
+        {
+            "note": "an accented slug",
+            "gameVersion": 10,
+            "region": 2,
+            "name": "Ärger",
+            "realmSlug": "aggra-português",
+            "realm": "Aggra(Português)",
+            "key": "Ärger-aggra(português)",
+            "fingerprint": 215490327729227,
+            "shard": 195
+        },
+        {
+            "note": "Classic Era, US",
+            "gameVersion": 30,
+            "region": 1,
+            "name": "Thrallina",
+            "realmSlug": "whitemane",
+            "realm": "Whitemane",
+            "key": "thrallina-whitemane",
+            "fingerprint": 65531291171035,
+            "shard": 59
+        }
+    ]
+}

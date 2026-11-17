@@ -1,0 +1,2 @@
+# Golden files: byte for byte on every platform.
+test/test-vectors/*.json text eol=lf
