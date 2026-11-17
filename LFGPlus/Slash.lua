@@ -11,6 +11,7 @@ local function help()
     ns.Print("  /lfgplus setup - link your LFG+ account with the setup code from lfg.plus")
     ns.Print("  /lfgplus prompt - ask you to endorse your group after a run (on/off)")
     ns.Print("  /lfgplus sound - play a sound when someone endorses you (on/off)")
+    ns.Print("  /lfgplus thanks - whisper a thank-you to players you endorse (on/off)")
     ns.Print("  /lfgplus ack group|guild|friends|others auto|ask - answer endorsement requests automatically, or ask you first")
     ns.Print("  /lfgplus group - endorse the people in your group now")
     ns.Print("  /lfgplus upload - copy your endorsements to paste on lfg.plus")
@@ -84,6 +85,7 @@ end
 local TOGGLES = {
     prompt = { key = "promptAfterRuns", on = "Prompt after runs is on.", off = "Prompt after runs is off. You can still use /endorse." },
     sound = { key = "toastSound", on = "Sound for endorsements you get is on.", off = "Sound for endorsements you get is off." },
+    thanks = { key = "thankWhisper", on = "Thank-you whispers are on.", off = "Thank-you whispers are off." },
 }
 
 local function ack(args)
@@ -141,6 +143,7 @@ local function lfgplus(input)
         end
     elseif command == "debug" then
         ns.Print(ns.ToggleSetting("debug") and "Debug logging on: details go to the log and chat." or "Debug logging off.")
+        ns.RefreshWindow() -- shows or hides the Log tab
     elseif command == "diag" then
         local d = ns.CollectDiagnostics()
         ns.Print(("Client %s, game version %s, region %s, linked %s."):format(d.buildInfo, d.gameVersion, d.regionId, d.linked))

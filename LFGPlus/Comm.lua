@@ -1,5 +1,5 @@
 -- Addon messages: one prefix, whispered to one player at a time; a finished record also goes to the group channel
--- once.
+-- once. The thank-you whisper after an endorsement is a chat message, queued with them.
 --
 -- Sending is queued: nothing goes out in combat or during a boss encounter, and the queue
 -- drains one message every SEND_INTERVAL seconds, or every SLOW_INTERVAL after a burst, so we stay below the client's
@@ -75,6 +75,16 @@ function ns.SendRaw(message, target, channel)
     return "no-api"
 end
 
+--- Sends one chat whisper now. Overridable in specs. Returns whatever the client returns (usually nothing).
+function ns.SendChatRaw(text, target)
+    if C_ChatInfo and C_ChatInfo.SendChatMessage then
+        return C_ChatInfo.SendChatMessage(text, "WHISPER", nil, target)
+    elseif SendChatMessage then
+        return SendChatMessage(text, "WHISPER", nil, target)
+    end
+    return "no-api"
+end
+
 local function after(seconds, fn)
     if C_Timer and C_Timer.After then C_Timer.After(seconds, ns.Log.Wrap("timer:comm", fn)) else fn() end
 end
@@ -93,7 +103,8 @@ local function drain()
     -- Resumed by PLAYER_REGEN_ENABLED, ENCOUNTER_END or ADDON_RESTRICTION_STATE_CHANGED.
     if ns.IsBusy() or ns.MessagingLocked() then draining = false; return end
     local item = table.remove(queue, 1)
-    local result = ns.SendRaw(item.message, item.target, item.channel)
+    local result
+    if item.chat then result = ns.SendChatRaw(item.message, item.target) else result = ns.SendRaw(item.message, item.target, item.channel) end
     if result == ADDON_MESSAGE_LOCKDOWN then
         -- The lockdown began between our check and the send: keep the message, first in line, for when it lifts.
         table.insert(queue, 1, item)
@@ -109,7 +120,8 @@ local function drain()
         after(RETRY_AFTER, drain)
         return
     end
-    ns.Log.Info("comm", "sent %s to %s (%d bytes), result %s", item.message:sub(1, 2), item.to, #item.message, tostring(result))
+    ns.Log.Info("comm", "sent %s to %s (%d bytes), result %s", item.chat and "a thank-you" or item.message:sub(1, 2), item.to,
+        #item.message, tostring(result))
     local now = clock()
     if not item.channel then whispered[item.to:lower()] = now end
     if item.onDequeued then item.onDequeued() end
@@ -119,10 +131,10 @@ end
 --- Queues a message for a player, or for a group channel when `channel` is given (`target` is then nil). Returns
 -- false when the message can't be sent at all. `onDequeued`, when given, runs once the message leaves the queue: sent,
 -- or dropped because the queue was full.
-function ns.Send(message, target, onDequeued, channel)
-    local to = tostring(target or channel)
-    if #message > ns.MAX_MESSAGE_BYTES then
-        ns.Log.Error("comm", "message too long (%d bytes) for %s; %s not sent", #message, to, message:sub(1, 2))
+local function enqueue(item)
+    if #item.message > ns.MAX_MESSAGE_BYTES then
+        ns.Log.Error("comm", "message too long (%d bytes) for %s; %s not sent", #item.message, item.to,
+            item.chat and "the thank-you" or item.message:sub(1, 2))
         return false
     end
     if #queue >= MAX_QUEUE then
@@ -130,13 +142,22 @@ function ns.Send(message, target, onDequeued, channel)
         local dropped = table.remove(queue, 1)
         if dropped.onDequeued then dropped.onDequeued() end
     end
-    queue[#queue + 1] = { message = message, target = target, channel = channel, to = to, onDequeued = onDequeued }
-    if ns.IsBusy() or ns.MessagingLocked() then ns.Log.Debug("comm", "queued %s for %s until combat or the lockdown ends", message:sub(1, 2), to) end
+    queue[#queue + 1] = item
+    if ns.IsBusy() or ns.MessagingLocked() then ns.Log.Debug("comm", "queued a message for %s until combat or the lockdown ends", item.to) end
     if not draining then
         draining = true
         drain()
     end
     return true
+end
+
+function ns.Send(message, target, onDequeued, channel)
+    return enqueue({ message = message, target = target, channel = channel, to = tostring(target or channel), onDequeued = onDequeued })
+end
+
+--- Queues a chat whisper to a player, behind any addon messages already waiting. Returns false when it's too long.
+function ns.SendChat(text, target)
+    return enqueue({ message = text, target = target, chat = true, to = tostring(target) })
 end
 
 --- Resumes sending after combat, an encounter or the addon-message lockdown.

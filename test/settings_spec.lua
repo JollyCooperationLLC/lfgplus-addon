@@ -40,6 +40,7 @@ describe("/lfgplus settings", function()
         assert.is_false(ns.IsLinked())
         assert.are.equal(true, LFGPlusDB.promptAfterRuns)
         assert.are.equal(true, LFGPlusDB.toastSound)
+        assert.are.equal(false, LFGPlusDB.thankWhisper) -- opt-in
         for _, category in ipairs(ns.ACK_CATEGORIES) do assert.are.equal("auto", ns.AckModeFor(category)) end
     end)
 
@@ -150,6 +151,9 @@ describe("/lfgplus settings", function()
         assert.are.equal(true, LFGPlusDB.promptAfterRuns)
         SlashCmdList.LFGPLUS("sound")
         assert.are.equal(false, LFGPlusDB.toastSound)
+        SlashCmdList.LFGPLUS("thanks")
+        assert.are.equal(true, LFGPlusDB.thankWhisper)
+        assert.are.equal("Thank-you whispers are on.", world.chat[#world.chat]:match("Thank%-you whispers are on%."))
     end)
 
     it("sets each ack category to auto or ask, and refuses anything else", function()

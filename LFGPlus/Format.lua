@@ -24,6 +24,19 @@ function ns.TagText(bits)
     return labels[1] and table.concat(labels, " " .. MIDDLE_DOT .. " ") or nil
 end
 
+-- The thank-you whispered to someone you endorse, by tag. Friendly first; "[LFG.plus]" says where it came from.
+ns.THANKS_TEXT = {
+    [1] = "[LFG.plus] Thanks for the good company, you made that run a blast! I endorsed you as Fun.",
+    [2] = "[LFG.plus] Thanks for keeping your cool, even when things went sideways. I endorsed you as Calm.",
+    [4] = "[LFG.plus] Thanks for going out of your way to help the group. I endorsed you as Helpful.",
+    [8] = "[LFG.plus] Thanks for leading the way and keeping us on track. I endorsed you as Leader.",
+}
+
+--- The thank-you for an endorsement's tag, or a plain one for a tag this version doesn't know.
+function ns.ThanksText(tags)
+    return ns.THANKS_TEXT[tags] or "[LFG.plus] Thanks for the group! I endorsed you."
+end
+
 --- A count with its noun: "1 endorsement", "2 endorsements".
 function ns.Plural(count, noun)
     return ("%d %s%s"):format(count, noun, count == 1 and "" or "s")

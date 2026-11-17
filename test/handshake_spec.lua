@@ -37,6 +37,8 @@ describe("the endorsement handshake", function()
             table.insert(wire, { from = name, to = target, channel = channel or "WHISPER", kind = message:sub(1, 2), bytes = #message })
             return true
         end
+        ns.whispers = {}
+        ns.SendChatRaw = function(text, target) table.insert(ns.whispers, { target, text }) end
         if code then assert(ns.LinkAccount(code)) end
         clients[name] = ns
         return ns
@@ -173,6 +175,25 @@ describe("the endorsement handshake", function()
         assert.are.equal("You endorsed Middle Foot \194\183 Calm.", a.chat[#a.chat])
         assert.are.equal(20, a.RealEndorsementsLeft(clock))
         assert.are.equal(1, #b.db.records) -- the endorsee gets it all the same
+    end)
+
+    it("whispers a thank-you for the tag once turned on, the same for a quiet endorsement, and nothing by default", function()
+        for _, quiet in ipairs({ false, true }) do
+            clock, timers, net, wire, clients, party = 1794096000, {}, {}, {}, {}, {}
+            local a, b = pair()
+            a.db.thankWhisper = true
+            assert.truthy(a.Endorse(b.player, 2, quiet))
+            pump()
+            assert.are.same({ { "Middle Foot", a.THANKS_TEXT[2] } }, a.whispers)
+            assert.are.same({}, b.whispers) -- the endorsee's addon doesn't whisper back
+        end
+        clock, timers, net, wire, clients, party = 1794096000, {}, {}, {}, {}, {}
+        local a, b = pair()
+        assert.is_false(a.db.thankWhisper) -- opt-in
+        assert.truthy(a.Endorse(b.player, 8))
+        pump()
+        assert.are.same({}, a.whispers)
+        assert.are.equal(1, #b.db.records) -- the endorsement itself still goes through
     end)
 
     it("finishes unproven after 15 seconds when the endorsee can't ack", function()
@@ -822,6 +843,7 @@ describe("the endorsement handshake", function()
     -- carries the record) and B's unanswered request, to answer later with b.SendAck(unpack(asked)).
     local function timedOut(quiet)
         local a, b = pair()
+        a.db.thankWhisper = true
         local c = third()
         b.SetAckMode("group", "ask")
         local asked
@@ -864,6 +886,7 @@ describe("the endorsement handshake", function()
             assert.is_true(a.db.records[1].proven)
             assert.are.same({ at = first.endorsedAt, tags = 2, proven = true }, a.db.endorsed[b.player.key])
             assert.are.equal(said, #a.chat)                      -- nothing printed again
+            assert.are.equal(1, #a.whispers)                     -- thanked once, when it was made
             assert.are.equal(left, a.RealEndorsementsLeft(clock)) -- no daily slot used again
             assert.is_nil(next(a.db.lateAcks))
             -- Sent again exactly like the first: whispered and to the group.
@@ -1229,6 +1252,31 @@ describe("the addon-message queue's pacing and notices", function()
         assert.are.same({ { "Q:first", 1002 } }, sent)
         advance(1)
         assert.are.same({ "Q:first", "Q:second" }, { sent[1][1], sent[2][1] })
+    end)
+
+    it("queues a thank-you as a chat whisper behind addon messages, and refuses one too long", function()
+        local chats = {}
+        ns.SendRaw = function(message) table.insert(sent, message); return true end
+        ns.SendChatRaw = function(text, target) table.insert(chats, { text, target, #sent }) end
+        ns.Send("R:x", "Middle Foot")
+        assert.is_true(ns.SendChat("Thanks!", "Middle Foot"))
+        advance(1)
+        assert.are.same({ { "Thanks!", "Middle Foot", 1 } }, chats) -- after the record
+        assert.truthy(logged("sent a thank-you to Middle Foot (7 bytes), result nil"))
+        assert.is_false(ns.SendChat(string.rep("x", 256), "Middle Foot"))
+        assert.truthy(logged("message too long (256 bytes) for Middle Foot; the thank-you not sent"))
+    end)
+
+    it("whispers in chat through whichever API the client has", function()
+        local calls = {}
+        _G.C_ChatInfo = { SendChatMessage = function(...) table.insert(calls, { "C_ChatInfo", ... }) end }
+        ns.SendChatRaw("hi", "Middle Foot")
+        _G.C_ChatInfo = nil
+        _G.SendChatMessage = function(...) table.insert(calls, { "global", ... }) end
+        ns.SendChatRaw("hi", "Middle Foot")
+        _G.SendChatMessage = nil
+        assert.are.equal("no-api", ns.SendChatRaw("hi", "Middle Foot"))
+        assert.are.same({ { "C_ChatInfo", "hi", "WHISPER", nil, "Middle Foot" }, { "global", "hi", "WHISPER", nil, "Middle Foot" } }, calls)
     end)
 
     it("reads the throttle and lockdown answers from the client's enum when it has one", function()

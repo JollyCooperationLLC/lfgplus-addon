@@ -40,6 +40,10 @@ A few things to know:
 - **Once per player, ever.** Each player can be endorsed once. You can give up to 20 endorsements a day.
 - **Quiet endorsements.** Shift-click a tag, or add `quiet` to the command. It looks exactly like an endorsement to
   the other player, but doesn't count on the site. It's for when you'd rather not.
+- **A thank-you whisper, if you like.** Turn it on with `/lfgplus thanks` or in the settings, and whoever you
+  endorse gets a short, friendly whisper for what they did, like
+  `[LFG.plus] Thanks for keeping your cool, even when things went sideways. I endorsed you as Calm.` It's off until
+  you turn it on.
 - **Nothing is sent in combat.** Messages wait until combat or the boss encounter ends.
 
 ## Getting started
@@ -71,14 +75,16 @@ LFG+ loads in Retail, Classic Era, Mists of Pandaria Classic, Burning Crusade An
 | `/lfgplus upload` | The upload box: copy every record, paste on lfg.plus/upload (in parts of 500 when there are more), then press **I uploaded these** |
 | `/lfgplus records` | How many records are waiting to be uploaded |
 | `/lfgplus prompt`, `/lfgplus sound` | Turn the post-run prompt or the toast sound on/off |
+| `/lfgplus thanks` | Turn the thank-you whisper to players you endorse on/off |
 | `/lfgplus ack group\|guild\|friends\|others auto\|ask` | Answer endorsement requests automatically, or ask first |
 | `/lfgplus unlink` | Remove the account link |
 | `/lfgplus reset` | Delete everything LFG+ Addon keeps on this account (setup code, settings, records), after asking; the log stays |
 
 ## Configuring
 
-Open the LFG+ window with `/lfgplus` or the minimap button. It has four tabs: **Overview**, **Endorsements** (the ones
-you gave), **Settings** and **Log**. The settings are also under Options → AddOns → LFG+.
+Open the LFG+ window with `/lfgplus` or the minimap button. It has three tabs: **Overview**, **Endorsements** (the ones
+you gave) and **Settings**. Turning on the detailed log (in Settings, or `/lfgplus debug`) adds a fourth, **Log**, for
+bug reports. The settings are also under Options → AddOns → LFG+.
 
 ## Privacy
 

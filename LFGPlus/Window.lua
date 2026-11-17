@@ -155,9 +155,14 @@ local function buildSettings(parent)
     place(s.prompt, 26)
     s.sound = checkbox(parent, "Play a sound when someone endorses me", function(on) ns.db.toastSound = on end)
     place(s.sound, 26)
+    s.thanks = checkbox(parent, "Whisper a thank-you to players I endorse", function(on) ns.db.thankWhisper = on end)
+    place(s.thanks, 26)
     s.minimap = checkbox(parent, "Show the minimap button", function(on) ns.SetMinimapShown(on) end)
     place(s.minimap, 26)
-    s.debug = checkbox(parent, "Detailed log, for bug reports", function(on) ns.db.debug = on end)
+    s.debug = checkbox(parent, "Detailed log, for bug reports", function(on)
+        ns.db.debug = on
+        ns.RefreshWindow() -- shows or hides the Log tab
+    end)
     place(s.debug, 34)
 
     place(heading(parent, "When someone wants to endorse you"), 20)
@@ -178,6 +183,7 @@ local function buildSettings(parent)
         if ns.IsLinked() then s.link:Hide(); s.unlink:Show() else s.link:Show(); s.unlink:Hide() end
         s.prompt:SetChecked(ns.db.promptAfterRuns and true or false)
         s.sound:SetChecked(ns.db.toastSound and true or false)
+        s.thanks:SetChecked(ns.db.thankWhisper and true or false)
         s.minimap:SetChecked(ns.IsMinimapShown())
         s.debug:SetChecked(ns.db.debug and true or false)
         for category, cb in pairs(s.ack) do cb:SetChecked(ns.AckModeFor(category) == "ask") end
@@ -286,6 +292,10 @@ end
 -- ─── The window ──────────────────────────────────────────────────────────────
 
 local function selectTab(key)
+    -- The Log tab is for bug reports: it shows only while debug mode is on (the last tab, so nothing shifts).
+    local debug = ns.db.debug and true or false
+    if debug then window.tabs.log:Show() else window.tabs.log:Hide() end
+    if key == "log" and not debug then key = "overview" end
     window.current = key
     for _, tab in ipairs(TABS) do
         local page = window.pages[tab.key]
@@ -340,7 +350,7 @@ end
 
 --- Redraws the open page (records or settings changed elsewhere).
 function ns.RefreshWindow()
-    if window and window:IsShown() and window.current then window.pages[window.current].Refresh() end
+    if window and window:IsShown() and window.current then selectTab(window.current) end
     if ns.optionsPanel and ns.optionsPanel:IsShown() then ns.optionsPanel.settings.Refresh() end
 end
 

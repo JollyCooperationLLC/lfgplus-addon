@@ -57,6 +57,26 @@ describe("TagText", function()
     end)
 end)
 
+describe("ThanksText", function()
+    local ns = loader.load({ "Format.lua" })
+
+    it("thanks each tag in its own words, from LFG.plus, within one chat message", function()
+        local seen = {}
+        for _, tag in ipairs({ 1, 2, 4, 8 }) do
+            local text = ns.ThanksText(tag)
+            assert.are.equal("[LFG.plus] Thanks for ", text:sub(1, 22))
+            assert.truthy(text:find("I endorsed you as " .. ns.TAG_LABELS[tag] .. ".", 1, true))
+            assert.is_true(#text <= 255)
+            assert.is_nil(seen[text])
+            seen[text] = true
+        end
+    end)
+
+    it("falls back to a plain thank-you for a tag it doesn't know", function()
+        assert.are.equal("[LFG.plus] Thanks for the group! I endorsed you.", ns.ThanksText(16))
+    end)
+end)
+
 describe("Core", function()
     local ns = loader.load({ "Core.lua" })
 

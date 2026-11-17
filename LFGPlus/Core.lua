@@ -46,6 +46,7 @@ local DEFAULTS = {
     setupCode = nil,      -- pasted from lfg.plus; never printed
     promptAfterRuns = true,
     toastSound = true,
+    thankWhisper = false, -- opt-in: whisper a thank-you to each player you endorse
     debug = false,        -- /lfgplus debug: verbose log entries, echoed to chat
     lastCounter = 0,      -- the last record counter used (Endorse.lua)
     -- How to answer endorsement requests, per relationship: "auto" (default) or "ask".

@@ -199,6 +199,9 @@ local function finish(counter, ack)
         }
     end
     deliver(bytes, p.target)
+    -- A thank-you in chat, which players without LFG+ see too. Sent for real and quiet alike, and only here, not when a
+    -- late ack proves the endorsement: once per endorsement.
+    if ns.db.thankWhisper then ns.SendChat(ns.ThanksText(p.tags), ns.WhisperTarget(p.target)) end
     ns.Log.Info("endorse", "record %d for %s finished: %s, tags %d", counter, p.target.name,
         proven and "proven" or "unproven", p.tags)
     -- Identical for real and quiet, on purpose.
