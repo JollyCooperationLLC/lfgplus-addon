@@ -140,7 +140,8 @@ LFGPlus/            the addon as players install it (load order is the TOC's)
   Media/Icon.tga    the minimap and addon-list icon, drawn by tools/make-icon.mjs
   Media/Tag-*.tga   the four tag icons on the prompt's buttons, generated from the website's drawings
 test/               busted specs (run outside the game, in real Lua 5.1)
-tools/              make-icon.mjs: redraws Media/Icon.tga (Node, no dependencies)
+tools/              make-icon.mjs: redraws Media/Icon.tga (Node, no dependencies); package.sh: builds the release zip
+.github/workflows/  release.yml: specs, then a release, on every push to main
 ```
 
 ### Tests
@@ -171,6 +172,18 @@ luarocks install busted && luarocks install dkjson && luarocks install luabitop
 
 If lua.org is unreachable or readline headers are missing, build Lua 5.1 from
 GitHub's tag instead: `hererocks .lua -l @v5.1 -r latest --no-readline`.
+
+### Releases
+
+Every push to `main` runs the specs with full line and branch coverage (`.github/workflows/release.yml`). When they
+pass, `tools/package.sh` builds `LFGPlus-<version>.zip`, and it's published on the
+[Releases](https://github.com/JollyCooperationLLC/lfgplus-addon/releases) page. The version is the UTC time of the
+build, `year.month.day.hourminutesecond` (for example `2026.11.18.010203`), written into the zip's `LFGPlus.toc`;
+the TOC in the repository keeps a placeholder. To build the same zip locally:
+
+```bash
+tools/package.sh 2026.11.18.010203   # writes dist/LFGPlus-2026.11.18.010203.zip
+```
 
 ### Development and testing methodology
 

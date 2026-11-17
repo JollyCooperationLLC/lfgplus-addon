@@ -2,3 +2,5 @@
 .coverage/
 # Repo-local Lua 5.1 + busted (README.md)
 .lua/
+# Packaged releases (tools/package.sh)
+dist/
