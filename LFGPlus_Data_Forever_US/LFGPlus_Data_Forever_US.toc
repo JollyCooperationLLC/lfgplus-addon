@@ -1,4 +1,4 @@
-## Interface: 120105, 16001, 11509, 20506, 50504
+## Interface: 120105, 16001, 11509, 50504
 ## Title: LFG+ Data (WoW Forever US)
 ## Notes: Daily endorsement data for LFG+. Updated every night.
 ## Author: Jolly Cooperation

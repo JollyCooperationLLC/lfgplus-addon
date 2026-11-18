@@ -1,4 +1,4 @@
-## Interface: 120105, 16001, 11509, 20506, 50504
+## Interface: 120105, 16001, 11509, 50504
 ## Title: LFG|cff1eff00+|r
 ## Notes: See who other players endorsed, right in your tooltip, and endorse your group after a run.
 ## Author: Jolly Cooperation
@@ -7,7 +7,7 @@
 ## IconTexture: Interface\AddOns\LFGPlus\Media\Icon
 ## OptionalDeps: LibStub, CallbackHandler-1.0, LibDataBroker-1.1, LibDBIcon-1.0
 ## X-Website: https://lfg.plus
-# Interface numbers (2026-11-07): Retail 12.1.5, Forever 1.60.1, Classic Era 1.15.9, Anniversary 2.5.6, Mists 5.5.4.
+# Interface numbers (2026-11-07): Retail 12.1.5, Forever 1.60.1, Classic Era 1.15.9, Mists 5.5.4.
 # Update them each patch; an outdated number makes the client mark the addon out of date.
 
 # Embedded libraries (Libs/README.md). LibStub keeps the newest copy when several addons carry the same one.

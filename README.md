@@ -60,7 +60,7 @@ A few things to know:
 4. **Upload your endorsements.** Type `/lfgplus upload`, copy everything in the box, paste it on
    [lfg.plus/upload](https://lfg.plus/upload), then press **I uploaded these**. That's what makes them count on the site.
 
-LFG+ loads in Retail, Classic Era, Mists of Pandaria Classic, Burning Crusade Anniversary and WoW Forever.
+LFG+ loads in Retail, Classic Era, Mists of Pandaria Classic and WoW Forever.
 
 ## Commands
 
