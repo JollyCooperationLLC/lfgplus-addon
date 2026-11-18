@@ -17,12 +17,12 @@ describe("the addon in a fake client", function()
 
     after_each(function() _G.LFGPlusDB = nil end)
 
-    -- The LFG+ block of a player in the development data add-on, as world.texts reads it.
-    local BRIGHT_MEND = { "LFG+ Endorsements:", "Fun 5", "Skilled 12", "Helpful 6", "Leader 4" }
-    local MIDDLE_FOOT = { "LFG+ Endorsements:", "Fun 30", "Skilled 6", "Helpful 4", "Leader 2" }
-    local SIR_ROCKY = { "LFG+ Endorsements:", "Fun 20", "Skilled 31", "Helpful 30", "Leader 50" }
-    local SIR_PEBBLES = { "LFG+ Endorsements:", "Fun 2", "Skilled 2", "Helpful 1", "Leader 1" }
-    local MOSS_BEARD = { "LFG+ Endorsements:", "Fun 10", "Skilled 20", "Helpful 13", "Leader 40" }
+    -- The LFG+ block of a player in the development data add-on, as world.texts reads it: a blank line first.
+    local BRIGHT_MEND = { " ", "LFG+ Endorsements:", "Fun 5", "Skilled 12", "Helpful 6", "Leader 4" }
+    local MIDDLE_FOOT = { " ", "LFG+ Endorsements:", "Fun 30", "Skilled 6", "Helpful 4", "Leader 2" }
+    local SIR_ROCKY = { " ", "LFG+ Endorsements:", "Fun 20", "Skilled 31", "Helpful 30", "Leader 50" }
+    local SIR_PEBBLES = { " ", "LFG+ Endorsements:", "Fun 2", "Skilled 2", "Helpful 1", "Leader 1" }
+    local MOSS_BEARD = { " ", "LFG+ Endorsements:", "Fun 10", "Skilled 20", "Helpful 13", "Leader 40" }
     --- A block with lines before or after it.
     local function with(before, block, after)
         local t = { before }
@@ -76,12 +76,12 @@ describe("the addon in a fake client", function()
         } })
         local known = world.hover("mouseover")
         assert.are.same(BRIGHT_MEND, world.texts(known))
-        assert.are.equal(1.0, known[1].g)
-        assert.are.same({ 1, 1, 1 }, { known[2].r, known[2].g, known[2].b }) -- the tag's name in white
-        assert.are.same({ 0.118, 1.0, 0.0 }, { known[2].rr, known[2].rg, known[2].rb }) -- its count in green
+        assert.are.equal(1.0, known[2].g)
+        assert.are.same({ 1, 1, 1 }, { known[3].r, known[3].g, known[3].b }) -- the tag's name in white
+        assert.are.same({ 0.118, 1.0, 0.0 }, { known[3].rr, known[3].rg, known[3].rb }) -- its count in green
         local unknown = world.hover("target")
-        assert.are.same({ "LFG+ No endorsements yet" }, world.texts(unknown))
-        assert.are.equal(0.616, unknown[1].g)
+        assert.are.same({ " ", "LFG+ No endorsements yet" }, world.texts(unknown))
+        assert.are.equal(0.616, unknown[2].g)
     end)
 
     it("adds nothing, and never errors, when the client hides unit names (Midnight secret values)", function()
@@ -110,15 +110,13 @@ describe("the addon in a fake client", function()
         ns.db.endorsed[ns.UnitIdentity("target").key] = { at = 1, tags = 1 }
         local known = world.hover("mouseover")
         assert.are.same(with(nil, BRIGHT_MEND, "You endorsed them \194\183 Helpful"), world.texts(known))
-        assert.are.equal(1.0, known[6].g)
+        assert.are.equal(1.0, known[7].g)
         local unknown = world.hover("target")
-        assert.are.equal("LFG+ No endorsements yet", unknown[1].text)
-        assert.are.equal("You endorsed them \194\183 Fun", unknown[2].text)
+        assert.are.same({ " ", "LFG+ No endorsements yet", "You endorsed them \194\183 Fun" }, world.texts(unknown))
         local bare, bareNs = boot({ noDataAddOn = true, units = units })
         bareNs.db.endorsed[bareNs.UnitIdentity("target").key] = { at = 1, tags = 1 }
         local alone = bare.hover("target")
-        assert.are.equal(1, #alone)
-        assert.are.equal("LFG+ You endorsed them \194\183 Fun", alone[1].text)
+        assert.are.same({ " ", "LFG+ You endorsed them \194\183 Fun" }, world.texts(alone))
     end)
 
     it("ignores tooltips for things that aren't players", function()
@@ -237,7 +235,7 @@ describe("the addon in a fake client", function()
             return world.texts(world.tooltip.lines)
         end
         assert.are.same(with("Listing 7", BRIGHT_MEND), shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 7))
-        assert.are.same({ "Listing 8", "LFG+ No endorsements yet" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 8))
+        assert.are.same({ "Listing 8", " ", "LFG+ No endorsements yet" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 8))
         assert.are.same({ "Listing 9" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 9))
         assert.are.same({ "Listing 10" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 10)) -- no such listing
         local member = { memberIdx = 1, GetParent = function() return { applicantID = 3 } end }

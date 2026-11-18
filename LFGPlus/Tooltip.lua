@@ -1,7 +1,7 @@
 -- Adds the LFG+ lines to player tooltips, and to the group finder's tooltips for applicants and listings (their names
--- only: the group finder has no unit): "LFG+ Endorsements:", then a row per tag with its count. It only appends lines
--- of text, which is allowed everywhere, and gives up quietly when the client hides unit data from addons (Midnight's
--- "secret values" in restricted content).
+-- only: the group finder has no unit): a blank line, "LFG+ Endorsements:", then a row per tag with its count. It only
+-- appends lines of text, which is allowed everywhere, and gives up quietly when the client hides unit data from addons
+-- (Midnight's "secret values" in restricted content).
 
 local _, ns = ...
 
@@ -22,6 +22,9 @@ local function addIdentityLines(tooltip, identity)
     local mine = ns.db.endorsed[identity.key]
     -- Unknown players get a grey "No endorsements yet" rather than nothing, so the addon never looks broken on a quiet
     -- realm (planning doc, cold-start risk).
+    if not dataLine and not mine then return end
+    -- A blank line first, so the block stands apart from whatever the tooltip shows above it.
+    tooltip:AddLine(" ")
     if counts then
         tooltip:AddLine(ns.TOOLTIP_HEADER, ENDORSE_R, ENDORSE_G, ENDORSE_B)
         for _, row in ipairs(ns.FormatTooltipRows(counts)) do
@@ -31,7 +34,7 @@ local function addIdentityLines(tooltip, identity)
         tooltip:AddLine(ns.TOOLTIP_NONE, NONE_R, NONE_G, NONE_B)
     end
     if mine then tooltip:AddLine(ns.FormatYouEndorsedLine(mine.tags, not dataLine), ENDORSE_R, ENDORSE_G, ENDORSE_B) end
-    if dataLine or mine then tooltip:Show() end
+    tooltip:Show()
 end
 
 local function addLine(tooltip, unit)
