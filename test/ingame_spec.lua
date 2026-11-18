@@ -579,6 +579,73 @@ describe("in a WoW Forever client", function()
         assert.truthy(world.chat[#world.chat]:find("Target another player", 1, true))
     end)
 
+    it("endorses your target as Helpful on /thank, once, and only when linked", function()
+        boot({ saved = { setupCode = codes.valid[2].input }, units = {
+            player = { name = "Middle", realm = "Foot", guid = "Player-4395-00000007" },
+            target = { name = "Corvina", realm = "Ashby", guid = "Player-4395-0A1B2C3D" },
+            party1 = { name = "Corvina", realm = "Ashby", guid = "Player-4395-0A1B2C3D" },
+            party2 = { name = "Sir", realm = "Rocky", guid = "Player-4395-00000099" },
+        } })
+        local function requests()
+            local n = 0
+            for _, m in ipairs(world.sent) do if m.message:sub(1, 2) == "Q:" then n = n + 1 end end
+            return n
+        end
+        DoEmote("THANK", "")
+        assert.are.same({ "THANK", "" }, world.emotes[1]) -- the emote itself still goes out
+        assert.are.equal(1, requests())
+        world.advance(16)
+        assert.truthy(world.chat[#world.chat]:find("You endorsed Corvina Ashby \194\183 Helpful.", 1, true))
+        assert.are.equal(4, ns.db.endorsed[ns.UnitIdentity("target").key].tags)
+        DoEmote("THANK") -- already endorsed: nothing more
+        DoEmote("THANK", "corvina")
+        assert.are.equal(1, requests())
+        -- Only the target: a /thank for someone else by name, or with no target, endorses nobody.
+        world.units.target = world.units.party2
+        DoEmote("THANK", "  Nobody  ")
+        DoEmote("THANK", "corvina")
+        DoEmote("WAVE", "Sir")
+        local target = world.units.target
+        world.units.target = nil
+        DoEmote("THANK", "")
+        DoEmote("THANK", "sir")
+        assert.are.equal(1, requests())
+        world.units.target = target
+        DoEmote("THANK", "sir rocky") -- the target by name
+        assert.are.equal(2, requests())
+        world.advance(16)
+        assert.truthy(world.chat[#world.chat]:find("You endorsed Sir Rocky \194\183 Helpful.", 1, true))
+        -- Thanking yourself, or with the setting off, endorses nobody.
+        world.units.party3 = { name = "Moss", realm = "Beard", guid = "Player-4395-00000042" }
+        world.units.target = world.units.player
+        DoEmote("THANK", "")
+        world.units.target = world.units.party3
+        ns.db.thankEndorse = false
+        DoEmote("THANK", "moss")
+        assert.are.equal(2, requests())
+        -- Something that stops it is said in chat.
+        ns.db.thankEndorse = true
+        ns.db.dailyCounter = { day = date("!%Y-%m-%d", ns.Now()), used = 20 }
+        DoEmote("THANK", "moss beard")
+        assert.truthy(world.chat[#world.chat]:find("You've used today's 20 endorsements", 1, true))
+        -- A trial account, or unlinked: no endorsement and no nagging, only a log line.
+        local said = #world.chat
+        ns.db.dailyCounter = { day = nil, used = 0 }
+        _G.IsTrialAccount = function() return true end
+        DoEmote("THANK", "moss")
+        _G.IsTrialAccount = function() return false end
+        ns.UnlinkAccount()
+        DoEmote("THANK", "moss")
+        assert.are.equal(2, requests())
+        assert.are.equal(said, #world.chat)
+        assert.truthy(logHas("/thank Moss Beard: not endorsing, this account can't endorse"))
+    end)
+
+    it("leaves /thank alone on a client without DoEmote", function()
+        boot({ without = { "DoEmote" } })
+        assert.truthy(logHas("no DoEmote on this client: /thank doesn't endorse"))
+    end)
+
     it("names the place in a toast when it can, and shows toasts one after another", function()
         boot({})
         assert.are.equal("Map 1429", ns.PlaceName(2, 1429))

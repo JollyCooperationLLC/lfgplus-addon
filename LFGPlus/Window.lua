@@ -12,7 +12,7 @@
 
 local _, ns = ...
 
-local WIDTH, HEIGHT = 560, 440
+local WIDTH, HEIGHT = 560, 466
 local PANE_TOP = 57                       -- the pane starts below the header and the tabs
 local PAD = 12                            -- page inset inside the pane
 local CONTENT_WIDTH = WIDTH - 32 - 2 * PAD
@@ -157,6 +157,8 @@ local function buildSettings(parent)
     place(s.sound, 26)
     s.thanks = checkbox(parent, "Whisper a thank-you to players I endorse", function(on) ns.db.thankWhisper = on end)
     place(s.thanks, 26)
+    s.thankEndorse = checkbox(parent, "Endorse as Helpful when I /thank someone", function(on) ns.db.thankEndorse = on end)
+    place(s.thankEndorse, 26)
     s.minimap = checkbox(parent, "Show the minimap button", function(on) ns.SetMinimapShown(on) end)
     place(s.minimap, 26)
     s.debug = checkbox(parent, "Detailed log, for bug reports", function(on)
@@ -184,6 +186,7 @@ local function buildSettings(parent)
         s.prompt:SetChecked(ns.db.promptAfterRuns and true or false)
         s.sound:SetChecked(ns.db.toastSound and true or false)
         s.thanks:SetChecked(ns.db.thankWhisper and true or false)
+        s.thankEndorse:SetChecked(ns.db.thankEndorse and true or false)
         s.minimap:SetChecked(ns.IsMinimapShown())
         s.debug:SetChecked(ns.db.debug and true or false)
         for category, cb in pairs(s.ack) do cb:SetChecked(ns.AckModeFor(category) == "ask") end

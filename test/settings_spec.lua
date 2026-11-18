@@ -41,6 +41,7 @@ describe("/lfgplus settings", function()
         assert.are.equal(true, LFGPlusDB.promptAfterRuns)
         assert.are.equal(true, LFGPlusDB.toastSound)
         assert.are.equal(false, LFGPlusDB.thankWhisper) -- opt-in
+        assert.are.equal(true, LFGPlusDB.thankEndorse) -- opt-out
         for _, category in ipairs(ns.ACK_CATEGORIES) do assert.are.equal("auto", ns.AckModeFor(category)) end
     end)
 
@@ -154,6 +155,9 @@ describe("/lfgplus settings", function()
         SlashCmdList.LFGPLUS("thanks")
         assert.are.equal(true, LFGPlusDB.thankWhisper)
         assert.are.equal("Thank-you whispers are on.", world.chat[#world.chat]:match("Thank%-you whispers are on%."))
+        SlashCmdList.LFGPLUS("emote")
+        assert.are.equal(false, LFGPlusDB.thankEndorse)
+        assert.truthy(world.chat[#world.chat]:find("/thank no longer endorses.", 1, true))
     end)
 
     it("sets each ack category to auto or ask, and refuses anything else", function()

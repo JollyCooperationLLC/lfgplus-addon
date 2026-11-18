@@ -98,6 +98,9 @@ describe("the minimap button and the LFG+ window", function()
         assert.is_false(s.thanks:GetChecked()) -- opt-in
         world.toggle(s.thanks)
         assert.is_true(LFGPlusDB.thankWhisper)
+        assert.is_true(s.thankEndorse:GetChecked()) -- on unless turned off
+        world.toggle(s.thankEndorse)
+        assert.is_false(LFGPlusDB.thankEndorse)
         world.toggle(s.minimap)
         assert.is_true(LFGPlusDB.minimap.hide)
         world.toggle(s.ack.guild)

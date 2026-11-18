@@ -80,8 +80,8 @@ local function onOff(value) return value and "on" or "off" end
 function ns.StatusLines()
     local lines = {
         ns.IsLinked() and "Account: linked." or "Account: not linked. Type /lfgplus setup to paste your setup code from lfg.plus.",
-        ("Prompt after runs: %s. Sound for endorsements you get: %s. Thank-you whispers: %s."):format(
-            onOff(ns.db.promptAfterRuns), onOff(ns.db.toastSound), onOff(ns.db.thankWhisper)),
+        ("Prompt after runs: %s. Sound for endorsements you get: %s. Thank-you whispers: %s. Helpful on /thank: %s."):format(
+            onOff(ns.db.promptAfterRuns), onOff(ns.db.toastSound), onOff(ns.db.thankWhisper), onOff(ns.db.thankEndorse)),
     }
     if ns.DataStatusLine then table.insert(lines, 2, ns.DataStatusLine(ns.Now())) end
     local ack = {}

@@ -297,6 +297,9 @@ function M.install(options)
     _G.UnitIsDeadOrGhost = function(unit) return unit == "player" and world.dead or false end
     _G.IsEncounterInProgress = options.encounterApi and function() return world.encounter or false end or nil
 
+    -- DoEmote(token, name): what /thank and the other emote commands call; world.emotes lists each one sent.
+    world.emotes = {}
+    _G.DoEmote = function(token, name) table.insert(world.emotes, { token, name }) end
     -- hooksecurefunc(name, hook): the global function runs, then the hook, with the same arguments.
     _G.hooksecurefunc = function(name, hook)
         local original = _G[name]

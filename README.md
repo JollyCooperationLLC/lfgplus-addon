@@ -51,6 +51,8 @@ A few things to know:
   endorse gets a short, friendly whisper for what they did, like
   `[LFG.plus] Thanks for playing your role so well, you made it look easy. I endorsed you as Skilled.` It's off until
   you turn it on.
+- **`/thank` endorses too.** Target a player you haven't endorsed yet and `/thank` them, and LFG+ endorses them as
+  Helpful. Turn it off with `/lfgplus emote` or in the settings.
 - **Nothing is sent in combat.** Messages wait until combat or the boss encounter ends.
 
 ## Getting started
@@ -83,6 +85,7 @@ LFG+ loads in Retail, Classic Era, Mists of Pandaria Classic and WoW Forever.
 | `/lfgplus records` | How many records are waiting to be uploaded |
 | `/lfgplus prompt`, `/lfgplus sound` | Turn the post-run prompt or the toast sound on/off |
 | `/lfgplus thanks` | Turn the thank-you whisper to players you endorse on/off |
+| `/lfgplus emote` | Turn endorsing as Helpful on `/thank` on/off |
 | `/lfgplus ack group\|guild\|friends\|others auto\|ask` | Answer endorsement requests automatically, or ask first |
 | `/lfgplus unlink` | Remove the account link |
 | `/lfgplus reset` | Delete everything LFG+ Addon keeps on this account (setup code, settings, records), after asking; the log stays |
@@ -141,7 +144,7 @@ LFGPlus/            the addon as players install it (load order is the TOC's)
   Window.lua        the LFG+ window (Overview, Endorsements, Settings, Log) and the Options → AddOns page
   UnitMenu.lua      "Endorse" in a player's right-click menu (Menu API), opening the endorse popup
   Minimap.lua       the minimap button and broker launcher (LibDataBroker + LibDBIcon), Retail's addon compartment
-  Slash.lua         /lfgplus and /endorse
+  Slash.lua         /lfgplus, /endorse, and endorsing on /thank
   Events.lua        event wiring, every handler guarded
   Libs/             embedded third-party libraries, under their own licences (Libs/README.md)
   Media/Icon.tga    the minimap and addon-list icon, drawn by tools/make-icon.mjs

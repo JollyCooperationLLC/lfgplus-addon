@@ -1,4 +1,6 @@
 -- /lfgplus and /endorse. Plain /lfgplus opens the LFG+ window (Window.lua); /lfgplus help lists the commands.
+-- Also /thank: thanking the player you target, if you haven't endorsed them yet, endorses them as Helpful, unless
+-- that setting is off.
 
 local _, ns = ...
 
@@ -12,6 +14,7 @@ local function help()
     ns.Print("  /lfgplus prompt - ask you to endorse your group after a run (on/off)")
     ns.Print("  /lfgplus sound - play a sound when someone endorses you (on/off)")
     ns.Print("  /lfgplus thanks - whisper a thank-you to players you endorse (on/off)")
+    ns.Print("  /lfgplus emote - endorse a player as Helpful when you /thank them (on/off)")
     ns.Print("  /lfgplus ack group|guild|friends|others auto|ask - answer endorsement requests automatically, or ask you first")
     ns.Print("  /lfgplus group - endorse the people in your group now")
     ns.Print("  /lfgplus upload - copy your endorsements to paste on lfg.plus")
@@ -103,6 +106,7 @@ local TOGGLES = {
     prompt = { key = "promptAfterRuns", on = "Prompt after runs is on.", off = "Prompt after runs is off. You can still use /endorse." },
     sound = { key = "toastSound", on = "Sound for endorsements you get is on.", off = "Sound for endorsements you get is off." },
     thanks = { key = "thankWhisper", on = "Thank-you whispers are on.", off = "Thank-you whispers are off." },
+    emote = { key = "thankEndorse", on = "/thank endorses as Helpful.", off = "/thank no longer endorses." },
 }
 
 local function ack(args)
@@ -191,6 +195,42 @@ local function endorse(input)
     local tag, quiet = ns.ParseEndorseArgs(input)
     local ok, message = ns.Endorse(ns.UnitIdentity("target"), tag, quiet)
     if not ok then ns.Print(message) end
+end
+
+local HELPFUL = 4
+
+--- The player a /thank is for, only ever your target: with no name after it, or with the target's own name (alone,
+-- "First Surname" or "Name-Realm"). A /thank for anyone else, or with no target, is nobody's.
+local function thanked(name)
+    local target = ns.UnitIdentity("target")
+    name = name:lower():match("^%s*(.-)%s*$")
+    if not target or name == "" then return target end
+    if name == (UnitName("target")):lower() or name == target.name:lower() or name == target.key then return target end
+end
+
+--- After the client sends an emote: /thank (also /thanks and /ty) endorses your target as Helpful, if they're
+-- someone else, not endorsed yet and the setting is on. Always a real endorsement. Without a linked account it does
+-- nothing, so thanking people never nags; anything else that stops it (today's endorsements used up) is said in chat.
+local function onEmote(token, name)
+    if token ~= "THANK" or not ns.db.thankEndorse then return end
+    local target = thanked(type(name) == "string" and name or "")
+    if not target or ns.SameCharacter(target, ns.PlayerIdentity()) or ns.AlreadyEndorsed(target) then return end
+    if not ns.IsLinked() or ns.IsTrialAccount() then
+        ns.Log.Info("endorse", "/thank %s: not endorsing, this account can't endorse", target.name)
+        return
+    end
+    local ok, message = ns.Endorse(target, HELPFUL, false)
+    if not ok then ns.Print(message) end
+end
+
+--- Hooks the client's emotes for /thank. Called at PLAYER_LOGIN. hooksecurefunc only adds to DoEmote, so it never
+-- taints it; a client without either gets nothing, and /endorse still works.
+function ns.HookThank()
+    if not (DoEmote and hooksecurefunc) then
+        ns.Log.Info("ui", "no DoEmote on this client: /thank doesn't endorse")
+        return
+    end
+    hooksecurefunc("DoEmote", ns.Log.Wrap("emote", onEmote))
 end
 
 SlashCmdList.LFGPLUS = ns.Log.Wrap("slash", lfgplus)

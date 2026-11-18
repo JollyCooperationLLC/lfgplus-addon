@@ -21,6 +21,7 @@ handlers.PLAYER_LOGIN = function()
     local oldData = ns.OldDataNote(ns.Now())
     if oldData then ns.Print(oldData) end
     ns.RegisterUnitMenus()
+    ns.HookThank()
     ns.HookGroupFinder()
     ns.CollectDiagnostics()
     -- Said once, at login, rather than failing quietly at every endorsement.
