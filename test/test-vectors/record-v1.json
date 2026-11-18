@@ -2,7 +2,7 @@
     "description": "Endorsement record v1. Keys are the key-derivation vectors: the endorser is account 1, the endorsee account 2. Every implementation must reproduce requestHex, the ack MAC and both upload lines byte for byte, and refuse every invalid input. Generated; never edit by hand.",
     "cases": [
         {
-            "name": "Forever, proven, compact GUIDs, Calm in Blackrock Depths",
+            "name": "Forever, proven, compact GUIDs, Skilled in Blackrock Depths",
             "request": {
                 "region": 1,
                 "keyVersion": 1,

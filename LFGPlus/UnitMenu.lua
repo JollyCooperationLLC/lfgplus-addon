@@ -1,5 +1,5 @@
--- "Endorse" in a player's right-click menu: on the target and party/raid
--- frames, it opens the small endorse popup (UI.lua) for that player.
+-- "Endorse" and "Copy LFG+ URL" in a player's right-click menu: on the target and party/raid frames, Endorse opens the
+-- small endorse popup (UI.lua) for that player, and Copy LFG+ URL shows their profile's address to copy (Slash.lua).
 --
 -- Uses the game's Menu API (Menu.ModifyMenu), which only adds to Blizzard's menus and so doesn't taint them. Clients
 -- without it get no entry, never a patched UnitPopup table (that taints "Set Focus" and friends); /endorse still works.
@@ -9,14 +9,18 @@ local _, ns = ...
 
 ns.UNIT_MENUS = { "MENU_UNIT_PLAYER", "MENU_UNIT_PARTY", "MENU_UNIT_RAID_PLAYER", "MENU_UNIT_RAID" }
 
---- Adds the LFG+ entry to one opened menu, when it's for another player we can see and haven't endorsed, or whose
--- endorsement their addon never confirmed.
+--- Adds the LFG+ entries to one opened menu: Endorse for another player we haven't endorsed (or whose endorsement
+-- their addon never confirmed), and Copy LFG+ URL for anyone with a profile address, yourself included.
 local function addEntry(_, root, context)
     local identity = context and context.unit and ns.UnitIdentity(context.unit)
-    if not identity or ns.SameCharacter(identity, ns.PlayerIdentity()) or ns.EndorsementFinal(identity) then return end
+    if not identity then return end
+    local endorsable = not ns.SameCharacter(identity, ns.PlayerIdentity()) and not ns.EndorsementFinal(identity)
+    local url = ns.ProfileUrl(identity, ns.gameVersion, ns.RegionId())
+    if not endorsable and not url then return end
     root:CreateDivider()
     root:CreateTitle("LFG+")
-    root:CreateButton("Endorse", ns.Log.Wrap("ui", function() ns.ShowEndorsePopup(identity) end))
+    if endorsable then root:CreateButton("Endorse", ns.Log.Wrap("ui", function() ns.ShowEndorsePopup(identity) end)) end
+    if url then root:CreateButton("Copy LFG+ URL", ns.Log.Wrap("ui", function() StaticPopup_Show("LFGPLUS_COPY_URL", nil, nil, url) end)) end
 end
 
 --- Registers the entry with every player menu. Called at PLAYER_LOGIN.

@@ -262,7 +262,7 @@ function ns.Endorse(target, tags, quiet)
     if not target or not target.name then return false, "Target another player to endorse them." end
     if ns.SameCharacter(me, target) then return false, "You can't endorse yourself." end
     if ns.EndorsementFinal(target) then return false, ("You've already endorsed %s."):format(target.name) end
-    if not ns.IsSingleTag(tags) then return false, "Pick what they did best: /endorse fun, calm, helpful or leader." end
+    if not ns.IsSingleTag(tags) then return false, "Pick what they did best: /endorse fun, skilled, helpful or leader." end
     local now = ns.Now()
     if not quiet and ns.RealEndorsementsLeft(now) <= 0 then
         return false, ("You've used today's %d endorsements. More tomorrow."):format(DAILY_CAP)

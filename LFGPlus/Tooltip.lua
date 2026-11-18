@@ -1,29 +1,34 @@
--- Adds the LFG+ line to player tooltips, and to the group finder's tooltips for applicants and listings (their names
--- only: the group finder has no unit). It only appends a line of text, which is allowed everywhere, and gives up
--- quietly when the client hides unit data from addons (Midnight's "secret values" in restricted content).
+-- Adds the LFG+ lines to player tooltips, and to the group finder's tooltips for applicants and listings (their names
+-- only: the group finder has no unit): "LFG+ Endorsements:", then a row per tag with its count. It only appends lines
+-- of text, which is allowed everywhere, and gives up quietly when the client hides unit data from addons (Midnight's
+-- "secret values" in restricted content).
 
 local _, ns = ...
 
 local ENDORSE_R, ENDORSE_G, ENDORSE_B = 0.118, 1.0, 0.0 -- WoW "uncommon" green, #1eff00
 local NONE_R, NONE_G, NONE_B = 0.616, 0.616, 0.616     -- WoW "poor" grey, #9d9d9d
+local LABEL_R, LABEL_G, LABEL_B = 1, 1, 1               -- the tag's name in white; its count in green
 
 local function isSecret(value)
     return issecretvalue ~= nil and issecretvalue(value)
 end
 
---- Adds the LFG+ lines for one character: the data line, then your own endorsement of them.
+--- Adds the LFG+ lines for one character: the data block, then your own endorsement of them.
 local function addIdentityLines(tooltip, identity)
-    local count, tag = ns.LookupCharacter(identity)
+    local counts = ns.LookupCharacter(identity)
     -- Without the data add-on we know nothing about anyone: add no data line rather than "No endorsements yet" for all.
-    local dataLine = count ~= nil or ns.HasData()
+    local dataLine = counts ~= nil or ns.HasData()
     -- Your own endorsement of them, real or quiet alike: only this install knows it, and it reads the same.
     local mine = ns.db.endorsed[identity.key]
     -- Unknown players get a grey "No endorsements yet" rather than nothing, so the addon never looks broken on a quiet
     -- realm (planning doc, cold-start risk).
-    if count ~= nil then
-        tooltip:AddLine(ns.FormatTooltipLine(count, tag), ENDORSE_R, ENDORSE_G, ENDORSE_B)
+    if counts then
+        tooltip:AddLine(ns.TOOLTIP_HEADER, ENDORSE_R, ENDORSE_G, ENDORSE_B)
+        for _, row in ipairs(ns.FormatTooltipRows(counts)) do
+            tooltip:AddDoubleLine(row[1], row[2], LABEL_R, LABEL_G, LABEL_B, ENDORSE_R, ENDORSE_G, ENDORSE_B)
+        end
     elseif dataLine then
-        tooltip:AddLine(ns.FormatTooltipLine(nil), NONE_R, NONE_G, NONE_B)
+        tooltip:AddLine(ns.TOOLTIP_NONE, NONE_R, NONE_G, NONE_B)
     end
     if mine then tooltip:AddLine(ns.FormatYouEndorsedLine(mine.tags, not dataLine), ENDORSE_R, ENDORSE_G, ENDORSE_B) end
     if dataLine or mine then tooltip:Show() end

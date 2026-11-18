@@ -134,6 +134,23 @@ describe("Identity", function()
         assert.are.equal("", ns.IdentityFromParts("Brightmend", nil).realm)
     end)
 
+    it("builds a character's profile address on its version's site, and none where there isn't one", function()
+        local V = ns.GameVersions
+        local forever = { name = "Middle Foot", realm = "" }
+        assert.are.equal("https://forever.lfg.plus/us/middle-foot", ns.ProfileUrl(forever, V.FOREVER, 1))
+        local retail = { name = "Bob", realm = "TwistingNether" }
+        assert.are.equal("https://lfg.plus/eu/TwistingNether/bob", ns.ProfileUrl(retail, V.RETAIL, 2))
+        assert.are.equal("https://classic.lfg.plus/kr/TwistingNether/bob", ns.ProfileUrl(retail, V.CLASSIC, 3))
+        assert.are.equal("https://era.lfg.plus/tw/TwistingNether/bob", ns.ProfileUrl(retail, V.CLASSIC_ERA, 4))
+        -- Anything but letters, digits and - . _ ~ is percent-encoded, a byte at a time.
+        assert.are.equal("https://lfg.plus/us/Kil%27jaeden/s%C3%B6lvi", ns.ProfileUrl({ name = "S\195\182lvi", realm = "Kil'jaeden" }, V.RETAIL, 1))
+        assert.is_nil(ns.ProfileUrl(retail, V.ANNIVERSARY, 1))           -- no site for the version
+        assert.is_nil(ns.ProfileUrl(retail, nil, 1))
+        assert.is_nil(ns.ProfileUrl(retail, V.RETAIL, nil))              -- a region LFG+ doesn't run in
+        assert.is_nil(ns.ProfileUrl({ name = "Bob", realm = "" }, V.RETAIL, 1)) -- a realm version with no realm
+        assert.is_nil(ns.ProfileUrl({ name = "Bob" }, V.RETAIL, 1))
+    end)
+
     it("maps the client's region numbers to ours, and has none for China", function()
         assert.are.equal(2, ns.RegionId()) -- client 3 is EU, our 2
         _G.GetCurrentRegion = function() return 5 end

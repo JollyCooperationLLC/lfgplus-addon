@@ -164,7 +164,7 @@ describe("the minimap button and the LFG+ window", function()
         ns.RefreshWindow()
         assert.is_true(page.upload:IsEnabled())
         assert.are.equal("2 endorsements held, newest first.", page.summary:GetText())
-        assert.are.equal("09 Nov  You endorsed Sir Rocky\n08 Nov  Endorsed by Corvina Ashby \194\183 Calm", page.list.value)
+        assert.are.equal("09 Nov  You endorsed Sir Rocky\n08 Nov  Endorsed by Corvina Ashby \194\183 Skilled", page.list.value)
         world.click(page.upload)
         local upload
         for _, frame in ipairs(world.frames) do if frame.name == "LFGPlusUploadFrame" then upload = frame end end

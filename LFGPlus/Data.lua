@@ -1,5 +1,6 @@
 -- Endorsement data for tooltips, from the separate load-on-demand data add-on, in
--- format 0 (a plain table) or format 2 (packed, in chunks).
+-- format 0 (a plain table) or format 3 (packed, in chunks). Each player has four counts, one per tag, in tag order:
+-- Fun, Skilled, Helpful, Leader.
 --
 -- LFG+ ships in two parts: this add-on, and LFGPlus_Data_<Version>_<Region>, rebuilt every night. At login we load the
 -- data add-on for our game version and region; it calls LFGPlus_RegisterData once per file. With no data, tooltips add
@@ -7,7 +8,7 @@
 
 local _, ns = ...
 
-local SUPPORTED_FORMATS = { [0] = true, [2] = true }
+local SUPPORTED_FORMATS = { [0] = true, [3] = true }
 local BLOCK_SIZE = 64
 local MAX_CHUNKS = 4096
 local floor, byte, sort = math.floor, string.byte, table.sort
@@ -15,10 +16,10 @@ local VERSION_FOLDERS = { [10] = "Retail", [20] = "Classic", [30] = "ClassicEra"
 local REGION_FOLDERS = { [1] = "US", [2] = "EU", [3] = "KR", [4] = "TW" }
 local OLD_DATA_DAYS = 7          -- from this age on, /lfgplus and the login say the data is old
 
-ns.data = nil                    -- format 0: { ..., entries = { [key] = { count, tag } } }; format 2: { ..., parts = { [chunk] = its fields } }
+ns.data = nil                    -- format 0: { ..., entries = { [key] = { fun, skilled, helpful, leader } } }; format 3: { ..., parts = { [chunk] = its fields } }
 ns.dataStatus = { state = "not loaded" }
-local arriving = nil             -- format 2: the chunks registered so far, until all of them are here
-local refused = false            -- format 2: a mixed or repeated chunk arrived, so this session has no data
+local arriving = nil             -- format 3: the chunks registered so far, until all of them are here
+local refused = false            -- format 3: a mixed or repeated chunk arrived, so this session has no data
 
 --- The data add-on's folder name for a game version and region, or nil.
 function ns.DataAddonName(gameVersion, region)
@@ -31,16 +32,18 @@ local function wholeNumber(value, low, high)
     return type(value) == "number" and value >= low and value <= high and value == floor(value)
 end
 
---- True when the data carries what its format needs.
+--- True when the data carries what its format needs: format 3 a palette per tag.
 local function wellFormed(data)
-    if data.format == 2 then
-        return type(data.data) == "string" and type(data.index) == "table" and type(data.palette) == "table"
+    if data.format == 3 then
+        local p = data.palettes
+        return type(data.data) == "string" and type(data.index) == "table" and type(p) == "table"
+            and type(p[1]) == "table" and type(p[2]) == "table" and type(p[3]) == "table" and type(p[4]) == "table"
             and type(data.k) == "number" and type(data.entries) == "number" and type(data.players) == "number"
     end
     return type(data.entries) == "table"
 end
 
---- Why a format-2 chunk's own numbers can't be used, or nil.
+--- Why a format-3 chunk's own numbers can't be used, or nil.
 local function badChunk(data)
     if not wholeNumber(data.bits, 40, 52) then return "a fingerprint of " .. tostring(data.bits) .. " bits" end
     local half = wholeNumber(data.chunks, 1, MAX_CHUNKS) and data.chunks or 0
@@ -58,7 +61,7 @@ local function refuseChunks(reason)
     return false
 end
 
---- One chunk of a format-2 data add-on. The data is loaded once every chunk has registered.
+--- One chunk of a format-3 data add-on. The data is loaded once every chunk has registered.
 local function registerChunk(data)
     if refused then return false end
     local bad = badChunk(data)
@@ -67,7 +70,7 @@ local function registerChunk(data)
         ns.Log.Warn("data", "ignored a data file with %s", bad)
         return false
     end
-    arriving = arriving or { format = 2, day = data.day, bits = data.bits, chunks = data.chunks, parts = {}, count = 0, players = 0, cache = {} }
+    arriving = arriving or { format = 3, day = data.day, bits = data.bits, chunks = data.chunks, parts = {}, count = 0, players = 0, cache = {} }
     local set = arriving
     if data.day ~= set.day or data.bits ~= set.bits or data.chunks ~= set.chunks then return refuseChunks("files from different days") end
     if set.parts[data.chunk] then return refuseChunks("data file " .. data.chunk .. " arrived twice") end
@@ -79,11 +82,11 @@ local function registerChunk(data)
     end
     arriving, ns.data = nil, set
     ns.dataStatus = { state = "loaded", day = set.day, players = set.players }
-    ns.Log.Info("data", "loaded data from %s: %s players in %d files, format 2", tostring(set.day), tostring(set.players), set.chunks)
+    ns.Log.Info("data", "loaded data from %s: %s players in %d files, format 3", tostring(set.day), tostring(set.players), set.chunks)
     return true
 end
 
---- Called by the data add-on: once by format 0's Data.lua, once per file by format 2's. Refuses unknown formats and
+--- Called by the data add-on: once by format 0's Data.lua, once per file by format 3's. Refuses unknown formats and
 -- data for another version or region.
 function LFGPlus_RegisterData(data)
     if type(data) ~= "table" or (SUPPORTED_FORMATS[data.format] and not wellFormed(data)) then
@@ -100,7 +103,7 @@ function LFGPlus_RegisterData(data)
         ns.Log.Warn("data", "ignored %s", ns.dataStatus.reason)
         return false
     end
-    if data.format == 2 then return registerChunk(data) end
+    if data.format == 3 then return registerChunk(data) end
     ns.data = data
     ns.dataStatus = { state = "loaded", day = data.day, players = data.players }
     ns.Log.Info("data", "loaded data from %s: %s players, format %s", tostring(data.day), tostring(data.players), tostring(data.format))
@@ -184,7 +187,7 @@ function ns.DataStatusLine(now)
     return "Data: none (" .. tostring(s.reason or s.state) .. ")."
 end
 
--- ─── Format 2 ──────────────────────────────────────────────────────────────────────────────────────────────
+-- ─── Format 3 ──────────────────────────────────────────────────────────────────────────────────────────────
 
 --- A key's fingerprint: the top `bits` bits (40 to 52) of its SHA-256, from the first six bytes and part of the
 -- seventh, so every step stays exact in a Lua number.
@@ -200,33 +203,32 @@ local function bitAt(data, pos)
     return floor((byte(data, floor(pos / 8) + 1) or 0) / 2 ^ (7 - pos % 8)) % 2
 end
 
---- Canonical Huffman decoding table for a palette { count, tag, length, ... }: [length .. ":" .. code] -> symbol.
+--- Canonical Huffman decoding table for one tag's palette { count, length, ... }: [length .. ":" .. code] -> count.
 local function decoder(palette)
     local order = {}
-    for s = 1, #palette / 3 do order[s] = s end
+    for s = 1, #palette / 2 do order[s] = s end
     sort(order, function(a, b)
-        local la, lb = palette[a * 3], palette[b * 3]
+        local la, lb = palette[a * 2], palette[b * 2]
         if la ~= lb then return la < lb end
         return a < b
     end)
     local byCode, maxLen, code, previous = {}, 0, 0, nil
     for _, s in ipairs(order) do
-        local length = palette[s * 3]
+        local length = palette[s * 2]
         if previous then code = (code + 1) * 2 ^ (length - previous) end
         previous = length
-        byCode[length .. ":" .. code] = s
+        byCode[length .. ":" .. code] = palette[s * 2 - 1]
         if length > maxLen then maxLen = length end
     end
     return { byCode = byCode, maxLen = maxLen }
 end
 
 --- Looks a key up in one chunk, given its fingerprint: exceptions, then the block that can hold the fingerprint.
--- Returns count, tag or nil.
+-- Returns the four counts { fun, skilled, helpful, leader }, or nil.
 function ns.PackedLookup(d, key, fp)
     local exception = d.exceptions and d.exceptions[key]
     if exception ~= nil then
-        if exception then return exception[1], exception[2] end
-        return nil
+        return exception or nil
     end
     local index = d.index
     local lo, hi, block = 1, #index / 2, nil
@@ -236,8 +238,8 @@ function ns.PackedLookup(d, key, fp)
     end
     if not block then return nil end
 
-    d.decoder = d.decoder or decoder(d.palette)
-    local byCode, maxLen, palette, data, k = d.decoder.byCode, d.decoder.maxLen, d.palette, d.data, d.k
+    d.decoders = d.decoders or { decoder(d.palettes[1]), decoder(d.palettes[2]), decoder(d.palettes[3]), decoder(d.palettes[4]) }
+    local decoders, data, k = d.decoders, d.data, d.k
     local pos, current = index[block * 2], index[block * 2 - 1]
     for i = 1, math.min(BLOCK_SIZE, d.entries - (block - 1) * BLOCK_SIZE) do
         if i > 1 then
@@ -247,42 +249,44 @@ function ns.PackedLookup(d, key, fp)
             for _ = 1, k + 1 do r, pos = r * 2 + bitAt(data, pos), pos + 1 end -- the unary's 0, then k bits
             current = current + q * 2 ^ k + r
         end
-        local code, symbol = 0, nil
-        for length = 1, maxLen do
-            code, pos = code * 2 + bitAt(data, pos), pos + 1
-            symbol = byCode[length .. ":" .. code]
-            if symbol then break end
+        local counts = {}
+        for t = 1, 4 do
+            local byCode, code, count = decoders[t].byCode, 0, nil
+            for length = 1, decoders[t].maxLen do
+                code, pos = code * 2 + bitAt(data, pos), pos + 1
+                count = byCode[length .. ":" .. code]
+                if count then break end
+            end
+            if not count then return nil end -- not a code: corrupt data
+            counts[t] = count
         end
-        if not symbol then return nil end -- not a code: corrupt data
-        if current == fp then return palette[symbol * 3 - 2], palette[symbol * 3 - 1] end
+        if current == fp then return counts end
         if current > fp then return nil end
     end
     return nil
 end
 
---- Looks a key up in format-2 data: the chunk its fingerprint belongs to, then that chunk. Returns count, tag or nil.
+--- Looks a key up in format-3 data: the chunk its fingerprint belongs to, then that chunk. Returns the four counts or nil.
 function ns.ChunkedLookup(set, key)
     local fp = ns.Fingerprint(key, set.bits)
     return ns.PackedLookup(set.parts[floor(fp / (2 ^ set.bits / set.chunks))], key, fp)
 end
 
---- Looks up a character identity (Identity.lua). Returns count, tag, or nil when there's nothing to show. Packed
--- lookups hash the key, so their answers are remembered for the session.
+--- Looks up a character identity (Identity.lua). Returns its four counts { fun, skilled, helpful, leader }, or nil
+-- when there's nothing to show. Packed lookups hash the key, so their answers are remembered for the session.
 function ns.LookupCharacter(identity)
     if not identity or not ns.data then return nil end
     local entry
-    if ns.data.format == 2 then
+    if ns.data.format == 3 then
         entry = ns.data.cache[identity.key]
         if entry == nil then
-            local count, tag = ns.ChunkedLookup(ns.data, identity.key)
-            entry = count and { count, tag } or false
+            entry = ns.ChunkedLookup(ns.data, identity.key) or false
             ns.data.cache[identity.key] = entry
         end
     else
         entry = ns.data.entries[identity.key]
     end
-    if not entry then return nil end
-    return entry[1], entry[2]
+    return entry or nil
 end
 
 --- True when tooltips have data to show (otherwise they add no line).

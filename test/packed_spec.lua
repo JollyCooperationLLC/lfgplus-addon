@@ -1,9 +1,9 @@
--- Proves Data.lua's format-2 loading and lookup against test/test-vectors/export-v2.json,
+-- Proves Data.lua's format-3 loading and lookup against test/test-vectors/export-v3.json,
 -- which the site's export writes: each case is a whole data add-on, whose files are run here as the
--- game client runs them, and every lookup must answer the same value, or nothing.
+-- game client runs them, and every lookup must answer the same four counts, or nothing.
 _G.bit = _G.bit or require("bit") -- LuaBitOp stands in for WoW's `bit` library (Crypto.lua)
 local loader = require("test.helpers.load_addon")
-local vectors = loader.read_vectors("export-v2.json")
+local vectors = loader.read_vectors("export-v3.json")
 local null = require("dkjson").null
 
 local function fromHex(hex)
@@ -13,9 +13,9 @@ end
 --- A chunk's fields as its Data_<nnnn>.lua passes them, from a vector file's fields.
 local function chunk(case, file, extra)
     local d = {
-        format = 2, gameVersion = vectors.gameVersion, region = vectors.region, day = vectors.day,
+        format = 3, gameVersion = vectors.gameVersion, region = vectors.region, day = vectors.day,
         bits = case.bits, chunk = file.chunk, chunks = case.chunks, players = file.players,
-        k = file.k, entries = file.entries, palette = file.palette, index = file.index,
+        k = file.k, entries = file.entries, palettes = file.palettes, index = file.index,
         exceptions = file.exceptions, data = fromHex(file.dataHex),
     }
     for key, value in pairs(extra or {}) do d[key] = value end
@@ -24,7 +24,7 @@ end
 
 local several, shared, wide = vectors.cases[1], vectors.cases[2], vectors.cases[3]
 
-describe("format 2 (packed, chunked) data", function()
+describe("format 3 (packed, chunked) data", function()
     local ns
     local function fresh()
         _G.GetCurrentRegion = function() return 1 end
@@ -37,11 +37,11 @@ describe("format 2 (packed, chunked) data", function()
     --- Every lookup of a case, against whatever is loaded.
     local function assertLookups(case)
         for _, lookup in ipairs(case.lookups) do
-            local count, tag = ns.LookupCharacter({ key = lookup.key }, false)
+            local counts = ns.LookupCharacter({ key = lookup.key }, false)
             if lookup.value == nil or lookup.value == null then
-                assert.is_nil(count, case.name .. ": " .. lookup.key)
+                assert.is_nil(counts, case.name .. ": " .. lookup.key)
             else
-                assert.are.same({ lookup.value[1], lookup.value[2] }, { count, tag }, case.name .. ": " .. lookup.key)
+                assert.are.same(lookup.value, counts, case.name .. ": " .. lookup.key)
             end
         end
     end
@@ -103,7 +103,7 @@ describe("format 2 (packed, chunked) data", function()
         local sha = ns.Sha256
         ns.Sha256 = function(m) hashes = hashes + 1 return sha(m) end
         local first = several.lookups[1]
-        assert.is_number((ns.LookupCharacter({ key = first.key }, false)))
+        assert.is_table(ns.LookupCharacter({ key = first.key }, false))
         ns.LookupCharacter({ key = first.key }, false)
         ns.LookupCharacter({ key = "nobody here" }, false)
         ns.LookupCharacter({ key = "nobody here" }, false)
@@ -113,39 +113,46 @@ describe("format 2 (packed, chunked) data", function()
     it("reads a chunk's exceptions first: a value, or false for a known name that isn't in the file", function()
         local first = wide.lookups[1]
         local fp = ns.Fingerprint(first.key, wide.bits)
-        local d = chunk(wide, wide.files[1], { exceptions = { ["collided name"] = { 12, 4 }, [first.key] = false } })
-        local count, tag = ns.PackedLookup(d, "collided name", 0)
-        assert.are.same({ 12, 4 }, { count, tag })
+        local d = chunk(wide, wide.files[1], { exceptions = { ["collided name"] = { 0, 0, 12, 3 }, [first.key] = false } })
+        assert.are.same({ 0, 0, 12, 3 }, ns.PackedLookup(d, "collided name", 0))
         assert.is_nil(ns.PackedLookup(d, first.key, fp))
         local bare = chunk(wide, wide.files[1])
         bare.exceptions = nil -- no exceptions table at all
-        assert.is_number((ns.PackedLookup(bare, first.key, fp)))
+        assert.is_table(ns.PackedLookup(bare, first.key, fp))
     end)
 
     it("answers nothing before the first block or from an empty chunk", function()
         local d = chunk(wide, wide.files[1], { index = { 2 ^ 52 - 1, 0 } })
         assert.is_nil(ns.PackedLookup(d, "nobody here", 5))
-        assert.is_nil(ns.PackedLookup(chunk(wide, wide.files[1], { index = {}, entries = 0, palette = {}, data = "" }), "anyone", 5))
+        assert.is_nil(ns.PackedLookup(chunk(wide, wide.files[1], { index = {}, entries = 0, palettes = { {}, {}, {}, {} }, data = "" }), "anyone", 5))
     end)
 
     it("ends a search on corrupt data instead of failing", function()
         local first = wide.lookups[1]
         local fp = ns.Fingerprint(first.key, wide.bits)
-        -- One symbol of length 2: a stream of 1 bits never matches its code 00.
-        assert.is_nil(ns.PackedLookup(chunk(wide, wide.files[1], { palette = { 5, 0, 2 }, data = string.rep("\255", 4096) }), first.key, fp))
+        -- Fun's one symbol has length 2: a stream of 1 bits never matches its code 00.
+        local palettes = { { 5, 2 }, { 0, 1 }, { 0, 1 }, { 0, 1 } }
+        assert.is_nil(ns.PackedLookup(chunk(wide, wide.files[1], { palettes = palettes, data = string.rep("\255", 4096) }), first.key, fp))
         -- Truncated: past the end reads zeros, which still decode to something, and the search stops.
-        local count = ns.PackedLookup(chunk(wide, wide.files[1], { data = "" }), first.key, fp)
-        assert.is_true(count == nil or type(count) == "number")
+        local counts = ns.PackedLookup(chunk(wide, wide.files[1], { data = "" }), first.key, fp)
+        assert.is_true(counts == nil or type(counts) == "table")
     end)
 
-    it("refuses a file that lacks its fields, and format 1, which was never released", function()
+    it("refuses a file that lacks its fields, format 1, which was never released, and format 2, one count each", function()
         local file = wide.files[1]
-        assert.is_false(LFGPlus_RegisterData({ format = 2, gameVersion = 40, region = 1, entries = {} }))
-        for _, field in ipairs({ "data", "index", "palette", "k", "entries", "players" }) do
+        assert.is_false(LFGPlus_RegisterData({ format = 3, gameVersion = 40, region = 1, entries = {} }))
+        for _, field in ipairs({ "data", "index", "palettes", "k", "entries", "players" }) do
             assert.is_false(LFGPlus_RegisterData(chunk(wide, file, { [field] = true })), field)
+        end
+        for missing = 1, 4 do -- a palette for every tag
+            local palettes = { {}, {}, {}, {} }
+            palettes[missing] = nil
+            assert.is_false(LFGPlus_RegisterData(chunk(wide, file, { palettes = palettes })), "palette " .. missing)
         end
         assert.is_false(LFGPlus_RegisterData(chunk(wide, file, { format = 1 })))
         assert.are.equal("Data: none (format 1).", ns.DataStatusLine())
+        assert.is_false(LFGPlus_RegisterData(chunk(wide, file, { format = 2 })))
+        assert.are.equal("Data: none (format 2).", ns.DataStatusLine())
         assert.is_nil(ns.data)
     end)
 

@@ -17,6 +17,20 @@ describe("the addon in a fake client", function()
 
     after_each(function() _G.LFGPlusDB = nil end)
 
+    -- The LFG+ block of a player in the development data add-on, as world.texts reads it.
+    local BRIGHT_MEND = { "LFG+ Endorsements:", "Fun 5", "Skilled 12", "Helpful 6", "Leader 4" }
+    local MIDDLE_FOOT = { "LFG+ Endorsements:", "Fun 30", "Skilled 6", "Helpful 4", "Leader 2" }
+    local SIR_ROCKY = { "LFG+ Endorsements:", "Fun 20", "Skilled 31", "Helpful 30", "Leader 50" }
+    local SIR_PEBBLES = { "LFG+ Endorsements:", "Fun 2", "Skilled 2", "Helpful 1", "Leader 1" }
+    local MOSS_BEARD = { "LFG+ Endorsements:", "Fun 10", "Skilled 20", "Helpful 13", "Leader 40" }
+    --- A block with lines before or after it.
+    local function with(before, block, after)
+        local t = { before }
+        for _, line in ipairs(block) do t[#t + 1] = line end
+        t[#t + 1] = after
+        return t
+    end
+
     it("loads every file in TOC order and greets the player once", function()
         local world, ns = boot({ interface = 120105, units = { player = { name = "Kaelwyn", realm = "Whitemane" } } })
         assert.are.equal(ns.GameVersions.RETAIL, ns.gameVersion)
@@ -54,17 +68,20 @@ describe("the addon in a fake client", function()
         assert.are.equal(0, #world.hover("target"))
     end)
 
-    it("adds a green line for a known player and a grey one for everyone else", function()
+    it("adds a green header and a row per tag for a known player, and a grey line for everyone else", function()
         local world = boot({ units = {
             player = { name = "Kaelwyn", realm = "Stone" },
             mouseover = { name = "Bright", realm = "Mend" },
             target = { name = "Stranger", realm = "Danger" },
         } })
         local known = world.hover("mouseover")
-        assert.are.equal("LFG+ Endorsed by 27 \194\183 Calm", known[1].text)
+        assert.are.same(BRIGHT_MEND, world.texts(known))
         assert.are.equal(1.0, known[1].g)
+        assert.are.same({ 1, 1, 1 }, { known[2].r, known[2].g, known[2].b }) -- the tag's name in white
+        assert.are.same({ 0.118, 1.0, 0.0 }, { known[2].rr, known[2].rg, known[2].rb }) -- its count in green
         local unknown = world.hover("target")
-        assert.are.equal("LFG+ No endorsements yet", unknown[1].text)
+        assert.are.same({ "LFG+ No endorsements yet" }, world.texts(unknown))
+        assert.are.equal(0.616, unknown[1].g)
     end)
 
     it("adds nothing, and never errors, when the client hides unit names (Midnight secret values)", function()
@@ -80,9 +97,9 @@ describe("the addon in a fake client", function()
             mouseover = { name = "Sir", realm = "Rocky" },
             target = { name = "Sir", realm = "Pebbles" },
         } })
-        assert.are.equal("LFG+ Endorsed by 42 \194\183 Fun", world.hover("player")[1].text)
-        assert.are.equal("LFG+ Endorsed by 131 \194\183 Leader", world.hover("mouseover")[1].text)
-        assert.are.equal("LFG+ Endorsed by 6", world.hover("target")[1].text)
+        assert.are.same(MIDDLE_FOOT, world.texts(world.hover("player")))
+        assert.are.same(SIR_ROCKY, world.texts(world.hover("mouseover")))
+        assert.are.same(SIR_PEBBLES, world.texts(world.hover("target")))
     end)
 
     it("adds what you endorsed someone as under their line, and alone when there's no data add-on", function()
@@ -92,9 +109,8 @@ describe("the addon in a fake client", function()
         ns.db.endorsed[ns.UnitIdentity("mouseover").key] = { at = 1, tags = 4 }
         ns.db.endorsed[ns.UnitIdentity("target").key] = { at = 1, tags = 1 }
         local known = world.hover("mouseover")
-        assert.are.equal("LFG+ Endorsed by 27 \194\183 Calm", known[1].text)
-        assert.are.equal("You endorsed them \194\183 Helpful", known[2].text)
-        assert.are.equal(1.0, known[2].g)
+        assert.are.same(with(nil, BRIGHT_MEND, "You endorsed them \194\183 Helpful"), world.texts(known))
+        assert.are.equal(1.0, known[6].g)
         local unknown = world.hover("target")
         assert.are.equal("LFG+ No endorsements yet", unknown[1].text)
         assert.are.equal("You endorsed them \194\183 Fun", unknown[2].text)
@@ -152,7 +168,7 @@ describe("the addon in a fake client", function()
     it("hooks GameTooltip on clients without TooltipDataProcessor, and adds nothing to other tooltips", function()
         local units = { player = { name = "Kaelwyn", realm = "Stone" }, mouseover = { name = "Bright", realm = "Mend" } }
         local world = boot({ tooltipApi = "hookscript", units = units })
-        assert.are.equal("LFG+ Endorsed by 27 \194\183 Calm", world.hover("mouseover")[1].text)
+        assert.are.same(BRIGHT_MEND, world.texts(world.hover("mouseover")))
         local other = { lines = {} } -- a second tooltip (a comparison tooltip, say) showing the same unit
         function other:GetUnit() return "x", "mouseover" end
         function other:AddLine(text) table.insert(self.lines, text) end
@@ -180,7 +196,7 @@ describe("the addon in a fake client", function()
         local listed = false
         for _, line in ipairs(world.chat) do if line:find("from 2026-11-07. LFG+ data is 9 days old.", 1, true) then listed = true end end
         assert.is_true(listed)
-        assert.are.equal("LFG+ Endorsed by 27 \194\183 Calm", world.hover("mouseover")[1].text) -- still shown
+        assert.are.same(BRIGHT_MEND, world.texts(world.hover("mouseover"))) -- still shown
         -- The day arithmetic, leap days included, and data without a usable day.
         assert.are.same({ 0, 11017, 19782, 20103, 20764 }, { ns.DayNumber("1970-01-01"), ns.DayNumber("2000-03-01"),
             ns.DayNumber("2024-02-29"), ns.DayNumber("2025-01-15"), ns.DayNumber("2026-11-07") })
@@ -208,7 +224,7 @@ describe("the addon in a fake client", function()
         assert.are.equal("Data: the data add-on couldn't be loaded (NO_API). Install it again from lfg.plus/addon.", none.DataStatusLine())
     end)
 
-    it("adds the LFG+ line to the group finder's listing and applicant tooltips, by name", function()
+    it("adds the LFG+ block to the group finder's listing and applicant tooltips, by name", function()
         local units = { player = { name = "Kaelwyn", realm = "Stone" } }
         local world, ns = boot({ groupFinder = "retail", units = units })
         world.listings[7] = { leaderName = "Bright Mend" }
@@ -218,20 +234,18 @@ describe("the addon in a fake client", function()
         local function shown(fn, ...)
             world.tooltip.lines = {}
             fn(...)
-            local texts = {}
-            for _, l in ipairs(world.tooltip.lines) do texts[#texts + 1] = l.text end
-            return texts
+            return world.texts(world.tooltip.lines)
         end
-        assert.are.same({ "Listing 7", "LFG+ Endorsed by 27 \194\183 Calm" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 7))
+        assert.are.same(with("Listing 7", BRIGHT_MEND), shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 7))
         assert.are.same({ "Listing 8", "LFG+ No endorsements yet" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 8))
         assert.are.same({ "Listing 9" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 9))
         assert.are.same({ "Listing 10" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 10)) -- no such listing
         local member = { memberIdx = 1, GetParent = function() return { applicantID = 3 } end }
-        assert.are.same({ "Applicant", "LFG+ Endorsed by 131 \194\183 Leader" }, shown(LFGListApplicantMember_OnEnter, member))
+        assert.are.same(with("Applicant", SIR_ROCKY), shown(LFGListApplicantMember_OnEnter, member))
         assert.are.same({ "Applicant" }, shown(LFGListApplicantMember_OnEnter, {})) -- not a member frame: no line, no error
         -- Hooked once, however often add-ons load.
         world.fire("ADDON_LOADED", "Blizzard_GroupFinder")
-        assert.are.same({ "Listing 7", "LFG+ Endorsed by 27 \194\183 Calm" }, shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 7))
+        assert.are.same(with("Listing 7", BRIGHT_MEND), shown(LFGListUtil_SetSearchEntryTooltip, world.tooltip, 7))
         local hooks = 0
         for _, e in ipairs(LFGPlusLog.entries) do if e.m:find("added the LFG+ line to the group finder's", 1, true) then hooks = hooks + 1 end end
         assert.are.equal(2, hooks)
@@ -245,7 +259,7 @@ describe("the addon in a fake client", function()
         world.fire("ADDON_LOADED", "Blizzard_LookingForGroup")
         world.tooltip.lines = {}
         LFGBrowseSearchEntryTooltip_UpdateAndShow(world.tooltip, 1)
-        assert.are.equal("LFG+ Endorsed by 83 \194\183 Leader", world.tooltip.lines[2].text)
+        assert.are.same(with("Listing 1", MOSS_BEARD), world.texts(world.tooltip.lines))
         local bare = boot({ groupFinder = "classic", units = units, without = { "hooksecurefunc" } })
         bare.tooltip.lines = {}
         LFGBrowseSearchEntryTooltip_UpdateAndShow(bare.tooltip, 1)

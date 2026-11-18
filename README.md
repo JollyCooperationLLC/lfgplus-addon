@@ -5,16 +5,20 @@ the people you enjoyed grouping with after a run.
 
 ## Overview
 
-Hover over a player and LFG+ adds one line under their name:
+Hover over a player and LFG+ adds a few lines under their name:
 
 ```
-LFG+ Endorsed by 27 · Calm
+LFG+ Endorsements:
+  Fun          34
+  Skilled     100
+  Helpful      23
+  Leader       55
 ```
 
-That's how many players endorsed them, and what they're known for most. Someone nobody has endorsed yet reads
-`LFG+ No endorsements yet`. Players you endorsed yourself also show `You endorsed them`, with the tag you picked.
+Each tag has its icon, and its number is how many times players endorsed them for it. Someone nobody has endorsed yet
+reads `LFG+ No endorsements yet`. Players you endorsed yourself also show `You endorsed them`, with the tag you picked.
 
-The same line shows on applicants to your group and on listings in the group finder, so you can see who you're about
+The same lines show on applicants to your group and on listings in the group finder, so you can see who you're about
 to run with.
 
 ## Endorsing
@@ -25,12 +29,15 @@ run with again, click what they did best:
 | Tag | Meaning |
 |---|---|
 | **Fun** | Good company. They made the run a good time. |
-| **Calm** | No stress, even when it went wrong. |
+| **Skilled** | Knew their role and played it really well. |
 | **Helpful** | Went out of their way for someone: explained a fight, summoned, crafted, carried. |
 | **Leader** | Kept the group organised: set the pace, marked, made the calls. |
 
 You can also endorse anyone nearby: right-click their portrait or party or raid frame and choose **Endorse**, or
-target them and type `/endorse fun` (or `calm`, `helpful`, `leader`).
+target them and type `/endorse fun` (or `skilled`, `helpful`, `leader`).
+
+The same right-click menu has **Copy LFG+ URL**: it shows the player's profile address on lfg.plus, selected, ready
+for Ctrl+C.
 
 A few things to know:
 
@@ -42,7 +49,7 @@ A few things to know:
   the other player, but doesn't count on the site. It's for when you'd rather not.
 - **A thank-you whisper, if you like.** Turn it on with `/lfgplus thanks` or in the settings, and whoever you
   endorse gets a short, friendly whisper for what they did, like
-  `[LFG.plus] Thanks for keeping your cool, even when things went sideways. I endorsed you as Calm.` It's off until
+  `[LFG.plus] Thanks for playing your role so well, you made it look easy. I endorsed you as Skilled.` It's off until
   you turn it on.
 - **Nothing is sent in combat.** Messages wait until combat or the boss encounter ends.
 
@@ -70,7 +77,7 @@ LFG+ loads in Retail, Classic Era, Mists of Pandaria Classic and WoW Forever.
 | `/lfgplus help` | Status and the command list |
 | `/lfgplus settings`, `/lfgplus minimap` | Open the Settings tab; show or hide the minimap button |
 | `/lfgplus setup` | Paste the setup code from lfg.plus (a dialog, so it never sits in chat history) |
-| `/endorse fun\|calm\|helpful\|leader [quiet]` | Endorse your target (a tag is required). Or right-click a player's portrait or party/raid frame and choose **Endorse** |
+| `/endorse fun\|skilled\|helpful\|leader [quiet]` | Endorse your target (a tag is required). Or right-click a player's portrait or party/raid frame and choose **Endorse** |
 | `/lfgplus group` | Open the endorse window for your current group (without finishing a run) |
 | `/lfgplus upload` | The upload box: copy every record, paste on lfg.plus/upload (in parts of 500 when there are more), then press **I uploaded these** |
 | `/lfgplus records` | How many records are waiting to be uploaded |

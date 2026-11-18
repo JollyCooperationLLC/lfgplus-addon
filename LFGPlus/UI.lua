@@ -139,13 +139,7 @@ local ROW_HEIGHT = 26
 -- One button per tag (Format.lua), in display order. No plain Endorse button: every endorsement has a tag.
 local TAG_BUTTONS = { 1, 2, 4, 8 }
 
--- Each tag's icon: the website's drawings rasterized to white 32px textures, tinted like the button's label.
-ns.TAG_ICONS = {
-    [1] = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Fun",
-    [2] = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Calm",
-    [4] = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Helpful",
-    [8] = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Leader",
-}
+-- Each button shows its tag's icon (ns.TAG_ICONS, Format.lua), tinted like the button's label.
 local LABEL_GOLD = { 1, 0.82, 0 } -- GameFontNormal, the panel button's label colour
 
 --- A prompt button for one tag: its icon on the left, the label beside it.
@@ -347,7 +341,7 @@ local function showNextToast()
     end))
 end
 
---- "Corvina Ashby endorsed you · Calm · Blackrock Depths". Identical for real and quiet records.
+--- "Corvina Ashby endorsed you · Skilled · Blackrock Depths". Identical for real and quiet records.
 function ns.EndorsedToastText(rec)
     local parts = { rec.endorser.name .. " endorsed you", ns.TagText(rec.tags) }
     local place = placeName(rec.locationKind, rec.locationId)

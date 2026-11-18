@@ -1,20 +1,27 @@
 local loader = require("test.helpers.load_addon")
 
-describe("FormatTooltipLine", function()
+describe("FormatTooltipRows", function()
     local ns = loader.load({ "Format.lua" })
+    local media = "Interface\\AddOns\\LFGPlus\\Media\\"
 
-    it("matches the site's tooltip preview", function()
-        assert.are.equal("LFG+ Endorsed by 27 \194\183 Calm", ns.FormatTooltipLine(27, 2))
-        assert.are.equal("LFG+ Endorsed by 83 \194\183 Leader", ns.FormatTooltipLine(83, 8))
+    it("matches the site's tooltip preview: a row per tag, in tag order, each with its icon and count", function()
+        assert.are.equal("LFG+ Endorsements:", ns.TOOLTIP_HEADER)
+        assert.are.same({
+            { "|T" .. media .. "Tag-Fun:14:14|t Fun", "34" },
+            { "|T" .. media .. "Tag-Skilled:14:14|t Skilled", "100" },
+            { "|T" .. media .. "Tag-Helpful:14:14|t Helpful", "23" },
+            { "|T" .. media .. "Tag-Leader:14:14|t Leader", "55" },
+        }, ns.FormatTooltipRows({ 34, 100, 23, 55 }))
     end)
 
-    it("leaves the tag out when the data has none", function()
-        assert.are.equal("LFG+ Endorsed by 5", ns.FormatTooltipLine(5, 0))
-        assert.are.equal("LFG+ Endorsed by 5", ns.FormatTooltipLine(5, nil))
+    it("leaves out a tag nobody picked, and a count the data lacks", function()
+        assert.are.same({ { "|T" .. media .. "Tag-Skilled:14:14|t Skilled", "6" } }, ns.FormatTooltipRows({ 0, 6 }))
+        local rows = ns.FormatTooltipRows({ 3, 0, 0, 9 })
+        assert.are.same({ "3", "9" }, { rows[1][2], rows[2][2] })
     end)
 
     it("says so when there is nothing to show", function()
-        assert.are.equal("LFG+ No endorsements yet", ns.FormatTooltipLine(nil))
+        assert.are.equal("LFG+ No endorsements yet", ns.TOOLTIP_NONE)
     end)
 end)
 
@@ -22,7 +29,7 @@ describe("FormatYouEndorsedLine", function()
     local ns = loader.load({ "Format.lua" })
 
     it("names the tag you gave, with the LFG+ prefix only when it stands alone", function()
-        assert.are.equal("You endorsed them \194\183 Calm", ns.FormatYouEndorsedLine(2, false))
+        assert.are.equal("You endorsed them \194\183 Skilled", ns.FormatYouEndorsedLine(2, false))
         assert.are.equal("LFG+ You endorsed them \194\183 Leader", ns.FormatYouEndorsedLine(8, true))
         assert.are.equal("You endorsed them", ns.FormatYouEndorsedLine(16, false))
     end)
@@ -43,7 +50,7 @@ describe("TagText", function()
 
     it("names each tag bit, and several in display order", function()
         assert.are.equal("Fun", ns.TagText(1))
-        assert.are.equal("Calm", ns.TagText(2))
+        assert.are.equal("Skilled", ns.TagText(2))
         assert.are.equal("Helpful", ns.TagText(4))
         assert.are.equal("Leader", ns.TagText(8))
         assert.are.equal("Fun \194\183 Helpful \194\183 Leader", ns.TagText(13))
@@ -119,22 +126,18 @@ describe("LookupCharacter", function()
     end)
     local function id(name) return { name = name, realm = "", key = ns.CharacterKey(name, "") } end
 
-    it("finds characters in the data add-on by their key", function()
-        local count, tag = ns.LookupCharacter(id("Bright Mend"))
-        assert.are.equal(27, count)
-        assert.are.equal(2, tag)
+    it("finds characters in the data add-on by their key: four counts, Fun, Skilled, Helpful and Leader", function()
+        assert.are.same({ 5, 12, 6, 4 }, ns.LookupCharacter(id("Bright Mend")))
         assert.is_nil(ns.LookupCharacter(id("Nobody")))
         assert.is_nil(ns.LookupCharacter(nil, false))
     end)
 
     it("matches WoW Forever full names, ignoring case and extra spacing, and non-ASCII names", function()
-        assert.are.equal(42, (ns.LookupCharacter(id("Middle Foot"))))
-        assert.are.equal(17, (ns.LookupCharacter(id("left foot"))))
-        assert.are.equal(131, (ns.LookupCharacter(id("  Sir   Rocky "))))
-        assert.are.equal(6, (ns.LookupCharacter(id("Sölving Problems"))))
-        local count, tag = ns.LookupCharacter(id("Sir Pebbles"))
-        assert.are.equal(6, count)
-        assert.are.equal(0, tag)
+        assert.are.same({ 30, 6, 4, 2 }, ns.LookupCharacter(id("Middle Foot")))
+        assert.are.same({ 3, 10, 2, 2 }, ns.LookupCharacter(id("left foot")))
+        assert.are.same({ 20, 31, 30, 50 }, ns.LookupCharacter(id("  Sir   Rocky ")))
+        assert.are.same({ 0, 6, 0, 0 }, ns.LookupCharacter(id("Sölving Problems")))
+        assert.are.same({ 2, 2, 1, 1 }, ns.LookupCharacter(id("Sir Pebbles")))
     end)
 end)
 
@@ -154,7 +157,7 @@ describe("LFGPlus_RegisterData", function()
     end)
 
     it("refuses an unknown format, or data for another game version or region", function()
-        assert.is_false(LFGPlus_RegisterData({ format = 3, gameVersion = 40, region = 1, entries = {} }))
+        assert.is_false(LFGPlus_RegisterData({ format = 4, gameVersion = 40, region = 1, entries = {} }))
         assert.are.equal("unsupported", ns.dataStatus.state)
         assert.is_false(LFGPlus_RegisterData({ format = 0, gameVersion = 30, region = 1, entries = {} }))
         assert.is_false(LFGPlus_RegisterData({ format = 0, gameVersion = 40, region = 2, entries = {} }))

@@ -18,7 +18,7 @@ local function help()
     ns.Print("  /lfgplus minimap - show or hide the minimap button")
     ns.Print("  /lfgplus reset - delete everything LFG+ keeps on this account")
     ns.Print("  /lfgplus log [count|clear], /lfgplus debug, /lfgplus diag - for troubleshooting")
-    ns.Print("  /endorse fun|calm|helpful|leader [quiet] - endorse your target")
+    ns.Print("  /endorse fun|skilled|helpful|leader [quiet] - endorse your target")
 end
 
 -- The setup code goes in a dialog, not on the command line, so it never sits in the chat edit box's history.
@@ -36,6 +36,23 @@ local function acceptSetup(dialog)
 end
 
 if StaticPopupDialogs then
+    -- A profile's address, selected, to copy: an addon can't write to the clipboard, so the player presses Ctrl+C.
+    StaticPopupDialogs.LFGPLUS_COPY_URL = {
+        text = "Press Ctrl+C to copy the LFG+ link:",
+        button1 = CLOSE or "Close",
+        hasEditBox = true,
+        editBoxWidth = 320,
+        OnShow = function(dialog, url)
+            local box = dialogEditBox(dialog)
+            if box then box:SetText(url); box:HighlightText(); box:SetFocus() end
+        end,
+        EditBoxOnEnterPressed = function(box) box:GetParent():Hide() end,
+        EditBoxOnEscapePressed = function(box) box:GetParent():Hide() end,
+        timeout = 0,
+        whileDead = true,
+        hideOnEscape = true,
+        preferredIndex = 3,
+    }
     StaticPopupDialogs.LFGPLUS_SETUP = {
         text = "Paste the setup code from your account page on lfg.plus:",
         button1 = ACCEPT or "Accept",
@@ -153,7 +170,7 @@ local function lfgplus(input)
     end
 end
 
-local TAG_WORDS = { fun = 1, calm = 2, helpful = 4, help = 4, leader = 8, lead = 8 }
+local TAG_WORDS = { fun = 1, skilled = 2, helpful = 4, help = 4, leader = 8, lead = 8 }
 
 --- Reads /endorse arguments: a tag word and an optional "quiet". Returns tag (nil when none was given, and
 -- ns.Endorse then explains), quiet.

@@ -337,6 +337,9 @@ function M.install(options)
     world.tooltip = { lines = {}, unit = nil }
     function world.tooltip:GetUnit() return "x", self.unit end
     function world.tooltip:AddLine(text, r, g, b) table.insert(self.lines, { text = text, r = r, g = g, b = b }) end
+    function world.tooltip:AddDoubleLine(left, right, r, g, b, rr, rg, rb)
+        table.insert(self.lines, { text = left, right = right, r = r, g = g, b = b, rr = rr, rg = rg, rb = rb })
+    end
     function world.tooltip:Show() end
     world.tooltipScripts = {}
     if options.tooltipApi == "hookscript" then
@@ -385,6 +388,16 @@ function M.install(options)
     function world.toggle(frame)
         frame.checked = not frame.checked
         assert(frame.scripts.OnClick, "check button has no OnClick")(frame, "LeftButton")
+    end
+
+    --- Tooltip lines as a player reads them: textures left out, a double line's two sides joined by a space.
+    function world.texts(lines)
+        local texts = {}
+        for i, l in ipairs(lines) do
+            local text = l.text:gsub("|T[^|]*|t ", "")
+            texts[i] = l.right and (text .. " " .. l.right) or text
+        end
+        return texts
     end
 
     --- Shows the tooltip for a unit and returns the lines the addon added.

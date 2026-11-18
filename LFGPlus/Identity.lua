@@ -12,6 +12,30 @@ local _, ns = ...
 local REGION_BY_CLIENT = { [1] = 1, [2] = 3, [3] = 2, [4] = 4 }
 ns.REGION_CODES = { [1] = "us", [2] = "eu", [3] = "kr", [4] = "tw" }
 
+-- Each game version's site on lfg.plus, for a character's profile link. A version with no site gets no link.
+local SITE_HOSTS = { [10] = "lfg.plus", [20] = "classic.lfg.plus", [30] = "era.lfg.plus", [40] = "forever.lfg.plus" }
+
+--- One path segment, percent-encoded byte by byte: letters, digits and - . _ ~ stay; every other byte (spaces, and each
+-- byte of a non-ASCII letter) becomes %XX.
+local function urlPart(text)
+    return (text:gsub("[^%w%-%._~]", function(c) return ("%%%02X"):format(c:byte()) end))
+end
+
+--- A character's profile on lfg.plus: https://forever.lfg.plus/us/first-surname on WoW Forever, and
+-- https://lfg.plus/us/<realm>/<name> on a realm version, with the realm as the game spells it (the site knows every
+-- spelling and moves to its own address). nil where there's no site for the version, the region is unknown, or a realm
+-- version's character has no realm.
+function ns.ProfileUrl(identity, gameVersion, regionId)
+    local host, region = SITE_HOSTS[gameVersion or 0], ns.REGION_CODES[regionId or 0]
+    if not host or not region then return nil end
+    local name = identity.name:lower()
+    if gameVersion == ns.GameVersions.FOREVER then
+        return ("https://%s/%s/%s"):format(host, region, urlPart((name:gsub(" ", "-"))))
+    end
+    if (identity.realm or "") == "" then return nil end
+    return ("https://%s/%s/%s/%s"):format(host, region, urlPart(identity.realm), urlPart(name))
+end
+
 --- Our region number, or nil where LFG+ doesn't run (China, or an unknown value).
 function ns.RegionId()
     local client = GetCurrentRegion and GetCurrentRegion()

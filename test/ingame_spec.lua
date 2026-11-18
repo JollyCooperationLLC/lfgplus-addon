@@ -40,8 +40,8 @@ describe("in a WoW Forever client", function()
         return false
     end
 
-    local function calmButton()
-        for _, f in ipairs(world.frames) do if f.text == "Calm" and f.scripts.OnClick then return f end end
+    local function skilledButton()
+        for _, f in ipairs(world.frames) do if f.text == "Skilled" and f.scripts.OnClick then return f end end
     end
 
     after_each(function()
@@ -143,21 +143,21 @@ describe("in a WoW Forever client", function()
     it("sends an endorsement request when a prompt button is clicked", function()
         boot({ saved = { setupCode = codes.valid[2].input } })
         SlashCmdList.LFGPLUS("group")
-        local calm
-        for _, f in ipairs(world.frames) do if f.text == "Calm" and f.scripts.OnClick then calm = f; break end end
-        assert.is_table(calm)
+        local skilled
+        for _, f in ipairs(world.frames) do if f.text == "Skilled" and f.scripts.OnClick then skilled = f; break end end
+        assert.is_table(skilled)
         -- Every tag button carries its icon, tinted like its label, with the label beside it.
         local icons = {}
         for _, f in ipairs(world.frames) do
             if f.tag and f.icon then icons[f.text] = f.icon.texture end
         end
         assert.are.same({
-            Fun = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Fun", Calm = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Calm",
+            Fun = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Fun", Skilled = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Skilled",
             Helpful = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Helpful", Leader = "Interface\\AddOns\\LFGPlus\\Media\\Tag-Leader",
         }, icons)
-        assert.are.same({ 1, 0.82, 0 }, calm.icon.vertexColor)
-        assert.are.equal(calm.icon, calm:GetFontString().point[2])
-        calm.scripts.OnClick(calm)
+        assert.are.same({ 1, 0.82, 0 }, skilled.icon.vertexColor)
+        assert.are.equal(skilled.icon, skilled:GetFontString().point[2])
+        skilled.scripts.OnClick(skilled)
         assert.are.equal(1, #world.sent)
         assert.are.equal("LFGPLUS", world.sent[1].prefix)
         assert.are.equal("WHISPER", world.sent[1].channel)
@@ -172,16 +172,15 @@ describe("in a WoW Forever client", function()
         boot({ saved = { setupCode = codes.valid[2].input } })
         for _, tag in ipairs(ns.UNIT_MENUS) do assert.are.equal(1, #world.menus[tag]) end
         local entries = world.openMenu("MENU_UNIT_PARTY", { unit = "party1", which = "PARTY" })
-        assert.are.same({ "divider", "title", "button" }, { entries[1].kind, entries[2].kind, entries[3].kind })
-        assert.are.equal("LFG+", entries[2].text)
-        assert.are.equal("Endorse", entries[3].text)
+        assert.are.same({ "divider", "title", "button", "button" }, { entries[1].kind, entries[2].kind, entries[3].kind, entries[4].kind })
+        assert.are.same({ "LFG+", "Endorse", "Copy LFG+ URL" }, { entries[2].text, entries[3].text, entries[4].text })
         entries[3].click()
         local popup = ns.EndorsePopup()
         assert.is_true(popup.shown)
         assert.are.equal("Endorse Corvina Ashby", popup.title.text)
-        local calm = popup.buttons[2]
-        assert.are.equal("Calm", calm.text)
-        calm.scripts.OnClick(calm)
+        local skilled = popup.buttons[2]
+        assert.are.equal("Skilled", skilled.text)
+        skilled.scripts.OnClick(skilled)
         assert.are.equal("Corvina Ashby", world.sent[1].target)
         assert.are.equal("Q:", world.sent[1].message:sub(1, 2))
         assert.is_false(popup.shown) -- closes at once: the handshake carries on out of sight
@@ -193,9 +192,35 @@ describe("in a WoW Forever client", function()
         assert.is_true(popup.shown)
     end)
 
-    it("leaves the menu alone for yourself, for no unit, and for names without a unit", function()
+    it("offers its profile link, selected to copy, and lets the player close it", function()
         boot({})
+        local entries = world.openMenu("MENU_UNIT_PARTY", { unit = "party1" })
+        entries[4].click()
+        assert.are.equal("LFGPLUS_COPY_URL", world.popups[#world.popups])
+        local url = world.popupArgs[#world.popupArgs].data
+        assert.are.equal("https://forever.lfg.plus/us/corvina-ashby", url)
+        -- The dialog: the link in its box, selected and focused; Enter or Escape closes it.
+        local dialog = StaticPopupDialogs.LFGPLUS_COPY_URL
+        local box = { SetText = function(self, t) self.text = t end, HighlightText = function(self) self.selected = true end, SetFocus = function(self) self.focused = true end }
+        dialog.OnShow({ editBox = box }, url)
+        assert.are.same({ url, true, true }, { box.text, box.selected, box.focused })
+        dialog.OnShow({}, url) -- a client whose dialog has no edit box: nothing to fill
+        for _, key in ipairs({ "EditBoxOnEnterPressed", "EditBoxOnEscapePressed" }) do
+            local hidden = false
+            dialog[key]({ GetParent = function() return { Hide = function() hidden = true end } end })
+            assert.is_true(hidden)
+        end
+    end)
+
+    it("offers only the link for yourself, and leaves the menu alone without a unit or a link", function()
+        boot({})
+        local mine = world.openMenu("MENU_UNIT_PLAYER", { unit = "player" })
+        assert.are.same({ "LFG+", "Copy LFG+ URL" }, { mine[2].text, mine[3].text })
+        assert.are.equal(3, #mine)
+        boot({ clientRegion = 5 }) -- no region, so no link; and nobody to endorse in yourself
         assert.are.same({}, world.openMenu("MENU_UNIT_PLAYER", { unit = "player" }))
+        local noLink = world.openMenu("MENU_UNIT_PARTY", { unit = "party1" }) -- someone to endorse, but no link to copy
+        assert.are.same({ 3, "Endorse" }, { #noLink, noLink[3].text })
         assert.are.same({}, world.openMenu("MENU_UNIT_PLAYER", { unit = "target" })) -- nothing targeted
         assert.are.same({}, world.openMenu("MENU_UNIT_PLAYER", { name = "Corvina", server = "Ashby" }))
         assert.are.same({}, world.openMenu("MENU_UNIT_PLAYER", nil))
@@ -221,10 +246,11 @@ describe("in a WoW Forever client", function()
         local corvina = ns.UnitIdentity("party1")
         -- Unconfirmed: the menu still offers to replace it, but the prompt doesn't ask again.
         ns.db.endorsed[corvina.key] = { at = 1, tags = 2, proven = false }
-        assert.are.equal(3, #world.openMenu("MENU_UNIT_PARTY", { unit = "party1" }))
+        assert.are.equal(4, #world.openMenu("MENU_UNIT_PARTY", { unit = "party1" }))
         ns.db.endorsed[corvina.key] = { at = 1, tags = 2, proven = true }
-        assert.are.same({}, world.openMenu("MENU_UNIT_PARTY", { unit = "party1" }))
-        assert.are.equal(3, #world.openMenu("MENU_UNIT_PARTY", { unit = "party2" }))
+        local confirmed = world.openMenu("MENU_UNIT_PARTY", { unit = "party1" }) -- no Endorse; the link stays
+        assert.are.same({ 3, "Copy LFG+ URL" }, { #confirmed, confirmed[3].text })
+        assert.are.equal(4, #world.openMenu("MENU_UNIT_PARTY", { unit = "party2" }))
         ns.ShowGroupPrompt()
         local prompt = frame("LFGPlusPromptFrame")
         assert.are.equal("Sir Rocky", prompt.rows[1].identity.name)
@@ -249,11 +275,11 @@ describe("in a WoW Forever client", function()
 
     it("shows a toast and plays a sound when someone endorses you, and puts the record in the upload box", function()
         boot({ saved = { setupCode = codes.valid[2].input } })
-        local bytes = ns.RecordFromText(records.cases[1].realText) -- Corvina Ashby endorsed Middle Foot, Calm, BRD
+        local bytes = ns.RecordFromText(records.cases[1].realText) -- Corvina Ashby endorsed Middle Foot, Skilled, BRD
         world.fire("CHAT_MSG_ADDON", "LFGPLUS", "R:" .. ns.ToBase64Url(bytes), "WHISPER", "Corvina Ashby")
         local toast = frame("LFGPlusToast")
         assert.truthy(toast.shown)
-        assert.truthy(toast.text.text:find("Corvina Ashby endorsed you \194\183 Calm", 1, true))
+        assert.truthy(toast.text.text:find("Corvina Ashby endorsed you \194\183 Skilled", 1, true))
         assert.are.equal(1, #world.sounds)
         SlashCmdList.LFGPLUS("upload")
         local upload = frame("LFGPlusUploadFrame")
@@ -320,7 +346,7 @@ describe("in a WoW Forever client", function()
     it("sends a finished record to the party as well, and ignores it coming back", function()
         boot({ saved = { setupCode = codes.valid[2].input, debug = true } }) -- debug: received messages are logged
         SlashCmdList.LFGPLUS("group")
-        calmButton().scripts.OnClick(calmButton())
+        skilledButton().scripts.OnClick(skilledButton())
         world.advance(16) -- no ack: finishes unproven
         local kinds = {}
         for _, m in ipairs(world.sent) do kinds[#kinds + 1] = m.message:sub(1, 2) .. " " .. m.channel .. " " .. tostring(m.target) end
@@ -510,12 +536,12 @@ describe("in a WoW Forever client", function()
     it("sends through an older client's global addon-message API, and logs it when the client has none", function()
         boot({ addonMessageApi = "global", saved = { setupCode = codes.valid[2].input } })
         SlashCmdList.LFGPLUS("group")
-        calmButton().scripts.OnClick(calmButton())
+        skilledButton().scripts.OnClick(skilledButton())
         assert.are.equal("WHISPER", world.sent[1].channel)
         assert.are.equal("Corvina Ashby", world.sent[1].target)
         boot({ addonMessageApi = "none", saved = { setupCode = codes.valid[2].input } })
         SlashCmdList.LFGPLUS("group")
-        calmButton().scripts.OnClick(calmButton())
+        skilledButton().scripts.OnClick(skilledButton())
         assert.are.equal(0, #world.sent)
         assert.truthy(logHas("result no-api"))
     end)
@@ -524,7 +550,7 @@ describe("in a WoW Forever client", function()
         boot({})
         SlashCmdList.LFGPLUS("group")
         local prompt = frame("LFGPlusPromptFrame")
-        calmButton().scripts.OnClick(calmButton())
+        skilledButton().scripts.OnClick(skilledButton())
         assert.truthy(world.chat[#world.chat]:find("Link your LFG+ account first", 1, true))
         SlashCmdList.LFGPLUS("group")
         local count = 0
@@ -538,16 +564,16 @@ describe("in a WoW Forever client", function()
             player = { name = "Middle", realm = "Foot", guid = "Player-4395-00000007" },
             target = { name = "Corvina", realm = "Ashby", guid = "Player-4395-0A1B2C3D" },
         } })
-        assert.are.same({ 2, true }, { ns.ParseEndorseArgs("Calm quiet nonsense") })
+        assert.are.same({ 2, true }, { ns.ParseEndorseArgs("Skilled quiet nonsense") })
         assert.are.same({ 8, false }, { ns.ParseEndorseArgs("lead") })
         assert.is_nil((ns.ParseEndorseArgs("quiet")))
         SlashCmdList.LFGPLUSENDORSE("quiet") -- no tag: there is no untagged endorsement
         assert.truthy(world.chat[#world.chat]:find("Pick what they did best", 1, true))
         assert.are.equal(0, #world.sent)
-        SlashCmdList.LFGPLUSENDORSE("calm quiet")
+        SlashCmdList.LFGPLUSENDORSE("skilled quiet")
         assert.are.equal("Q:", world.sent[1].message:sub(1, 2))
         world.advance(16) -- no ack: finishes unproven
-        assert.truthy(world.chat[#world.chat]:find("You endorsed Corvina Ashby \194\183 Calm.", 1, true))
+        assert.truthy(world.chat[#world.chat]:find("You endorsed Corvina Ashby \194\183 Skilled.", 1, true))
         world.units.target = nil
         SlashCmdList.LFGPLUSENDORSE("")
         assert.truthy(world.chat[#world.chat]:find("Target another player", 1, true))
@@ -573,7 +599,7 @@ describe("in a WoW Forever client", function()
         _G.SOUNDKIT = nil -- a client without the sound kit table: no sound, and no error
         world.advance(5)
         assert.truthy(toast.shown)
-        assert.truthy(toast.text.text:find("Corvina Ashby endorsed you \194\183 Calm \194\183 Map 1429", 1, true))
+        assert.truthy(toast.text.text:find("Corvina Ashby endorsed you \194\183 Skilled \194\183 Map 1429", 1, true))
         assert.are.equal(0, #world.sounds)
         world.advance(5)
         assert.is_false(toast.shown)
@@ -750,7 +776,7 @@ describe("in a WoW Forever client", function()
         boot({ saved = { setupCode = codes.valid[2].input } })
         SlashCmdList.LFGPLUS("group")
         world.fire("ENCOUNTER_START", 227, "High Interrogator Gerstahn")
-        calmButton().scripts.OnClick(calmButton())
+        skilledButton().scripts.OnClick(skilledButton())
         assert.are.equal(0, #world.sent) -- held for the encounter
         world.fire("PLAYER_ENTERING_WORLD") -- ENCOUNTER_END never came
         assert.truthy(logHas("no encounter in progress after a loading screen"))
