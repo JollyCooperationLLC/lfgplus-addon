@@ -20,9 +20,10 @@ const GRID = SIZE / 32;
 /**
  * The minimap's frame is round, and the favicon's drawing fills its square: drawn as it is, the frame clips the
  * bubble's corners and, since the tail hangs below, the bubble's body sits high. So the texture draws it a little
- * smaller, with the body's centre (16, 13.5 on the grid) at the middle of the circle.
+ * smaller, with the body's centre (16, 13.5 on the grid) at the middle of the circle. The game's border ring is
+ * thicker than the preview's disc edge, so the margin is wider than the preview alone would need.
  */
-const SCALE = 0.85;
+const SCALE = 0.765;
 const BODY_CENTRE_Y = 13.5;
 
 /** Distance from (x, y) to the segment from (ax, ay) to (bx, by). */
