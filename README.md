@@ -34,7 +34,8 @@ run with again, click what they did best:
 | **Leader** | Kept the group organised: set the pace, marked, made the calls. |
 
 You can also endorse anyone nearby: right-click their portrait or party or raid frame and choose **Endorse**, or
-target them and type `/endorse fun` (or `skilled`, `helpful`, `leader`).
+target them and type `/endorse fun` (or `skilled`, `helpful`, `leader`). Right-clicking a player's name in chat offers
+**Endorse** too, wherever they are.
 
 The same right-click menu has **Copy LFG+ URL**: it shows the player's profile address on lfg.plus, selected, ready
 for Ctrl+C.
@@ -68,6 +69,7 @@ A few things to know:
    chat.
 4. **Upload your endorsements.** Type `/lfgplus upload`, copy everything in the box, paste it on
    [lfg.plus/upload](https://lfg.plus/upload), then press **I uploaded these**. That's what makes them count on the site.
+   The window's Endorsements tab then lists only what you've given or received since.
 
 LFG+ loads in Retail, Classic Era, Mists of Pandaria Classic and WoW Forever.
 
@@ -79,7 +81,7 @@ LFG+ loads in Retail, Classic Era, Mists of Pandaria Classic and WoW Forever.
 | `/lfgplus help` | Status and the command list |
 | `/lfgplus settings`, `/lfgplus minimap` | Open the Settings tab; show or hide the minimap button |
 | `/lfgplus setup` | Paste the setup code from lfg.plus (a dialog, so it never sits in chat history) |
-| `/endorse fun\|skilled\|helpful\|leader [quiet]` | Endorse your target (a tag is required). Or right-click a player's portrait or party/raid frame and choose **Endorse** |
+| `/endorse fun\|skilled\|helpful\|leader [quiet]` | Endorse your target (a tag is required). Or right-click a player's portrait, party/raid frame or name in chat and choose **Endorse** |
 | `/lfgplus group` | Open the endorse window for your current group (without finishing a run) |
 | `/lfgplus upload` | The upload box: copy every record, paste on lfg.plus/upload (in parts of 500 when there are more), then press **I uploaded these** |
 | `/lfgplus records` | How many records are waiting to be uploaded |
@@ -142,7 +144,7 @@ LFGPlus/            the addon as players install it (load order is the TOC's)
   Tooltip.lua       the LFG+ tooltip line
   UI.lua            post-run prompt, endorse popup, endorsed toast, "ask first" popup, upload box
   Window.lua        the LFG+ window (Overview, Endorsements, Settings, Log) and the Options → AddOns page
-  UnitMenu.lua      "Endorse" in a player's right-click menu (Menu API), opening the endorse popup
+  UnitMenu.lua      "Endorse" in a player's right-click menu and a chat name's (Menu API), opening the endorse popup
   Minimap.lua       the minimap button and broker launcher (LibDataBroker + LibDBIcon), Retail's addon compartment
   Slash.lua         /lfgplus, /endorse, and endorsing on /thank
   Events.lua        event wiring, every handler guarded

@@ -105,15 +105,18 @@ local function newTab(parent, label)
     return tab
 end
 
---- The player's own endorsements, given and received, as display lines, newest first.
+--- The player's own endorsements, given and received, that still wait for upload, as display lines, newest first.
+-- Once "I uploaded these" marks them they leave the list; the upload box still offers them, to paste again.
 function ns.RecordLines()
-    local lines = {}
+    local lines, now = {}, ns.Now()
     for i = #ns.db.records, 1, -1 do
         local r = ns.db.records[i]
-        local label = ns.TagText(r.tags) -- nil for a record saved before tags were a bit field
-        local day = (date and r.at) and date("!%d %b", r.at) or ""
-        local who = (r.dir == "given" and "You endorsed " or "Endorsed by ") .. tostring(r.name or "?")
-        lines[#lines + 1] = ("%s  %s%s"):format(day, who, label and (" \194\183 " .. label) or "")
+        if ns.IsWaiting(r, now) then
+            local label = ns.TagText(r.tags) -- nil for a record saved before tags were a bit field
+            local day = (date and r.at) and date("!%d %b", r.at) or ""
+            local who = (r.dir == "given" and "You endorsed " or "Endorsed by ") .. tostring(r.name or "?")
+            lines[#lines + 1] = ("%s  %s%s"):format(day, who, label and (" \194\183 " .. label) or "")
+        end
     end
     return lines
 end
@@ -258,8 +261,13 @@ pages.endorsements = function(page)
 
     function p.Refresh()
         local lines = ns.RecordLines()
-        p.summary:SetText(#lines == 0 and "No endorsements yet. Endorse someone after a run, or target them and type /endorse."
-            or ("%s held, newest first."):format(ns.Plural(#lines, "endorsement")))
+        if #ns.db.records == 0 then
+            p.summary:SetText("No endorsements yet. Endorse someone after a run, or target them and type /endorse.")
+        elseif #lines == 0 then
+            p.summary:SetText("Nothing waiting to upload.")
+        else
+            p.summary:SetText(("%s waiting to upload, newest first."):format(ns.Plural(#lines, "endorsement")))
+        end
         p.list:SetContent(table.concat(lines, "\n"))
         -- Copies carried for others in our groups aren't listed here, but they're uploaded all the same.
         if #ns.UploadLines() > 0 then p.upload:Enable() else p.upload:Disable() end

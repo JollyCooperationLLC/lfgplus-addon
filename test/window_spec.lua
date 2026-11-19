@@ -166,13 +166,37 @@ describe("the minimap button and the LFG+ window", function()
         }
         ns.RefreshWindow()
         assert.is_true(page.upload:IsEnabled())
-        assert.are.equal("2 endorsements held, newest first.", page.summary:GetText())
+        assert.are.equal("2 endorsements waiting to upload, newest first.", page.summary:GetText())
         assert.are.equal("09 Nov  You endorsed Sir Rocky\n08 Nov  Endorsed by Corvina Ashby \194\183 Skilled", page.list.value)
         world.click(page.upload)
         local upload
         for _, frame in ipairs(world.frames) do if frame.name == "LFGPlusUploadFrame" then upload = frame end end
         assert.is_true(upload:IsShown())
         assert.are.equal(records.cases[1].realText .. "\nLFGR1:second", upload.text)
+    end)
+
+    it("takes what was uploaded off the list once the player says so, and still lets them copy it again", function()
+        local world, ns = boot()
+        ns.db.records = {
+            { dir = "given", text = "LFGR1:first", at = 1794096000, name = "Sir Rocky", tags = 1, seq = 1 },
+            { dir = "given", text = "LFGR1:second", at = 1794096000, name = "Corvina Ashby", tags = 2, seq = 2 },
+        }
+        ns.db.lastSeq = 2
+        SlashCmdList.LFGPLUS("")
+        world.click(ns.Window().tabs.endorsements)
+        local page = ns.Window().pages.endorsements
+        world.click(page.upload)
+        local upload
+        for _, frame in ipairs(world.frames) do if frame.name == "LFGPlusUploadFrame" then upload = frame end end
+        world.click(upload.done)
+        assert.are.equal("Nothing waiting to upload.", page.summary:GetText())
+        assert.are.equal("", page.list.value)
+        assert.is_true(page.upload:IsEnabled())
+        -- A new endorsement after the upload is listed alone.
+        table.insert(ns.db.records, { dir = "given", text = "LFGR1:third", at = 1794182400, name = "Brightmend", tags = 4, seq = 3 })
+        ns.RefreshWindow()
+        assert.are.equal("1 endorsement waiting to upload, newest first.", page.summary:GetText())
+        assert.are.equal("09 Nov  You endorsed Brightmend \194\183 Helpful", page.list.value)
     end)
 
     it("hides the Log tab until debug mode is on, and leaves it when debug mode goes off", function()

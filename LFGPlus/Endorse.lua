@@ -526,6 +526,11 @@ local function waiting(r, now)
     return uploadable(r, now) and (ns.db.uploadedSeq == nil or (r.seq or 0) > ns.db.uploadedSeq)
 end
 
+--- True for a record that still waits for upload at `now`: the Endorsements tab lists only these.
+function ns.IsWaiting(r, now)
+    return waiting(r, now)
+end
+
 --- What waits for upload at `now`: records we gave, records we received, copies we carry. Records the site would
 -- refuse as too old, and those marked uploaded, don't count.
 function ns.WaitingCounts(now)

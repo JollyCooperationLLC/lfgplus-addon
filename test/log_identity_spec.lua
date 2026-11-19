@@ -165,6 +165,37 @@ describe("Identity", function()
         assert.is_nil(ns.IdentityFromSender(""))
     end)
 
+    it("reads who a name clicked in chat is, with the GUID of its chat line when the client can say", function()
+        ns.gameVersion = ns.GameVersions.RETAIL
+        _G.C_ChatInfo = { GetChatLineSenderGUID = function(line) return line == 7 and "Player-1084-0A1B2C3D" or nil end }
+        local away = ns.IdentityFromMenu({ name = "Thrallina-Aerie Peak", lineID = 7 })
+        assert.are.same({ "Thrallina", "AeriePeak", "Player-1084-0A1B2C3D" }, { away.name, away.realm, away.guid })
+        -- A realm given apart from the name joins it; a name that already has one keeps its own.
+        assert.are.equal("thrallina-whitemane", ns.IdentityFromMenu({ name = "Thrallina", server = "Whitemane" }).key)
+        assert.are.equal("thrallina-aeriepeak", ns.IdentityFromMenu({ name = "Thrallina-AeriePeak", server = "Whitemane" }).key)
+        local home = ns.IdentityFromMenu({ name = "Brightmend", server = "" })
+        assert.are.same({ "TwistingNether", nil }, { home.realm, home.guid })
+        -- A GUID handed over with the name wins over the line's; anything not a player's GUID is left out.
+        assert.are.equal("Player-1-00000002", ns.IdentityFromMenu({ name = "Bob", guid = "Player-1-00000002", lineID = 7 }).guid)
+        assert.is_nil(ns.IdentityFromMenu({ name = "Bob", lineID = 8 }).guid)
+        assert.is_nil(ns.IdentityFromMenu({ name = "Bob", guid = "Creature-0-1" }).guid)
+        _G.C_ChatInfo = nil
+        assert.is_nil(ns.IdentityFromMenu({ name = "Bob", lineID = 7 }).guid)
+        -- On Forever the name is the whole identity: a realm offered beside it is ignored.
+        ns.gameVersion = ns.GameVersions.FOREVER
+        local forever = ns.IdentityFromMenu({ name = "Middle Foot", server = "Somewhere" })
+        assert.are.same({ "Middle Foot", "", "middle foot" }, { forever.name, forever.realm, forever.key })
+        -- No usable name: no identity.
+        assert.is_nil(ns.IdentityFromMenu(nil))
+        assert.is_nil(ns.IdentityFromMenu({}))
+        assert.is_nil(ns.IdentityFromMenu({ name = "" }))
+        local SECRET = "Secret Name"
+        _G.issecretvalue = function(v) return v == SECRET end
+        assert.is_nil(ns.IdentityFromMenu({ name = SECRET }))
+        assert.is_nil(ns.IdentityFromMenu({ name = "Middle Foot", server = SECRET }))
+        _G.issecretvalue = nil
+    end)
+
     it("keeps a unit's name but drops a GUID the client hides (Midnight secret values)", function()
         local SECRET = {}
         _G.issecretvalue = function(v) return v == SECRET end

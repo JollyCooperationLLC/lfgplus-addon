@@ -105,6 +105,26 @@ function ns.IdentityFromSender(sender)
     return { name = name, realm = realm, key = ns.CharacterKey(name, realm) }
 end
 
+--- The identity behind a right-click menu opened on a name rather than a unit: a name clicked in chat opens the game's
+-- FRIEND menu with { name =, server = (sometimes), lineID = } for the chat line. The GUID comes from the line when the
+-- client can say. nil without a usable name.
+function ns.IdentityFromMenu(context)
+    if type(context) ~= "table" then return nil end
+    local name, server = context.name, context.server
+    if type(name) ~= "string" or isSecret(name) or isSecret(server) then return nil end
+    if not ns.IsRealmless() and type(server) == "string" and server ~= "" and not name:find("-", 1, true) then
+        name = name .. "-" .. server
+    end
+    local identity = ns.IdentityFromSender(name)
+    if not identity then return nil end
+    local guid = context.guid
+    if guid == nil and context.lineID and C_ChatInfo and C_ChatInfo.GetChatLineSenderGUID then
+        guid = C_ChatInfo.GetChatLineSenderGUID(context.lineID)
+    end
+    if type(guid) == "string" and not isSecret(guid) and guid:find("^Player%-") then identity.guid = guid end
+    return identity
+end
+
 --- The name to whisper an identity by.
 function ns.WhisperTarget(identity)
     if ns.IsRealmless() or not identity.realm or identity.realm == "" then return identity.name end
