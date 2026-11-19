@@ -27,6 +27,7 @@
 --   groupFinder  "retail": Retail's LFGList tooltip functions exist (listings and applicants); "classic": Classic's
 --                LFG browser's listing tooltip. Listings are world.listings[resultID] = { leaderName = }, applicants
 --                world.applicants[applicantID] = { member names }. hooksecurefunc always exists.
+--   emoteApi     "global": a client with DoEmote alone, as before C_ChatInfo.PerformEmote
 --
 -- The player is dead or a ghost while world.dead is true (UnitIsDeadOrGhost("player")).
 --
@@ -297,15 +298,29 @@ function M.install(options)
     _G.UnitIsDeadOrGhost = function(unit) return unit == "player" and world.dead or false end
     _G.IsEncounterInProgress = options.encounterApi and function() return world.encounter or false end or nil
 
-    -- DoEmote(token, name): what /thank and the other emote commands call; world.emotes lists each one sent.
+    -- Emotes: world.emotes lists each one sent. A client with C_ChatInfo performs them with C_ChatInfo.PerformEmote,
+    -- which /thank and the other emote commands call, and keeps DoEmote only as an old name that calls it; an older
+    -- client (addonMessageApi = "global" or "none", or emoteApi = "global") has DoEmote alone.
     world.emotes = {}
-    _G.DoEmote = function(token, name) table.insert(world.emotes, { token, name }) end
-    -- hooksecurefunc(name, hook): the global function runs, then the hook, with the same arguments.
-    _G.hooksecurefunc = function(name, hook)
-        local original = _G[name]
-        _G[name] = function(...)
-            original(...)
+    local function performEmote(token, name)
+        table.insert(world.emotes, { token, name })
+        return true
+    end
+    if _G.C_ChatInfo and options.emoteApi ~= "global" then
+        _G.C_ChatInfo.PerformEmote = performEmote
+        _G.DoEmote = function(token, name) return _G.C_ChatInfo.PerformEmote(token, name) end
+    else
+        _G.DoEmote = performEmote
+    end
+    -- hooksecurefunc([table,] name, hook): the function runs, then the hook, with the same arguments.
+    _G.hooksecurefunc = function(a, b, c)
+        local owner, name, hook = _G, a, b
+        if type(a) == "table" then owner, name, hook = a, b, c end
+        local original = owner[name]
+        owner[name] = function(...)
+            local result = original(...)
             hook(...)
+            return result
         end
     end
     world.listings, world.applicants = {}, {}

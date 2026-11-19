@@ -660,9 +660,35 @@ describe("in a WoW Forever client", function()
         assert.truthy(logHas("/thank Moss Beard: not endorsing, this account can't endorse"))
     end)
 
-    it("leaves /thank alone on a client without DoEmote", function()
-        boot({ without = { "DoEmote" } })
-        assert.truthy(logHas("no DoEmote on this client: /thank doesn't endorse"))
+    it("hears /thank from the chat's own emote call, and counts one /thank once", function()
+        boot({ saved = { setupCode = codes.valid[2].input }, units = {
+            player = { name = "Middle", realm = "Foot", guid = "Player-4395-00000007" },
+            target = { name = "Corvina", realm = "Ashby", guid = "Player-4395-0A1B2C3D" },
+        } })
+        C_ChatInfo.PerformEmote("THANK", "") -- what the chat command calls on newer clients
+        world.advance(16)
+        assert.truthy(world.chat[#world.chat]:find("You endorsed Corvina Ashby \194\183 Helpful.", 1, true))
+        local requests = 0
+        for _, m in ipairs(world.sent) do if m.message:sub(1, 2) == "Q:" then requests = requests + 1 end end
+        assert.are.equal(1, requests)
+        assert.are.equal(1, #world.emotes)
+    end)
+
+    it("hooks DoEmote on a client without C_ChatInfo.PerformEmote", function()
+        boot({ saved = { setupCode = codes.valid[2].input }, emoteApi = "global", units = {
+            player = { name = "Middle", realm = "Foot", guid = "Player-4395-00000007" },
+            target = { name = "Corvina", realm = "Ashby", guid = "Player-4395-0A1B2C3D" },
+        } })
+        assert.is_nil(C_ChatInfo.PerformEmote)
+        DoEmote("THANK", "")
+        assert.are.equal("Q:", world.sent[1].message:sub(1, 2))
+    end)
+
+    it("leaves /thank alone on a client without an emote function or hooksecurefunc", function()
+        boot({ emoteApi = "global", without = { "DoEmote" } })
+        assert.truthy(logHas("no emote function on this client: /thank doesn't endorse"))
+        boot({ without = { "hooksecurefunc" } })
+        assert.truthy(logHas("no hooksecurefunc on this client: /thank doesn't endorse"))
     end)
 
     it("names the place in a toast when it can, and shows toasts one after another", function()

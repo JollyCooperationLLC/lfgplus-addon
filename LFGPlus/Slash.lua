@@ -223,14 +223,21 @@ local function onEmote(token, name)
     if not ok then ns.Print(message) end
 end
 
---- Hooks the client's emotes for /thank. Called at PLAYER_LOGIN. hooksecurefunc only adds to DoEmote, so it never
--- taints it; a client without either gets nothing, and /endorse still works.
+--- Hooks the client's emotes for /thank. Called at PLAYER_LOGIN. Newer clients perform emotes with
+-- C_ChatInfo.PerformEmote, and their chat commands call it directly (DoEmote stays only as an old name for it), so
+-- that one is hooked where it exists, and DoEmote only on clients without it: never both, so a /thank counts once.
+-- hooksecurefunc only adds to the function, so it never taints it; a client without either gets nothing, and /endorse
+-- still works.
 function ns.HookThank()
-    if not (DoEmote and hooksecurefunc) then
-        ns.Log.Info("ui", "no DoEmote on this client: /thank doesn't endorse")
-        return
+    if not hooksecurefunc then
+        ns.Log.Info("ui", "no hooksecurefunc on this client: /thank doesn't endorse")
+    elseif C_ChatInfo and C_ChatInfo.PerformEmote then
+        hooksecurefunc(C_ChatInfo, "PerformEmote", ns.Log.Wrap("emote", onEmote))
+    elseif DoEmote then
+        hooksecurefunc("DoEmote", ns.Log.Wrap("emote", onEmote))
+    else
+        ns.Log.Info("ui", "no emote function on this client: /thank doesn't endorse")
     end
-    hooksecurefunc("DoEmote", ns.Log.Wrap("emote", onEmote))
 end
 
 SlashCmdList.LFGPLUS = ns.Log.Wrap("slash", lfgplus)
