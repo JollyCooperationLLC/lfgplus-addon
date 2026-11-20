@@ -1053,6 +1053,43 @@ describe("the endorsement handshake", function()
         assert.are.equal("Waiting to upload: 0 given, 0 received, 1 from your groups.", c.WaitingLine())
     end)
 
+    it("makes an install id once and takes the helper app's acks for it, never backwards or past the newest", function()
+        pair()
+        local c = third()
+        c.db.records = {
+            { dir = "given", text = "LFGR1:two", at = clock, seq = 2 },
+            { dir = "received", text = "LFGR1:four", at = clock, seq = 4 },
+        }
+        c.db.carried, c.db.lastSeq, c.db.uploadedSeq, c.db.install = {}, 4, nil, nil
+        c.ApplyHelperAcks({ anything = 4 }) -- no id yet: nothing to match
+        assert.is_nil(c.db.uploadedSeq)
+        c.EnsureInstall()
+        local id = c.db.install
+        assert.truthy(id:match("^" .. ("%x"):rep(16) .. "$"))
+        c.EnsureInstall()
+        assert.are.equal(id, c.db.install)
+        c.ApplyHelperAcks(nil)
+        c.ApplyHelperAcks("junk")
+        c.ApplyHelperAcks({ ["0000000000000000"] = 4 }) -- another install's
+        c.ApplyHelperAcks({ [id] = "x" })
+        assert.is_nil(c.db.uploadedSeq)
+        c.ApplyHelperAcks({ [id] = 2 })
+        assert.are.equal(2, c.db.uploadedSeq)
+        assert.are.same({ "LFGR1:four" }, c.UploadLines())
+        c.ApplyHelperAcks({ [id] = 1 })
+        assert.are.equal(2, c.db.uploadedSeq)
+        c.ApplyHelperAcks({ [id] = 99 }) -- only up to what this install has numbered
+        assert.are.equal(4, c.db.uploadedSeq)
+        assert.are.same({}, c.UploadLines())
+        for _, bad in ipairs({ "short", ("a"):rep(65), "has-dash1", 12345678 }) do
+            c.db.install = bad
+            c.EnsureInstall()
+            assert.are_not.equal(bad, c.db.install)
+        end
+        local n = 0
+        assert.are.equal("0001000200030004", c.NewInstallId(function() n = n + 1; return n end))
+    end)
+
     it("works on a client without C_Timer: sends at once and waits for the ack", function()
         _G.C_Timer = nil
         local a, b = pair()

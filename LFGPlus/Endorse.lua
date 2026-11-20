@@ -563,6 +563,33 @@ function ns.MarkUploaded(seq)
     refresh()
 end
 
+--- A new install id: 16 hex digits. `random` is math.random unless a spec passes its own.
+function ns.NewInstallId(random)
+    random = random or math.random
+    local parts = {}
+    for i = 1, 4 do parts[i] = ("%04x"):format(random(0, 0xffff)) end
+    return table.concat(parts)
+end
+
+--- Gives this install an id, once. The LFG+ helper app files what it uploaded under it, so its word reaches the saved
+-- data it read and never saved data started again from scratch, whose numbers begin again at 1.
+function ns.EnsureInstall()
+    local id = ns.db.install
+    if type(id) == "string" and #id >= 8 and #id <= 64 and not id:find("[^%w]") then return end
+    ns.db.install = ns.NewInstallId()
+end
+
+--- What the LFG+ helper app uploaded: its own add-on (LFGPlus_Helper) sets LFGPlusHelperAcks, the storage number per
+-- install that it sent everything up to. Taken as if "I uploaded these" had been pressed for this install, but never
+-- past the newest number here, so it can't mark records stored after it.
+function ns.ApplyHelperAcks(acks)
+    if type(acks) ~= "table" or ns.db.install == nil then return end
+    local seq = tonumber(acks[ns.db.install])
+    if not seq then return end
+    seq = math.min(seq, tonumber(ns.db.lastSeq) or 0)
+    if seq > (ns.db.uploadedSeq or 0) then ns.MarkUploaded(seq) end
+end
+
 --- Upload lines: what still waits for upload, our own records then the carried copies. Those marked uploaded ("I
 -- uploaded these") and those the site would refuse as too old are left out.
 function ns.UploadLines()

@@ -27,6 +27,8 @@ handlers.PLAYER_LOGIN = function()
     -- Said once, at login, rather than failing quietly at every endorsement.
     if ns.IsTrialAccount() then ns.Print(ns.TRIAL_TEXT) end
     ns.PruneRecords(ns.Now())
+    ns.EnsureInstall()
+    ns.ApplyHelperAcks(LFGPlusHelperAcks)
     ns.RestoreRun()
     ns.UpdateRunForZone()
 end

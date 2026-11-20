@@ -47,6 +47,20 @@ describe("in a WoW Forever client", function()
     after_each(function()
         assert.are.same({}, errors())
         _G.LFGPlusDB = nil
+        _G.LFGPlusHelperAcks = nil
+    end)
+
+    it("takes what the helper app uploaded at login", function()
+        _G.LFGPlusHelperAcks = { abcdef0123456789 = 3, ["0000000000000000"] = 9 }
+        boot({ saved = { install = "abcdef0123456789", lastSeq = 5, uploadedSeq = 1 } })
+        assert.are.equal(3, ns.db.uploadedSeq)
+        assert.are.equal("abcdef0123456789", ns.db.install)
+        assert.truthy(logHas("marked everything up to 3 as uploaded"))
+    end)
+
+    it("makes an install id at the first login", function()
+        boot({})
+        assert.truthy(ns.db.install:match("^" .. ("%x"):rep(16) .. "$"))
     end)
 
     it("records client facts at login", function()

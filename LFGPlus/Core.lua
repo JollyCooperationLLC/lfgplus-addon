@@ -63,6 +63,8 @@ local DEFAULTS = {
     -- Every record and carried copy gets the next number when stored or replaced. "I uploaded these" in the upload box
     -- sets uploadedSeq (nil until then): copies numbered up to it no longer count as waiting.
     lastSeq = 0,
+    -- This install's id, made once at login (Endorse.lua). The LFG+ helper app files what it uploaded under it.
+    install = nil,
     -- Endorsements whose ack didn't come in time, by counter, kept a day so a late ack can still prove them.
     lateAcks = {},
     -- The minimap button; LibDBIcon reads and writes this table itself (minimapPos, hide, showInCompartment).
