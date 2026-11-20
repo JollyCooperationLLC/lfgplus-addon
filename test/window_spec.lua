@@ -175,7 +175,7 @@ describe("the minimap button and the LFG+ window", function()
         assert.are.equal(records.cases[1].realText .. "\nLFGR1:second", upload.text)
     end)
 
-    it("takes what was uploaded off the list once the player says so, and still lets them copy it again", function()
+    it("takes what was uploaded off the list once the player says so, and greys out Copy for upload until more waits", function()
         local world, ns = boot()
         ns.db.records = {
             { dir = "given", text = "LFGR1:first", at = 1794096000, name = "Sir Rocky", tags = 1, seq = 1 },
@@ -191,11 +191,12 @@ describe("the minimap button and the LFG+ window", function()
         world.click(upload.done)
         assert.are.equal("Nothing waiting to upload.", page.summary:GetText())
         assert.are.equal("", page.list.value)
-        assert.is_true(page.upload:IsEnabled())
-        -- A new endorsement after the upload is listed alone.
+        assert.is_false(page.upload:IsEnabled()) -- nothing left to copy
+        -- A new endorsement after the upload is listed alone, and can be copied.
         table.insert(ns.db.records, { dir = "given", text = "LFGR1:third", at = 1794182400, name = "Brightmend", tags = 4, seq = 3 })
         ns.RefreshWindow()
         assert.are.equal("1 endorsement waiting to upload, newest first.", page.summary:GetText())
+        assert.is_true(page.upload:IsEnabled())
         assert.are.equal("09 Nov  You endorsed Brightmend \194\183 Helpful", page.list.value)
     end)
 

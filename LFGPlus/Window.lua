@@ -106,7 +106,7 @@ local function newTab(parent, label)
 end
 
 --- The player's own endorsements, given and received, that still wait for upload, as display lines, newest first.
--- Once "I uploaded these" marks them they leave the list; the upload box still offers them, to paste again.
+-- Once "I uploaded these" marks them they leave the list and the upload box.
 function ns.RecordLines()
     local lines, now = {}, ns.Now()
     for i = #ns.db.records, 1, -1 do
@@ -239,7 +239,7 @@ pages.overview = function(page)
         end
         p.data:SetText(ns.DataStatusLine(ns.Now()))
         p.waiting:SetText(ns.WaitingLine() or "Nothing waiting to upload.")
-        -- Records already marked uploaded can still be copied again.
+        -- Greyed out when nothing waits: everything is marked uploaded, or too old for the site.
         if #ns.UploadLines() > 0 then p.upload:Enable() else p.upload:Disable() end
     end
     return p

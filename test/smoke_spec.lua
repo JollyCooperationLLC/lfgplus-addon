@@ -131,7 +131,7 @@ describe("the addon in a fake client", function()
         SlashCmdList.LFGPLUSENDORSE()
         assert.truthy(world.chat[#world.chat]:find("Link your LFG+ account first", 1, true))
         SlashCmdList.LFGPLUS("upload")
-        assert.truthy(world.chat[#world.chat]:find("no endorsements to upload", 1, true))
+        assert.truthy(world.chat[#world.chat]:find("Nothing is waiting to upload.", 1, true))
     end)
 
     it("loads the data add-on through an older client's global LoadAddOn, and says so when there's no way to load it", function()

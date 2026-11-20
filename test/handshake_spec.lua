@@ -1022,7 +1022,7 @@ describe("the endorsement handshake", function()
 
     -- ─── Upload ──────────────────────────────────────────────────────────────
 
-    it("offers for upload only what the site still takes, and counts as waiting only what isn't marked uploaded", function()
+    it("offers for upload and counts as waiting only what the site still takes and isn't marked uploaded", function()
         pair()
         local c = third()
         local day = 86400
@@ -1039,7 +1039,7 @@ describe("the endorsement handshake", function()
         assert.are.same({ 2, 2, 2 }, { c.RecordCounts() }) -- what's held, old or not
         c.MarkUploaded(3)
         assert.are.same({ 0, 0, 1 }, { c.WaitingCounts(clock) })
-        assert.are.equal(4, #c.UploadLines()) -- still offered, to paste again
+        assert.are.same({ "LFGR1:carried" }, c.UploadLines()) -- what's marked uploaded leaves the box
         c.MarkUploaded(1) -- never backwards
         assert.are.equal(3, c.db.uploadedSeq)
         c.MarkUploaded(5)

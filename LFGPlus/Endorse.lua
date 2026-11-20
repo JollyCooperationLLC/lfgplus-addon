@@ -556,21 +556,22 @@ function ns.WaitingLine()
 end
 
 --- "I uploaded these": every record and carried copy stored up to `seq` (ns.db.lastSeq when the upload box was
--- filled) no longer counts as waiting. The upload box still offers them, so a paste can be repeated.
+-- filled) no longer counts as waiting, and leaves the upload box.
 function ns.MarkUploaded(seq)
     ns.db.uploadedSeq = math.max(tonumber(seq) or 0, ns.db.uploadedSeq or 0)
     ns.Log.Info("endorse", "marked everything up to %d as uploaded", ns.db.uploadedSeq)
     refresh()
 end
 
---- Upload lines: every record of our own, then the carried copies, leaving out those the site would refuse as too old.
+--- Upload lines: what still waits for upload, our own records then the carried copies. Those marked uploaded ("I
+-- uploaded these") and those the site would refuse as too old are left out.
 function ns.UploadLines()
     local lines, now = {}, ns.Now()
     for _, r in ipairs(ns.db.records) do
-        if uploadable(r, now) then lines[#lines + 1] = r.text end
+        if waiting(r, now) then lines[#lines + 1] = r.text end
     end
     for _, c in ipairs(ns.db.carried) do
-        if uploadable(c, now) then lines[#lines + 1] = c.text end
+        if waiting(c, now) then lines[#lines + 1] = c.text end
     end
     return lines
 end

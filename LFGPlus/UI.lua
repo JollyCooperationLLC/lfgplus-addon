@@ -406,7 +406,7 @@ local function buildUpload()
     upload.next = button(upload, "Next part", 140)
     upload.next:SetPoint("TOPRIGHT", -40, -28)
     upload.next:SetScript("OnClick", ns.Log.Wrap("ui", function() ns.ShowUpload(upload.part + 1) end))
-    -- After pasting: what the box held stops counting as waiting. The box keeps offering it, to paste again.
+    -- After pasting: what the box held stops counting as waiting, and leaves the box.
     upload.done = button(upload, "I uploaded these", 140)
     upload.done:SetPoint("BOTTOMRIGHT", -20, 20)
     upload.done:SetScript("OnClick", ns.Log.Wrap("ui", function()
@@ -420,7 +420,7 @@ end
 function ns.ShowUpload(part)
     local parts = ns.UploadParts()
     if #parts == 0 then
-        ns.Print("You have no endorsements to upload yet.")
+        ns.Print("Nothing is waiting to upload.")
         return
     end
     if not upload then buildUpload() end

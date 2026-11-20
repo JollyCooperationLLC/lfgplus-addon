@@ -348,8 +348,9 @@ describe("in a WoW Forever client", function()
         assert.is_false(upload.shown)
         assert.is_nil(ns.WaitingLine()) -- all uploaded
         assert.truthy(logHas("marked everything up to 0 as uploaded"))
-        SlashCmdList.LFGPLUS("upload") -- and still there to paste again
-        assert.is_true(upload.shown)
+        SlashCmdList.LFGPLUS("upload") -- nothing left to offer
+        assert.is_false(upload.shown)
+        assert.truthy(world.chat[#world.chat]:find("Nothing is waiting to upload.", 1, true))
     end)
 
     it("ignores a handshake message that isn't a whisper, malformed ones and other addons' messages, without errors", function()
