@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Packages LFGPlus/ as the zip players install: one top-level LFGPlus folder, as the game's AddOns folder expects,
-# with the licence beside the code and the TOC's version set to the one given.
+# with the license beside the code and the TOC's version set to the one given.
 #
 #   tools/package.sh <version>    writes dist/LFGPlus-<version>.zip and prints its path
 #

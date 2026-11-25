@@ -1,9 +1,9 @@
 # Embedded libraries
 
 Third-party libraries LFG+ carries so players install nothing else. They are **not** covered by the addon's
-licence; each keeps its own terms. LibStub loads only the newest copy when several addons embed the same library.
+license; each keeps its own terms. LibStub loads only the newest copy when several addons embed the same library.
 
-| Library | Version | Source | Licence |
+| Library | Version | Source | License |
 |---|---|---|---|
 | LibStub | minor 2 | https://repos.wowace.com/wow/libstub/trunk (r109) | Public domain |
 | CallbackHandler-1.0 | minor 8 | https://repos.wowace.com/wow/callbackhandler/trunk | BSD-2 (per its TOC) |

@@ -148,7 +148,7 @@ LFGPlus/            the addon as players install it (load order is the TOC's)
   Minimap.lua       the minimap button and broker launcher (LibDataBroker + LibDBIcon), Retail's addon compartment
   Slash.lua         /lfgplus, /endorse, and endorsing on /thank
   Events.lua        event wiring, every handler guarded
-  Libs/             embedded third-party libraries, under their own licences (Libs/README.md)
+  Libs/             embedded third-party libraries, under their own licenses (Libs/README.md)
   Media/Icon.tga    the minimap and addon-list icon, drawn by tools/make-icon.mjs
   Media/Tag-*.tga   the four tag icons on the prompt's buttons, generated from the website's drawings
 test/               busted specs (run outside the game, in real Lua 5.1)
