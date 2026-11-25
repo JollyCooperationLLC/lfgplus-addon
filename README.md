@@ -31,7 +31,7 @@ run with again, click what they did best:
 | **Fun** | Good company. They made the run a good time. |
 | **Skilled** | Knew their role and played it really well. |
 | **Helpful** | Went out of their way for someone: explained a fight, summoned, crafted, carried. |
-| **Leader** | Kept the group organised: set the pace, marked, made the calls. |
+| **Leader** | Kept the group organized: set the pace, marked, made the calls. |
 
 You can also endorse anyone nearby: right-click their portrait or party or raid frame and choose **Endorse**, or
 target them and type `/endorse fun` (or `skilled`, `helpful`, `leader`). Right-clicking a player's name in chat offers
